@@ -169,3 +169,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+.venv/
+.DS_Store
+*results.json
+results/
+.env
+__pycache__/
+qualtrics/
+*qualtrics.txt
+annotator_results/
+agent_results/
+heatmaps/
+elo_all_models_extended.json

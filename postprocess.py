@@ -1,0 +1,126 @@
+import json
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+import argparse
+
+def extract_score(score_str):
+    try:
+        import re
+        
+        match = re.search(r'Score: (\d+)', str(score_str))
+        if match:
+            return float(match.group(1))
+        else: 
+            print("Score not found in string:",score_str)
+            return -1.0
+    except:
+        print("Score not found in string:",score_str)
+        return -1.0
+
+def calculate_turn_scores(results):
+    scores = {
+        'conv_consistency': [],
+        'backend_consistency': [],
+        'policy_completeness': []
+    }
+    for dialogue in results.get('dialogues', []):
+        for turn in dialogue.get('results', []):
+            # Scores scaled 1-5
+            conv_consistency_score = extract_score(turn.get('conv_consistency', 'Score: -1'))
+            backend_consistency_score = extract_score(turn.get('backend_consistency', 'Score: -1'))
+            policy_completeness_score = extract_score(turn.get('policy_completeness', 'Score: -1'))
+            # if any invalid scores, skip this turn
+            if min(conv_consistency_score, backend_consistency_score, policy_completeness_score) < 0:
+                print("error index:", dialogue["idx"])
+                continue
+            # append to score
+            scores['conv_consistency'].append(conv_consistency_score)
+            scores['backend_consistency'].append(backend_consistency_score)
+            scores['policy_completeness'].append(policy_completeness_score)
+    return scores
+
+def generate_boxplots(scores, output_dir):
+    # First plot for 1-5 scale metrics
+    plt.figure(figsize=(12, 6))
+    boxplot_data = [
+        scores['conv_consistency'], 
+        scores['backend_consistency'], 
+        scores['policy_completeness']
+    ]
+    plt.boxplot(boxplot_data)
+    plt.title('Distribution of Dialogue Turn Scores (1-5 Scale)')
+    plt.xticks(range(1, 5), [
+        'Conversation Consistency', 
+        'Backend Knowledge Consistency', 
+        'Policy Completeness', 
+    ])
+    plt.ylabel('Score (1-5)')
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'score_boxplot_1_5.png'))
+    plt.close()
+
+def generate_histograms(scores, output_dir):
+    # Histogram for 1-10 scale metrics
+    plt.figure(figsize=(15, 10))
+    plt.suptitle('Histograms of Dialogue Turn Scores (1-5 Scale)')
+    
+    metrics_1_5 = ['conv_consistency', 'backend_consistency', 'policy_completeness']
+    
+    for i, metric in enumerate(metrics_1_5, 1):
+        plt.subplot(2, 2, i)
+        plt.hist(scores[metric], bins=np.linspace(0, 10, 21), edgecolor='black')
+        plt.title(metric.replace('_', ' ').title())
+        plt.xlabel('Score')
+        plt.ylabel('Frequency')
+        plt.xlim(0, 10)
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'score_histograms_1_5.png'))
+    plt.close()
+
+def calculate_cumulative_scores(scores, results):
+    cumulative_scores = {
+        'avg_conv_consistency': np.mean(scores['conv_consistency']),
+        'avg_backend_consistency': np.mean(scores['backend_consistency']),
+        'avg_policy_completeness': np.mean(scores['policy_completeness']),
+        'total_dialogues': len(results.get('dialogues', [])),
+        'total_turns': sum(len(dialogue.get('results', [])) for dialogue in results.get('dialogues', []))
+    }
+    return cumulative_scores
+
+def generate_summary_report(results, cumulative_scores, output_dir):
+    metadata = results.get('metadata', {})    
+    # JSON report
+    json_report_path = os.path.join(output_dir, 'summary_report.json')
+    summary_report = {
+        "metadata": metadata,
+        "cumulative_scores": {key: round(value, 4) for key, value in cumulative_scores.items()}
+    }
+    with open(json_report_path, 'w') as f:
+        json.dump(summary_report, f, indent=4)
+
+def postprocess_results(result_path, output_dir=None):
+    with open(result_path, 'r') as f:
+        results = json.load(f)
+    if output_dir is None:
+        output_dir = os.path.join('results', 'postprocess_' + os.path.basename(result_path).split('.')[0])
+    os.makedirs(output_dir, exist_ok=True)
+    scores = calculate_turn_scores(results)
+    generate_boxplots(scores, output_dir)
+    generate_histograms(scores, output_dir)
+    cumulative_scores = calculate_cumulative_scores(scores, results)
+    generate_summary_report(results, cumulative_scores, output_dir)
+    print(f"Postprocessing results saved to {output_dir}")
+
+def main():
+    parser = argparse.ArgumentParser(description='Postprocess dialogue evaluation results')
+    parser.add_argument('--result_path', type=str, required=True, 
+                        help='Path to the results JSON file')
+    parser.add_argument('--output_dir', type=str, default=None, 
+                        help='Directory to save output files')
+    args = parser.parse_args()
+    postprocess_results(args.result_path, args.output_dir)
+
+if __name__ == "__main__":
+    main()
