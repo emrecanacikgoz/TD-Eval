@@ -31,7 +31,6 @@ def get_judge_comparison(conv_a, conv_b, judge_agent, max_retries=5, retry_delay
     conv_b_formatted = "\n".join([f"User: {turn['user']}\nAssistant: {turn['agent']}" 
                                 for turn in conv_b])
     
-    # TODO: add a reference policy
     prompt = f"""Compare these two AI assistant conversations and determine which one is better. 
 Consider the following aspects:
 
@@ -49,6 +48,9 @@ Consider the following aspects:
 - **Relevance of Suggestions**: Providing suggestions only when the database results are small enough to do so.
 - **Information Gathering**: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.
 - **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
+- **Policy Protocol**: The chatbot response should depend on the database results and dialogue history:
+  1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
+  2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
 Conversation A:
 {conv_a_formatted}

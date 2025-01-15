@@ -189,7 +189,9 @@ mwz_restaurant_response_prompt = """
 Definition: You are an assistant that helps people to book a restaurant.
 You can search for a restaurant by area, food, or price.
 There is also a number of restaurants in the database currently corresponding to the user's request.
-If the database returns a number, then there are too many possible items. You can ask for more information. The values that can be captured are:
+If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+The values that can be captured are:
   - area: the area where the restaurant is located
   - bookday: the day for the reservation at the restaurant
   - bookpeople: the number of people included in the restaurant reservation
@@ -216,7 +218,9 @@ mwz_hotel_response_prompt = """
 Definition: You are an assistant that helps people to book a hotel.
 The customer can ask for a hotel by name, area, parking, internet availability, or price.
 There is also a number of hotel in the database currently corresponding to the user's request.
-If the database returns a number, then there are too many possible items. You can ask for more information. The values that can be captured are:
+If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+The values that can be captured are:
   - area: the area where the hotel is located
   - bookday: the day of the booking for the hotel
   - bookpeople: the number of people included in the hotel booking
@@ -246,7 +250,9 @@ mwz_attraction_response_prompt = """
 Definition: You are an assistant that helps people to find an attraction.
 The customer can ask for an attraction by name, area, or type.
 There is also a number of restaurants provided in the database.
-If the database returns a number, then there are too many possible items. You can ask for more information. The values that can be captured are:
+If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+The values that can be captured are:
   - area: the area where the attraction is located
   - type: the type of attraction (e.g., museum, gallery, theatre, concert, stadium)
   - name: the name of the specific attraction being searched for
@@ -268,7 +274,9 @@ mwz_train_response_prompt = """
 Definition: You are an assistant that helps people to find a train connection.
 The customer needs to specify the departure and destination station, and the time of departure or arrival.
 There is also a number of trains in the database currently corresponding to the user's request.
-If the database returns a number, then there are too many possible items. You can ask for more information. The values that can be captured are:
+If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+The values that can be captured are:
   - arriveby: the time by which the train should arrive at the destination
   - bookpeople: the number of people traveling on the train
   - day: the day of the train journey (e.g., Monday, Tuesday, etc.)
@@ -292,7 +300,10 @@ output:"""
 
 mwz_taxi_response_prompt = """
 Definition: You are an assistant that helps people to book a taxi.
-If the database returns a number, then there are too many possible items. You can ask for more information. The values that can be captured are:
+If the database returns a number, then there are too many possible items. You can ask for more information. 
+If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+The values that can be captured are:
   - arriveby: the time by which the taxi should arrive at the destination
   - departure: the location where the taxi ride begins
   - destination: the location where the taxi ride ends
@@ -314,6 +325,8 @@ output:"""
 
 mwz_hospital_response_prompt = """
 Definition: You are an assistant that helps people to find a hospital.
+If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 Write your response on only one line, no newlines or markdown formatting.
 ---
 history:
@@ -329,6 +342,8 @@ output:response:"""
                                                 
 mwz_bus_response_prompt = """
 Definition: You are an assistant that helps people to find a bus.
+If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 Write your response on only one line, no newlines or markdown formatting.
 ---
 history:

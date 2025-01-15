@@ -25,7 +25,7 @@ Justification: [YOUR RATIONALE HERE]
 {dialogue_history}
 ### User Query
 {user_query}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
@@ -57,17 +57,16 @@ Justification: [YOUR RATIONALE HERE]
 {dialogue_history}
 ### User Query
 {user_query}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
 """
 
 # Policy Completeness split by domain
-# TODO: add a reference policy
 prompt_policy_restaurant_completeness = """
 Evaluate the **policy completeness** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
-The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
+The prompt will include the **policy protocol**, **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
 ## Policy Completeness Definition
 Policy completeness refers to how well the chatbot adheres to the expected policy protocol, specifically:
@@ -88,15 +87,20 @@ The current predicted domain for this turn in the conversation is "Restaurant". 
 - pricerange: the price range of the restaurant
 
 ## Scoring Guide:
-- **Very Good (5)**: Response fully follows policy protocol with no errors or omissions.
-- **Good (4)**: Response mostly follows policy protocol, with only minor room for improvement.
-- **Fair (3)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
-- **Bad (2)**: Response does not adequately follow policy protocol, though there may be partial adherence.
-- **Very Bad (1)**: Response fails to follow policy protocol and is incomplete or incoherent.
+- **5 (Very Good)**: Response fully follows policy protocol with no errors or omissions.
+- **4 (Good)**: Response mostly follows policy protocol, with only minor room for improvement.
+- **3 (Fair)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
+- **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
+- **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
 ## Always include the score first, then a rationale on a new line. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
+
+## Policy Protocol
+The chatbot response should depend on the database results and dialogue history:
+1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
+2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
 ## Evaluate the policy completeness of the following dialogue response
 ### Dialogue History
@@ -105,7 +109,7 @@ Justification: [YOUR RATIONALE HERE]
 {user_query}
 ### Domain
 {turn_domain}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
@@ -137,15 +141,20 @@ The current predicted domain for this turn in the conversation is "Hotel". You s
 - type: the type of the hotel (e.g., hotel, bed and breakfast, guest house)
 
 ## Scoring Guide:
-- **Very Good (5)**: Response fully follows policy protocol with no errors or omissions.
-- **Good (4)**: Response mostly follows policy protocol, with only minor room for improvement.
-- **Fair (3)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
-- **Bad (2)**: Response does not adequately follow policy protocol, though there may be partial adherence.
-- **Very Bad (1)**: Response fails to follow policy protocol and is incomplete or incoherent.
+- **5 (Very Good)**: Response fully follows policy protocol with no errors or omissions.
+- **4 (Good)**: Response mostly follows policy protocol, with only minor room for improvement.
+- **3 (Fair)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
+- **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
+- **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
 ## Always include the score first, then a rationale on a new line. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
+
+## Policy Protocol
+The chatbot response should depend on the database results and dialogue history:
+1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
+2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
 ## Evaluate the policy completeness of the following dialogue response
 ### Dialogue History
@@ -154,7 +163,7 @@ Justification: [YOUR RATIONALE HERE]
 {user_query}
 ### Domain
 {turn_domain}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
@@ -179,15 +188,20 @@ The current predicted domain for this turn in the conversation is "Attraction". 
 - name: the name of the specific attraction being searched for
 
 ## Scoring Guide:
-- **Very Good (5)**: Response fully follows policy protocol with no errors or omissions.
-- **Good (4)**: Response mostly follows policy protocol, with only minor room for improvement.
-- **Fair (3)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
-- **Bad (2)**: Response does not adequately follow policy protocol, though there may be partial adherence.
-- **Very Bad (1)**: Response fails to follow policy protocol and is incomplete or incoherent.
+- **5 (Very Good)**: Response fully follows policy protocol with no errors or omissions.
+- **4 (Good)**: Response mostly follows policy protocol, with only minor room for improvement.
+- **3 (Fair)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
+- **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
+- **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
 ## Always include the score first, then a rationale on a new line. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
+
+## Policy Protocol
+The chatbot response should depend on the database results and dialogue history:
+1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
+2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
 ## Evaluate the policy completeness of the following dialogue response
 ### Dialogue History
@@ -196,7 +210,7 @@ Justification: [YOUR RATIONALE HERE]
 {user_query}
 ### Domain
 {turn_domain}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
@@ -224,15 +238,20 @@ The current predicted domain for this turn in the conversation is "Train". You s
 - leaveat: the time when the train should depart from the departure station
 
 ## Scoring Guide:
-- **Very Good (5)**: Response fully follows policy protocol with no errors or omissions.
-- **Good (4)**: Response mostly follows policy protocol, with only minor room for improvement.
-- **Fair (3)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
-- **Bad (2)**: Response does not adequately follow policy protocol, though there may be partial adherence.
-- **Very Bad (1)**: Response fails to follow policy protocol and is incomplete or incoherent.
+- **5 (Very Good)**: Response fully follows policy protocol with no errors or omissions.
+- **4 (Good)**: Response mostly follows policy protocol, with only minor room for improvement.
+- **3 (Fair)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
+- **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
+- **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
 ## Always include the score first, then a rationale on a new line. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
+
+## Policy Protocol
+The chatbot response should depend on the database results and dialogue history:
+1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
+2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
 ## Evaluate the policy completeness of the following dialogue response
 ### Dialogue History
@@ -241,7 +260,7 @@ Justification: [YOUR RATIONALE HERE]
 {user_query}
 ### Domain
 {turn_domain}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
@@ -267,15 +286,20 @@ The current predicted domain for this turn in the conversation is "Taxi". You sh
 - leaveat: the time when the taxi should pick up passengers
 
 ## Scoring Guide:
-- **Very Good (5)**: Response fully follows policy protocol with no errors or omissions.
-- **Good (4)**: Response mostly follows policy protocol, with only minor room for improvement.
-- **Fair (3)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
-- **Bad (2)**: Response does not adequately follow policy protocol, though there may be partial adherence.
-- **Very Bad (1)**: Response fails to follow policy protocol and is incomplete or incoherent.
+- **5 (Very Good)**: Response fully follows policy protocol with no errors or omissions.
+- **4 (Good)**: Response mostly follows policy protocol, with only minor room for improvement.
+- **3 (Fair)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
+- **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
+- **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
 ## Always include the score first, then a rationale on a new line. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
+
+## Policy Protocol
+The chatbot response should depend on the database results and dialogue history:
+1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
+2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
 ## Evaluate the policy completeness of the following dialogue response
 ### Dialogue History
@@ -284,7 +308,7 @@ Justification: [YOUR RATIONALE HERE]
 {user_query}
 ### Domain
 {turn_domain}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
@@ -301,11 +325,16 @@ Policy completeness refers to how well the chatbot adheres to the expected polic
 - **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
 
 ## Scoring Guide:
-- **Very Good (5)**: Response fully follows policy protocol with no errors or omissions.
-- **Good (4)**: Response mostly follows policy protocol, with only minor room for improvement.
-- **Fair (3)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
-- **Bad (2)**: Response does not adequately follow policy protocol, though there may be partial adherence.
-- **Very Bad (1)**: Response fails to follow policy protocol and is incomplete or incoherent.
+- **5 (Very Good)**: Response fully follows policy protocol with no errors or omissions.
+- **4 (Good)**: Response mostly follows policy protocol, with only minor room for improvement.
+- **3 (Fair)**: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.
+- **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
+- **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
+
+## Policy Protocol
+The chatbot response should depend on the database results and dialogue history:
+1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
+2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
 ## Always include the score first, then a rationale on a new line. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
@@ -318,7 +347,7 @@ Justification: [YOUR RATIONALE HERE]
 {user_query}
 ### Domain
 {turn_domain}
-### Policy/Database Results
+### Database Results
 {db_result}
 ### Chatbot Response
 {agent_response}
