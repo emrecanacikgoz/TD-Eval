@@ -52,7 +52,7 @@ Values that should be captured are:
  - food: that specifies the type of food the restaurant serves
  - name: that is the name of the restaurant
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {} is a valid output.
+Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -74,7 +74,7 @@ Values that should be captured are:
  - type: that specifies the type of the hotel (hotel/bed and breakfast/guest house)
  - pricerange: that specifies the price range of the hotel (cheap/expensive)
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {} is a valid output.
+Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -93,7 +93,7 @@ Values that should be captured are:
  - area: that specifies the area where the attraction is located (north/east/west/south/centre)
  - name: the name of the specific attraction being searched for
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {} is a valid output.
+Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -114,7 +114,7 @@ Values that should be captured are:
  - departure: that specifies the departure station
  - destination: that specifies the destination station
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {} is a valid output.
+Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -135,7 +135,7 @@ Values that should be captured are:
  - destination: that specifies the destination station
  - day: that specifies what day the train should leave (monday/tuesday/wednesday/thursday/friday/saturday/sunday)
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {} is a valid output.
+Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -150,7 +150,7 @@ Focus only on the values mentioned in the last utterance.
 Capture pair "entity:value" separated by colon and no spaces in between.
 Separate entity:value pairs by hyphens.
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {} is a valid output.
+Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -165,7 +165,7 @@ Focus only on the values mentioned in the last utterance.
 Capture pair "entity:value" separated by colon and no spaces in between.
 Separate entity:value pairs by hyphens.
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {} is a valid output.
+Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}

@@ -1,0 +1,6 @@
+[submodule "mwzeval"]
+	path = mwzeval
+	url = git@github.com:Tomiinek/MultiWOZ_Evaluation.git
+[submodule "MultiWOZ_Evaluation"]
+	path = MultiWOZ_Evaluation
+	url = git@github.com:Tomiinek/MultiWOZ_Evaluation.git

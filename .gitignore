@@ -180,5 +180,6 @@ qualtrics/
 *qualtrics.txt
 annotator_results/
 agent_results/
+judge_results/
 heatmaps/
 elo_all_models_extended.json
