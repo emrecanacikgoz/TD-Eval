@@ -107,8 +107,6 @@ The chatbot response should depend on the database results and dialogue history:
 {dialogue_history}
 ### User Query
 {user_query}
-### Domain
-{turn_domain}
 ### Database Results
 {db_result}
 ### Chatbot Response
@@ -161,8 +159,6 @@ The chatbot response should depend on the database results and dialogue history:
 {dialogue_history}
 ### User Query
 {user_query}
-### Domain
-{turn_domain}
 ### Database Results
 {db_result}
 ### Chatbot Response
@@ -208,8 +204,6 @@ The chatbot response should depend on the database results and dialogue history:
 {dialogue_history}
 ### User Query
 {user_query}
-### Domain
-{turn_domain}
 ### Database Results
 {db_result}
 ### Chatbot Response
@@ -258,8 +252,6 @@ The chatbot response should depend on the database results and dialogue history:
 {dialogue_history}
 ### User Query
 {user_query}
-### Domain
-{turn_domain}
 ### Database Results
 {db_result}
 ### Chatbot Response
@@ -306,8 +298,6 @@ The chatbot response should depend on the database results and dialogue history:
 {dialogue_history}
 ### User Query
 {user_query}
-### Domain
-{turn_domain}
 ### Database Results
 {db_result}
 ### Chatbot Response
@@ -345,8 +335,6 @@ Justification: [YOUR RATIONALE HERE]
 {dialogue_history}
 ### User Query
 {user_query}
-### Domain
-{turn_domain}
 ### Database Results
 {db_result}
 ### Chatbot Response

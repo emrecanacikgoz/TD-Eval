@@ -19,7 +19,7 @@ def extract_score(score_str):
         return -1.0
 
 def calculate_turn_scores(results):
-    scores = {
+    all_scores = {
         'conv_consistency': [],
         'backend_consistency': [],
         'policy_completeness': []
@@ -27,18 +27,19 @@ def calculate_turn_scores(results):
     for dialogue in results.get('dialogues', []):
         for turn in dialogue.get('results', []):
             # Scores scaled 1-5
-            conv_consistency_score = extract_score(turn.get('conv_consistency', 'Score: -1'))
-            backend_consistency_score = extract_score(turn.get('backend_consistency', 'Score: -1'))
-            policy_completeness_score = extract_score(turn.get('policy_completeness', 'Score: -1'))
+            scores = turn["scores"]
+            conv_consistency_score = extract_score(scores['conv_consistency'].get('score', 'Score: -1'))
+            backend_consistency_score = extract_score(scores['backend_consistency'].get('score', 'Score: -1'))
+            policy_completeness_score = extract_score(scores['policy_completeness'].get('score', 'Score: -1'))
             # if any invalid scores, skip this turn
             if min(conv_consistency_score, backend_consistency_score, policy_completeness_score) < 0:
                 print("error index:", dialogue["idx"])
                 continue
             # append to score
-            scores['conv_consistency'].append(conv_consistency_score)
-            scores['backend_consistency'].append(backend_consistency_score)
-            scores['policy_completeness'].append(policy_completeness_score)
-    return scores
+            all_scores['conv_consistency'].append(conv_consistency_score)
+            all_scores['backend_consistency'].append(backend_consistency_score)
+            all_scores['policy_completeness'].append(policy_completeness_score)
+    return all_scores
 
 def generate_boxplots(scores, output_dir):
     # First plot for 1-5 scale metrics
@@ -50,7 +51,7 @@ def generate_boxplots(scores, output_dir):
     ]
     plt.boxplot(boxplot_data)
     plt.title('Distribution of Dialogue Turn Scores (1-5 Scale)')
-    plt.xticks(range(1, 5), [
+    plt.xticks(range(1, 4), [
         'Conversation Consistency', 
         'Backend Knowledge Consistency', 
         'Policy Completeness', 
@@ -69,11 +70,11 @@ def generate_histograms(scores, output_dir):
     
     for i, metric in enumerate(metrics_1_5, 1):
         plt.subplot(2, 2, i)
-        plt.hist(scores[metric], bins=np.linspace(0, 10, 21), edgecolor='black')
+        plt.hist(scores[metric], bins=np.linspace(1, 5, 5), edgecolor='black')
         plt.title(metric.replace('_', ' ').title())
         plt.xlabel('Score')
         plt.ylabel('Frequency')
-        plt.xlim(0, 10)
+        plt.xlim(1, 5)
     
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, 'score_histograms_1_5.png'))

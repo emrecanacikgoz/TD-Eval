@@ -2,15 +2,88 @@ import json
 import argparse
 from tqdm import tqdm
 import os
+import re
 from datetime import datetime
 from llm_agents import openai_agent, togetherai_agent, mistral_agent, anthropic_agent
 import random
 from time import sleep
+from typing import Dict
 
 from prompts.mwoz_agent_prompts import mwz_domain_prompt, MWZ_DOMAIN_RESPONSE_PROMPTS, MWZ_DOMAIN_STATE_PROMPTS
 from evaluator import judge
 from postprocess import postprocess_results
 from mw_database import MultiWOZDatabase
+
+def parse_state(state: str, default_domain: str = None) -> Dict[str, str]:
+    def sanitize(dct):
+        for key in dct:
+            if isinstance(dct[key], dict):
+                dct[key] = sanitize(dct[key])
+            elif not isinstance(dct[key], str):
+                dct[key] = str(dct[key])
+        return dct
+
+    state = str(state)
+    slotvals = re.findall("('[a-z]+': ?('(([a-z]| |[A-Z]|:|[0-9])+')|[A-Za-z0-9:]+))", state)
+    out_state = {}
+    for sv in slotvals:
+        sv = sv[0].strip("'\"").split(':')
+        out_state[sv[0].strip("'\"")] = ":".join(sv[1:]).strip("'\" ")
+    return sanitize(out_state)
+    # if not state.startswith("{"):
+    #     state = "{" + state
+    # if not state.endswith("}"):
+    #     state = state + '}'
+    # state = state.replace('<', '{').replace('>', '}')
+    # try:
+    #     state = dirtyjson.loads(state)
+    #     try:
+    #         for domain, domain_state in state.items():
+    #             for slot, value in domain_state.items():
+    #                 pass
+
+    #         return sanitize(state)
+    #     except:
+    #         return {default_domain: sanitize(state)}
+
+    # except:
+    #     state = str(state)
+    #     if state.count('{') == 1:
+    #         state = '{ ' + default_domain + ' ' + state
+    #     state_tk = word_tokenize(state)
+    #     # filter only tokens that are alphanumeric or braces
+    #     state_tk = [tk for tk in state_tk if tk.isalpha() or tk in ['{', '}',',']]
+    #     parsed_state = {default_domain: {}}
+    #     level = 0
+    #     current_domain = default_domain 
+    #     idx = 0
+    #     while idx < len(state_tk):
+    #         tk = state_tk[idx]
+    #         if tk == '{':
+    #             # level += 1
+    #             pass
+    #         elif tk == '}':
+    #             # level -= 1
+    #             pass
+    #         # elif level == 1:
+    #         #     current_domain = tk
+    #         #     parsed_state[tk] = {}
+    #         else:
+    #             slot = tk
+    #             value = []
+    #             idx += 1
+    #             if idx >= len(state_tk):
+    #                 break
+    #             while state_tk[idx] not in  [',', '}']:
+    #                 value.append(state_tk[idx])
+    #                 idx += 1
+    #                 if idx >= len(state_tk):
+    #                     break
+    #             parsed_state[current_domain][slot] = ' '.join(value)
+    #         idx += 1
+    #         if idx >= len(state_tk):
+    #             break
+    #     return sanitize(parsed_state)
 
 def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
     # load data with batch
@@ -50,7 +123,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                 domain_output = agent_client_obj(domain_prompt, agent_model)
                 domain = domain_output if domain_output in services else random.choice(services)
                 tqdm.write('domain: ' + domain.lower())
-                # state tracking (use ground truth to save tokens and convenience)
+                # state tracking (both gt and generation option)
                 if use_gt_state:
                     turn_state = frames[i]["state"]
                     if len(turn_state) == 0:
@@ -67,14 +140,19 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                                 dial_state[slot_domain][slot_name] = slot_val
                             else:
                                 dial_state[slot_domain] = {slot_name: slot_val}
-                else:
+                else:  
+                    # TODO: not a big deal but parse_state() doesn't work yet. Keep use_gt_state=True for now.
                     state_prompt = MWZ_DOMAIN_STATE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query)
                     state_output = agent_client_obj(state_prompt, agent_model)
+
                     ind_open = state_output.index('{')
                     ind_close = state_output.rindex('}')
                     state_content = state_output[ind_open:ind_close+1]
-                    tqdm.write("state: " + state_content)
-                    turn_state = json.loads(state_content)
+                    tqdm.write("state output: " + str(state_content))
+                    # turn_state = json.loads(state_content)
+                    turn_state = parse_state(state_content, domain)
+                    tqdm.write("parsed state: " + str(turn_state))
+                    
                     for k, v in turn_state.items():
                         if domain in dial_state:
                             dial_state[domain][k] = v
@@ -91,11 +169,11 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                         turn_db_result = {"count": len(domain_results), "results": domain_results}
                     db_results[domain] = turn_db_result
                 # response retrieval
-                tqdm.write('domain (again):' + domain.lower())
                 response_prompt = MWZ_DOMAIN_RESPONSE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query, state=turn_state, database=db_results[domain])
                 agent_response = agent_client_obj(response_prompt, agent_model)
                 if agent_response == "": # throw an error
                     raise Exception("token limit hit")
+                conversation_history.append(f"Customer: {user_query}")
                 conversation_history.append(f"Agent: {agent_response}")
                 turn_responses.append({
                     "turn": i,
@@ -131,15 +209,16 @@ def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
             turn_responses = []
             for i in tqdm(range(len(agent_dials[idx_]["dialogue"]))):
                 conversation_history = agent_dials[idx_]["dialogue"][i]["conversation_history"]
-                turn_history = [] if conversation_history == "" else conversation_history.split("\n")
+                turn_history = "\n".join(conversation_history)
                 domain = agent_dials[idx_]["dialogue"][i]["domain"]
                 state = agent_dials[idx_]["dialogue"][i]["state"]
                 db_result = agent_dials[idx_]["dialogue"][i]["db"]
+                # convert to string to insert in prompt
+                db_result_str = json.dumps(db_result)
                 user_query = agent_dials[idx_]["dialogue"][i]["user"]
                 agent_response = agent_dials[idx_]["dialogue"][i]["agent"]
                 ground_truth = agent_dials[idx_]["dialogue"][i]["ground_truth"]
-                domain = agent_dials[idx_][""]
-                scores = judge(turn_history, domain, user_query, db_result, agent_response, judge_client_obj, judge_model)
+                scores = judge(turn_history, domain, user_query, db_result_str, agent_response, judge_client_obj, judge_model)
                 # record judge score
                 turn_responses.append({
                     "turn": i,
@@ -154,9 +233,9 @@ def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
                 })
                 if idx_ < 10:
                     tqdm.write("agent_response: " + agent_response)
-                    tqdm.write("conv_consistency: " + scores['conv_consistency'])
-                    tqdm.write("backend_consistency: " + scores['backend_consistency'])
-                    tqdm.write("policy_completeness: " + scores['policy_completeness'])
+                    tqdm.write("conv_consistency: " + str(scores['conv_consistency']))
+                    tqdm.write("backend_consistency: " + str(scores['backend_consistency']))
+                    tqdm.write("policy_completeness: " + str(scores['policy_completeness']))
                 sleep(5)
             # Compile complete scores for dialogue
             judged_dialogue = {
@@ -165,7 +244,8 @@ def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
                 "results": turn_responses
             }
             judge_scores.append(judged_dialogue)
-        except:
+        except Exception as e:
+            tqdm.write("error: " + str(e))
             return judge_scores, False
     return judge_scores, True
 
@@ -191,10 +271,10 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
             "agent_client": agent_client,
             "agent_model": agent_model
         }
-        dialogue_responses, isSuccess = gen_conv_agent_results(dataset_path, agent_client_obj, agent_model)
+        dial_responses, isAgentSuccess = gen_conv_agent_results(dataset_path, agent_client_obj, agent_model)
         dial_output = {
             "metadata": agent_metadata,
-            "dialogues": dialogue_responses
+            "dialogues": dial_responses
         }
         # save dialogue response results
         result_dir = os.path.join('results', 'agents_results')
@@ -202,7 +282,7 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
         os.makedirs(result_dir, exist_ok=True)
         agent_fname = f"{agent_model}_c.json"
         full_result_path = os.path.join(result_dir, agent_fname)
-        if not isSuccess:
+        if not isAgentSuccess:
             fname_split = full_result_path.split(".")
             full_result_path = f"{fname_split[0]}_CRASHED.{fname_split[1]}"
         with open(full_result_path, 'w') as f:
@@ -224,7 +304,7 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
         "agent_client": agent_client,
         "agent_model": agent_model,
     }
-    scores = judge_conv_agent_results(dial_output, judge_client_obj, judge_model)
+    scores, isJudgeSuccess = judge_conv_agent_results(dial_output, judge_client_obj, judge_model)
     dial_output = {
         "metadata": judge_metadata,
         "dialogues": scores
@@ -235,7 +315,7 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
     os.makedirs(result_dir, exist_ok=True)
     judge_fname = f"{agent_model}_c-{judge_model}_j.json"
     full_result_path = os.path.join(result_dir, judge_fname)
-    if not isSuccess:
+    if not isJudgeSuccess:
         fname_split = full_result_path.split(".")
         full_result_path = f"{fname_split[0]}_CRASHED.{fname_split[1]}"
     with open(full_result_path, 'w') as f:
