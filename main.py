@@ -9,7 +9,7 @@ import random
 from time import sleep
 from typing import Dict
 
-from prompts.mwoz_agent_prompts import mwz_domain_prompt, MWZ_DOMAIN_RESPONSE_PROMPTS, MWZ_DOMAIN_STATE_PROMPTS
+from prompts.mwoz_agent_prompts import mwz_domain_prompt, MWZ_DOMAIN_RESPONSE_PROMPTS, MWZ_DOMAIN_STATE_PROMPTS, MWZ_DOMAIN_DELEX_PROMPTS
 from evaluator import judge
 from postprocess import postprocess_results
 from mw_database import MultiWOZDatabase
@@ -175,6 +175,9 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                     raise Exception("token limit hit")
                 conversation_history.append(f"Customer: {user_query}")
                 conversation_history.append(f"Agent: {agent_response}")
+                # delexicalize response
+                delex_prompt = MWZ_DOMAIN_DELEX_PROMPTS[domain.lower()].format(response=agent_response)
+                delex_response = agent_client_obj(delex_prompt, agent_model)
                 turn_responses.append({
                     "turn": i,
                     "conversation_history": conversation_history,
@@ -183,10 +186,12 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                     "state": turn_state,
                     "db": db_results,
                     "agent": agent_response,
+                    "delex_agent": delex_response,
                     "ground_truth": ground_truth
                 })
                 if idx_ < 10:
                     tqdm.write("agent_response: " + agent_response)
+                    tqdm.write("delex_agent: " + delex_response)
                 sleep(5)
             # Compile complete scores for dialogue
             dialogue_score = {

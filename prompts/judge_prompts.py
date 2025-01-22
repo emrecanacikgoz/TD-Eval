@@ -16,7 +16,7 @@ Conversation consistency refers to the degree to which the chatbot's response al
 - **Bad (2)**: Response shows limited consistency with the conversation context and requires significant improvement.
 - **Very Bad (1)**: Response is incoherent or completely inconsistent with the conversation context.
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
@@ -48,7 +48,7 @@ Backend knowledge consistency refers to how well the chatbot's response aligns w
 - **Bad (2)**: Response shows limited consistency with the database results and requires significant improvement.
 - **Very Bad (1)**: Response is incoherent or completely inconsistent with the database results.
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
@@ -93,7 +93,7 @@ The current predicted domain for this turn in the conversation is "Restaurant". 
 - **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
 - **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
@@ -145,7 +145,7 @@ The current predicted domain for this turn in the conversation is "Hotel". You s
 - **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
 - **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
@@ -190,7 +190,7 @@ The current predicted domain for this turn in the conversation is "Attraction". 
 - **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
 - **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
@@ -238,7 +238,7 @@ The current predicted domain for this turn in the conversation is "Train". You s
 - **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
 - **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
@@ -284,7 +284,7 @@ The current predicted domain for this turn in the conversation is "Taxi". You sh
 - **2 (Bad)**: Response does not adequately follow policy protocol, though there may be partial adherence.
 - **1 (Very Bad)**: Response fails to follow policy protocol and is incomplete or incoherent.
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
@@ -326,7 +326,7 @@ The chatbot response should depend on the database results and dialogue history:
 1. If the database results return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.
 2. If the database results return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide the relevant entries to the user
 
-## Always include the score first, then a rationale on a new line. Follow the template below:
+## Always include the score first, then a rationale on a new line. The rationale should be at most 2 sentences. Follow the template below:
 Score: [YOUR SCORE NUMBER HERE]
 Justification: [YOUR RATIONALE HERE]
 
