@@ -84,13 +84,45 @@ Policy Completeness
 
 [[AdvancedAnswers]]
 [[Answer]]
-1 (Worst)
+1 (Very Bad)
 [[Answer]]
-2
+2 (Bad)
 [[Answer]]
-3
+3 (Fair)
 [[Answer]]
-4
+4 (Good)
 [[Answer]]
-5 (Best)
+5 (Very Good)
+"""
+
+dial_completion_rate_q = """
+[[Question:MC:SingleAnswer:Horizontal]]
+Read the dialogue context below:<br/><br/>
+---<br/>
+{dial_hist}
+---<br/>
+Rate your <strong>satisfaction</strong> with the chatbot's answers to the user's questions. How well would you rate the bot's ability to <strong>completely</strong> answer the users' queries? <br/><br/>
+
+[[Choices]]
+1 (Very Bad)
+2 (Bad)
+3 (Fair)
+4 (Good)
+5 (Very Good)
+"""
+
+dial_satisfaction_rate_q = """
+[[Question:MC:SingleAnswer:Horizontal]]
+Read the dialogue context below:<br/><br/>
+---<br/>
+{dial_hist}
+---<br/>
+Rate your <strong>satisfaction</strong> with the chatbot's answers to the user's questions. How would you rate your satisfaction with bot's responses in terms of being easy to understand and helpful? <br/><br/>
+
+[[Choices]]
+1 (Very Bad)
+2 (Bad)
+3 (Fair)
+4 (Good)
+5 (Very Good)
 """

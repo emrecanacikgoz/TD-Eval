@@ -9,6 +9,7 @@ import random
 from time import sleep
 from typing import Dict
 import sys
+import copy
 
 # need to add MultiWOZ_Evaluation to sys.path for absolute imports
 sys.path.insert(0, os.path.abspath("./MultiWOZ_Evaluation"))
@@ -98,7 +99,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
         data = []
         for line in f:
             dialog = json.loads(line)
-            if dialog['dialogue_id'] in batch:
+            if dialog['dialogue_id'].split(".json")[0].lower() in batch:
                 data.append(dialog)
     # run agent and judge simulator
     dialogue_responses = {}
@@ -166,6 +167,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                 if not turn_state:
                     db_results[domain] = []
                 retrieved_items = {domain: database.query(domain, domain_state) for domain, domain_state in dial_state.items()}
+                # TODO: if there are too many results, give a sample 5-10
                 for domain, domain_results in retrieved_items.items():
                     if len(domain_results) > 10:
                         turn_db_result = {"count": len(domain_results)}
@@ -173,7 +175,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                         turn_db_result = {"count": len(domain_results), "results": domain_results}
                     db_results[domain] = turn_db_result
                 # response retrieval
-                response_prompt = MWZ_DOMAIN_RESPONSE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query, state=dial_state, database=db_results[domain])
+                response_prompt = MWZ_DOMAIN_RESPONSE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query, state=dial_state[domain], database=db_results[domain])
                 agent_response = agent_client_obj(response_prompt, agent_model)
                 if agent_response == "": # throw an error
                     raise Exception("token limit hit")
@@ -187,8 +189,8 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                     "conversation_history": current_history,
                     "user": user_query,
                     "domain": domain,
-                    "state": dial_state,
-                    "db": db_results,
+                    "state": copy.deepcopy(dial_state),
+                    "db": copy.deepcopy(db_results),
                     "lex_response": agent_response,
                     "response": delex_response,
                     "ground_truth": ground_truth
@@ -219,13 +221,11 @@ def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
                 domain = curr_turn["domain"]
                 state = curr_turn["state"]
                 db_result = curr_turn["db"]
-                # convert to string to insert in prompt
-                db_result_str = json.dumps(db_result)
                 user_query = curr_turn["user"]
                 lex_response = curr_turn["lex_response"]
                 delex = curr_turn["response"]
                 ground_truth = curr_turn["ground_truth"]
-                scores = judge(conversation_history, domain, user_query, db_result_str, lex_response, judge_client_obj, judge_model)
+                scores = judge(conversation_history, domain, user_query, json.dumps(db_result), lex_response, judge_client_obj, judge_model)
                 # record judge score
                 turn_responses.append({
                     "turn": i,
@@ -310,6 +310,7 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
         "agent_model": agent_model,
     }
     scores, isJudgeSuccess = judge_conv_agent_results(dial_output, judge_client_obj, judge_model)
+    # TODO: try to get inform and success for individual dialogues too
     e = Evaluator(bleu=True, success=True, richness=True)
     eval_results = e.evaluate(scores)
     for k, v in eval_results.items():
