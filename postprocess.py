@@ -24,8 +24,10 @@ def calculate_turn_scores(results):
         'backend_consistency': [],
         'policy_completeness': []
     }
-    for dialogue in results.get('dialogues', []):
-        for turn in dialogue.get('results', []):
+    dialogues = results.get('dialogues', [])
+    # print("dialogue", dialogue)
+    for dial_id, dial_turns in dialogues.items():
+        for turn in dial_turns:
             # Scores scaled 1-5
             scores = turn["scores"]
             conv_consistency_score = extract_score(scores['conv_consistency'].get('score', 'Score: -1'))
@@ -33,7 +35,7 @@ def calculate_turn_scores(results):
             policy_completeness_score = extract_score(scores['policy_completeness'].get('score', 'Score: -1'))
             # if any invalid scores, skip this turn
             if min(conv_consistency_score, backend_consistency_score, policy_completeness_score) < 0:
-                print("error index:", dialogue["idx"])
+                print("error index:", dial_id)
                 continue
             # append to score
             all_scores['conv_consistency'].append(conv_consistency_score)
@@ -85,8 +87,8 @@ def calculate_cumulative_scores(scores, results):
         'avg_conv_consistency': np.mean(scores['conv_consistency']),
         'avg_backend_consistency': np.mean(scores['backend_consistency']),
         'avg_policy_completeness': np.mean(scores['policy_completeness']),
-        'total_dialogues': len(results.get('dialogues', [])),
-        'total_turns': sum(len(dialogue.get('results', [])) for dialogue in results.get('dialogues', []))
+        'total_dialogues': len(results.get('dialogues', {})),
+        'total_turns': sum(len(turns) for turns in results.get('dialogues', {}).values())
     }
     return cumulative_scores
 

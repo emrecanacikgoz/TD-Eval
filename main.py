@@ -8,11 +8,16 @@ from llm_agents import openai_agent, togetherai_agent, mistral_agent, anthropic_
 import random
 from time import sleep
 from typing import Dict
+import sys
+
+# need to add MultiWOZ_Evaluation to sys.path for absolute imports
+sys.path.insert(0, os.path.abspath("./MultiWOZ_Evaluation"))
 
 from prompts.mwoz_agent_prompts import mwz_domain_prompt, MWZ_DOMAIN_RESPONSE_PROMPTS, MWZ_DOMAIN_STATE_PROMPTS, MWZ_DOMAIN_DELEX_PROMPTS
 from evaluator import judge
 from postprocess import postprocess_results
 from mw_database import MultiWOZDatabase
+from MultiWOZ_Evaluation.mwzeval.metrics import Evaluator
 
 def parse_state(state: str, default_domain: str = None) -> Dict[str, str]:
     def sanitize(dct):
@@ -96,7 +101,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
             if dialog['dialogue_id'] in batch:
                 data.append(dialog)
     # run agent and judge simulator
-    dialogue_responses = []
+    dialogue_responses = {}
     database = MultiWOZDatabase("./multiwoz_database")
     for idx_ in tqdm(range(len(data))):
         dial = data[idx_]
@@ -113,7 +118,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
         dial_state = {}
         db_results = {}
         turn_responses = []
-        use_gt_state = True
+        use_gt_state = True  # TODO: toggle to test state
         try:
             for i in tqdm(range(0, len(speaker), 2)):
                 user_query = utterance[i]
@@ -122,7 +127,6 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                 domain_prompt = mwz_domain_prompt.format(history=current_history, utterance=user_query)
                 domain_output = agent_client_obj(domain_prompt, agent_model)
                 domain = domain_output if domain_output in services else random.choice(services)
-                tqdm.write('domain: ' + domain.lower())
                 # state tracking (both gt and generation option)
                 if use_gt_state:
                     turn_state = frames[i]["state"]
@@ -145,12 +149,12 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                     state_prompt = MWZ_DOMAIN_STATE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query)
                     state_output = agent_client_obj(state_prompt, agent_model)
 
-                    ind_open = state_output.index('{')
-                    ind_close = state_output.rindex('}')
-                    state_content = state_output[ind_open:ind_close+1]
-                    tqdm.write("state output: " + str(state_content))
+                    # ind_open = state_output.index('{')
+                    # ind_close = state_output.rindex('}')
+                    # state_content = state_output[ind_open:ind_close+1]
+                    tqdm.write("state output: " + str(state_output))
                     # turn_state = json.loads(state_content)
-                    turn_state = parse_state(state_content, domain)
+                    turn_state = parse_state(state_output, default_domain=domain)
                     tqdm.write("parsed state: " + str(turn_state))
                     
                     for k, v in turn_state.items():
@@ -169,7 +173,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                         turn_db_result = {"count": len(domain_results), "results": domain_results}
                     db_results[domain] = turn_db_result
                 # response retrieval
-                response_prompt = MWZ_DOMAIN_RESPONSE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query, state=turn_state, database=db_results[domain])
+                response_prompt = MWZ_DOMAIN_RESPONSE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query, state=dial_state, database=db_results[domain])
                 agent_response = agent_client_obj(response_prompt, agent_model)
                 if agent_response == "": # throw an error
                     raise Exception("token limit hit")
@@ -180,50 +184,48 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                 delex_response = agent_client_obj(delex_prompt, agent_model)
                 turn_responses.append({
                     "turn": i,
-                    "conversation_history": conversation_history,
+                    "conversation_history": current_history,
                     "user": user_query,
                     "domain": domain,
-                    "state": turn_state,
+                    "state": dial_state,
                     "db": db_results,
-                    "agent": agent_response,
-                    "delex_agent": delex_response,
+                    "lex_response": agent_response,
+                    "response": delex_response,
                     "ground_truth": ground_truth
                 })
                 if idx_ < 10:
+                    tqdm.write('domain: ' + domain.lower())
                     tqdm.write("agent_response: " + agent_response)
                     tqdm.write("delex_agent: " + delex_response)
                 sleep(5)
-            # Compile complete scores for dialogue
-            dialogue_score = {
-                "idx": idx_,
-                "dialogue_id": dialogue_id,
-                "dialogue": turn_responses
-            }
-            dialogue_responses.append(dialogue_score)
+            # Compile complete dialogue
+            format_dial_id = dialogue_id.split(".json")[0].lower()
+            dialogue_responses[format_dial_id] = turn_responses
         except Exception as e:
             tqdm.write('error:' + str(e))
             return dialogue_responses, False
     return dialogue_responses, True
 
 def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
-    agent_dials = conv_agent_data["dialogues"]
-    judge_scores = []
-    for idx_ in tqdm(range(len(agent_dials))):
+    agent_dials = conv_agent_data["dialogues"].items()
+    judge_scores = {} #[]
+    idx_ = 0
+    for dialogue_id, dialogue_turns in tqdm(agent_dials):
         try:
-            dialogue_id = agent_dials[idx_]["dialogue_id"]
             turn_responses = []
-            for i in tqdm(range(len(agent_dials[idx_]["dialogue"]))):
-                conversation_history = agent_dials[idx_]["dialogue"][i]["conversation_history"]
-                turn_history = "\n".join(conversation_history)
-                domain = agent_dials[idx_]["dialogue"][i]["domain"]
-                state = agent_dials[idx_]["dialogue"][i]["state"]
-                db_result = agent_dials[idx_]["dialogue"][i]["db"]
+            for i in tqdm(range(len(dialogue_turns))):
+                curr_turn = dialogue_turns[i]
+                conversation_history = curr_turn["conversation_history"]
+                domain = curr_turn["domain"]
+                state = curr_turn["state"]
+                db_result = curr_turn["db"]
                 # convert to string to insert in prompt
                 db_result_str = json.dumps(db_result)
-                user_query = agent_dials[idx_]["dialogue"][i]["user"]
-                agent_response = agent_dials[idx_]["dialogue"][i]["agent"]
-                ground_truth = agent_dials[idx_]["dialogue"][i]["ground_truth"]
-                scores = judge(turn_history, domain, user_query, db_result_str, agent_response, judge_client_obj, judge_model)
+                user_query = curr_turn["user"]
+                lex_response = curr_turn["lex_response"]
+                delex = curr_turn["response"]
+                ground_truth = curr_turn["ground_truth"]
+                scores = judge(conversation_history, domain, user_query, db_result_str, lex_response, judge_client_obj, judge_model)
                 # record judge score
                 turn_responses.append({
                     "turn": i,
@@ -232,23 +234,21 @@ def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
                     "domain": domain,
                     "state": state,
                     "db": db_result,
-                    "agent": agent_response,
+                    "lex_response": lex_response,
+                    "response": delex, 
                     "ground_truth": ground_truth,
                     "scores": scores
                 })
                 if idx_ < 10:
-                    tqdm.write("agent_response: " + agent_response)
+                    tqdm.write("agent_response: " + lex_response)
                     tqdm.write("conv_consistency: " + str(scores['conv_consistency']))
                     tqdm.write("backend_consistency: " + str(scores['backend_consistency']))
                     tqdm.write("policy_completeness: " + str(scores['policy_completeness']))
                 sleep(5)
             # Compile complete scores for dialogue
-            judged_dialogue = {
-                "idx": idx_,
-                "dialogue_id": dialogue_id,
-                "results": turn_responses
-            }
-            judge_scores.append(judged_dialogue)
+            format_dial_id = dialogue_id.split(".json")[0].lower()
+            judge_scores[format_dial_id] = turn_responses
+            idx_ += 1
         except Exception as e:
             tqdm.write("error: " + str(e))
             return judge_scores, False
@@ -310,11 +310,15 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
         "agent_model": agent_model,
     }
     scores, isJudgeSuccess = judge_conv_agent_results(dial_output, judge_client_obj, judge_model)
+    e = Evaluator(bleu=True, success=True, richness=True)
+    eval_results = e.evaluate(scores)
+    for k, v in eval_results.items():
+        judge_metadata[k] = v
+    # save dialogue judge results
     dial_output = {
         "metadata": judge_metadata,
         "dialogues": scores
     }
-    # save dialogue judge results
     result_dir = os.path.join('results', 'judge_results')
     result_dir = os.path.join(result_dir, timestamp)
     os.makedirs(result_dir, exist_ok=True)

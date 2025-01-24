@@ -41,11 +41,12 @@ Customer: {utterance}
 Domain:"""
 
 ## Part 2: State Tracking ##
+# TODO: follow state tracking prompt in old ConvAI repo
 mwz_restaurant_state_prompt = """
 Capture entity values from last utterance of the converstation according to examples.
 Focus only on the values mentioned in the last utterance.
-Capture pair "entity:value" separated by colon and no spaces in between.
-Separate entity:value pairs by hyphens.
+Capture pair 'entity':'value' separated by colon and no spaces in between.
+Separate 'entity':'value' pairs by hyphens. The entities and values should be closed by single quotes.
 Values that should be captured are:
  - pricerange: price range of the restaurant (cheap/moderate/expensive)
  - area: area where the restaurant is located (north/east/west/south/centre)
@@ -53,9 +54,8 @@ Values that should be captured are:
  - bookpeople: number of people booked (1/2/3...)
  - food: type of food served by restaurant
  - name: the name of restaurant
- - booktime: time of booked reservation, hour and minute (i.e. 15:30)
+ - booktime: time of booked reservation by hour and minute (i.e. 15:30)
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -67,8 +67,8 @@ state: """
 mwz_hotel_state_prompt = """
 Capture entity values from last utterance of the converstation according to examples.
 Focus only on the values mentioned in the last utterance.
-Capture pair "entity:value" separated by colon and no spaces in between.
-Separate entity:value pairs by hyphens.
+Capture pair 'entity':'value' separated by colon and no spaces in between.
+Separate 'entity':'value' pairs by hyphens. The entities and values should be closed by single quotes.
 Values that should be captured are:
  - pricerange: the price range of the hotel (cheap/expensive)
  - parking: if the hotel has parking (yes/no)
@@ -81,7 +81,6 @@ Values that should be captured are:
  - bookstay: how many nights booked (1/2/3...)
  - name: the name of hotel
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -93,14 +92,13 @@ state: """
 mwz_attraction_state_prompt = """
 Capture entity values from last utterance of the converstation according to examples.
 Focus only on the values mentioned in the last utterance.
-Capture pair "entity:value" separated by colon and no spaces in between.
-Separate entity:value pairs by hyphens.
+Capture pair 'entity':'value' separated by colon and no spaces in between.
+Separate 'entity':'value' pairs by hyphens. The entities and values should be closed by single quotes.
 Values that should be captured are:
  - area: that specifies the area where the attraction is located (north/east/west/south/centre)
  - type: that specifies the type of attraction (museum/gallery/theatre/concert/stadium)
  - name: the name of the attraction
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -112,8 +110,8 @@ state: """
 mwz_train_state_prompt = """
 Capture entity values from last utterance of the converstation according to examples.
 Focus only on the values mentioned in the last utterance.
-Capture pair "entity:value" separated by colon and no spaces in between.
-Separate entity:value pairs by hyphens.
+Capture pair 'entity':'value' separated by colon and no spaces in between.
+Separate 'entity':'value' pairs by hyphens. The entities and values should be closed by single quotes.
 Values that should be captured are:
  - departure: the departure station of train
  - destination: the destination station of train
@@ -122,7 +120,6 @@ Values that should be captured are:
  - arriveBy: what time the train should arrive
  - leaveAt: what time the train should leave
 Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -134,15 +131,14 @@ state: """
 mwz_taxi_state_prompt = """
 Capture entity values from last utterance of the converstation according to examples.
 Focus only on the values mentioned in the last utterance.
-Capture pair "entity:value" separated by colon and no spaces in between.
-Separate entity:value pairs by hyphens.
+Capture pair 'entity':'value' separated by colon and no spaces in between.
+Separate 'entity':'value' pairs by hyphens. The entities and values should be closed by single quotes.
 Values that should be captured are:
  - destination: taxi destination station
  - departure: taxi departure station
  - arriveBy: time the taxi should arrive
  - leaveAt: what time the taxi should leave
  Do not capture any other values! If not specified, leave the value empty.
-Please structure your output in json format. {{}} is a valid output.
 ---
 history:
 {history}
@@ -173,7 +169,7 @@ The values that can be captured are:
  - bookpeople: number of people booked (1/2/3...)
  - food: type of food served by restaurant
  - name: the name of restaurant
- - booktime: time of booked reservation, hour and minute (i.e. 15:30)
+ - booktime: time of booked reservation by hour and minute (i.e. 15:30)
  - address: address location of restaurant
  - phone: phone number of restaurant
  - postcode: postcode of restaurant
@@ -333,7 +329,7 @@ The entity types that can be delex-ed are:
  - bookpeople: number of people booked (1/2/3...)
  - food: type of food served by restaurant
  - name: the name of restaurant
- - booktime: time of booked reservation, hour and minute (i.e. 15:30)
+ - booktime: time of booked reservation by hour and minute (i.e. 15:30)
  - address: address location of restaurant
  - phone: phone number of restaurant
  - postcode: postcode of restaurant
