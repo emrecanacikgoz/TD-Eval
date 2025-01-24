@@ -28,6 +28,18 @@ Follow these steps to set up the environment:
    pip install -r requirements.txt
    ```
 
+3. Clone the MultiWOZ_Evaluation repo
+   ```bash
+   rm -rf MultiWOZ_Evaluation
+   git clone https://github.com/Tomiinek/MultiWOZ_Evaluation
+   ```
+
+4. Install MultiWOZ Evaluation pip requirements
+   ```bash
+   cd MultiWOZ_Evaluation
+   pip install -r requirements.txt
+   ```
+
 ---
 
 ## API Credential Configuration

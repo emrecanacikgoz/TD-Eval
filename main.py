@@ -260,7 +260,7 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
         agent_client_obj = openai_agent
     elif agent_client == 'togetherai':
         agent_client_obj = togetherai_agent
-    elif agent_client_obj == 'mistral':
+    elif agent_client == 'mistral':
         agent_client_obj = mistral_agent
     elif agent_client == 'anthropic':
         agent_client_obj = anthropic_agent
@@ -335,7 +335,7 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
 if __name__ == "__main__":
     default_result_filename = 'zero-shot-results.json'
     parser = argparse.ArgumentParser(description='Evaluate dialogue agent')
-    parser.add_argument('--dataset_path', type=str, default='datasets/dialogue.jsonl', help='Path to evaluation data')
+    parser.add_argument('--dataset_path', type=str, default='datasets/woz_only.jsonl', help='Path to evaluation data')
     parser.add_argument('--agent_client', type=str, default='openai', help='Client to use for LLM agent')
     parser.add_argument('--agent_model', type=str, default='gpt-4o', help='Agent to evaluate')
     parser.add_argument('--agent_result_path', type=str, help='File path to already generated agent results (optional)')
