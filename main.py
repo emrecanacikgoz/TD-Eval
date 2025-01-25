@@ -310,15 +310,15 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
         "agent_model": agent_model,
     }
     scores, isJudgeSuccess = judge_conv_agent_results(dial_output, judge_client_obj, judge_model)
-    # TODO: try to get inform and success for individual dialogues too
     e = Evaluator(bleu=True, success=True, richness=True)
     eval_results = e.evaluate(scores)
-    for k, v in eval_results.items():
-        judge_metadata[k] = v
+    judge_metadata['inform'] = eval_results['success']['inform']
+    judge_metadata['success'] = eval_results['success']['success']
     # save dialogue judge results
     dial_output = {
         "metadata": judge_metadata,
-        "dialogues": scores
+        "dialogues": scores,
+        "mwzeval": eval_results['success']['dialogs']
     }
     result_dir = os.path.join('results', 'judge_results')
     result_dir = os.path.join(result_dir, timestamp)
