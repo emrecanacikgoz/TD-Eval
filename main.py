@@ -91,7 +91,8 @@ def parse_state(state: str, default_domain: str = None) -> Dict[str, str]:
     #             break
     #     return sanitize(parsed_state)
 
-def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
+def gen_conv_agent_results(evaluation_data_path, use_gt_state, agent_client_obj, agent_model):
+    print('use_gt_state', use_gt_state)
     # load data with batch
     with open('datasets/batch.jsonl', 'r') as fBatch:
         batch = json.load(fBatch)
@@ -119,7 +120,6 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
         dial_state = {}
         db_results = {}
         turn_responses = []
-        use_gt_state = True  # TODO: toggle to test state
         try:
             for i in tqdm(range(0, len(speaker), 2)):
                 user_query = utterance[i]
@@ -127,7 +127,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                 current_history = "\n".join(conversation_history)
                 domain_prompt = mwz_domain_prompt.format(history=current_history, utterance=user_query)
                 domain_output = agent_client_obj(domain_prompt, agent_model)
-                domain = domain_output if domain_output in services else random.choice(services)
+                domain = domain_output.lower() if domain_output in services else random.choice(services)
                 # state tracking (both gt and generation option)
                 if use_gt_state:
                     turn_state = frames[i]["state"]
@@ -146,18 +146,9 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                             else:
                                 dial_state[slot_domain] = {slot_name: slot_val}
                 else:  
-                    # TODO: not a big deal but parse_state() doesn't work yet. Keep use_gt_state=True for now.
-                    state_prompt = MWZ_DOMAIN_STATE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query)
+                    state_prompt = MWZ_DOMAIN_STATE_PROMPTS[domain].format(history=current_history, utterance=user_query)
                     state_output = agent_client_obj(state_prompt, agent_model)
-
-                    # ind_open = state_output.index('{')
-                    # ind_close = state_output.rindex('}')
-                    # state_content = state_output[ind_open:ind_close+1]
-                    tqdm.write("state output: " + str(state_output))
-                    # turn_state = json.loads(state_content)
-                    turn_state = parse_state(state_output, default_domain=domain)
-                    tqdm.write("parsed state: " + str(turn_state))
-                    
+                    turn_state = parse_state(state_output.lower(), default_domain=domain)
                     for k, v in turn_state.items():
                         if domain in dial_state:
                             dial_state[domain][k] = v
@@ -175,7 +166,7 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                         turn_db_result = {"count": len(domain_results), "results": domain_results}
                     db_results[domain] = turn_db_result
                 # response retrieval
-                response_prompt = MWZ_DOMAIN_RESPONSE_PROMPTS[domain.lower()].format(history=current_history, utterance=user_query, state=dial_state[domain], database=db_results[domain])
+                response_prompt = MWZ_DOMAIN_RESPONSE_PROMPTS[domain].format(history=current_history, utterance=user_query, state=dial_state[domain], database=db_results[domain])
                 agent_response = agent_client_obj(response_prompt, agent_model)
                 if agent_response == "": # throw an error
                     raise Exception("token limit hit")
@@ -196,7 +187,10 @@ def gen_conv_agent_results(evaluation_data_path, agent_client_obj, agent_model):
                     "ground_truth": ground_truth
                 })
                 if idx_ < 10:
+                    tqdm.write('user query: ' + user_query)
                     tqdm.write('domain: ' + domain.lower())
+                    tqdm.write("parsed state: " + json.dumps(turn_state))
+                    tqdm.write('db: ' + json.dumps(db_results))
                     tqdm.write("agent_response: " + agent_response)
                     tqdm.write("delex_agent: " + delex_response)
                 sleep(5)
@@ -254,7 +248,7 @@ def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
             return judge_scores, False
     return judge_scores, True
 
-def main(agent_client, agent_model, judge_client, judge_model, dataset_path, agent_result_path):
+def main(agent_client, agent_model, use_gt_state, judge_client, judge_model, dataset_path, agent_result_path):
     # set up TOD response agent 
     if agent_client == 'openai':
         agent_client_obj = openai_agent
@@ -276,7 +270,7 @@ def main(agent_client, agent_model, judge_client, judge_model, dataset_path, age
             "agent_client": agent_client,
             "agent_model": agent_model
         }
-        dial_responses, isAgentSuccess = gen_conv_agent_results(dataset_path, agent_client_obj, agent_model)
+        dial_responses, isAgentSuccess = gen_conv_agent_results(dataset_path, use_gt_state, agent_client_obj, agent_model)
         dial_output = {
             "metadata": agent_metadata,
             "dialogues": dial_responses
@@ -340,11 +334,12 @@ if __name__ == "__main__":
     parser.add_argument('--agent_client', type=str, default='openai', help='Client to use for LLM agent')
     parser.add_argument('--agent_model', type=str, default='gpt-4o', help='Agent to evaluate')
     parser.add_argument('--agent_result_path', type=str, help='File path to already generated agent results (optional)')
+    parser.add_argument('--use_gt_state', action='store_true', help='Uses ground truth state of multiwoz corpus (for debug)')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
     args = parser.parse_args()
     # run scoring + judging then post-process
-    result_dir, full_result_path = main(args.agent_client, args.agent_model, args.judge_client, args.judge_model, args.dataset_path, args.agent_result_path)
+    result_dir, full_result_path = main(args.agent_client, args.agent_model, args.use_gt_state, args.judge_client, args.judge_model, args.dataset_path, args.agent_result_path)
     postprocess_results(full_result_path, result_dir)
 
     print("Evaluation completed successfully...")

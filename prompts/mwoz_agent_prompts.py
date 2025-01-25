@@ -41,7 +41,6 @@ Customer: {utterance}
 Domain:"""
 
 ## Part 2: State Tracking ##
-# TODO: follow state tracking prompt in old ConvAI repo
 mwz_restaurant_state_prompt = """
 Capture entity values from last utterance of the converstation according to examples.
 Focus only on the values mentioned in the last utterance.
@@ -70,12 +69,12 @@ Focus only on the values mentioned in the last utterance.
 Capture pair 'entity':'value' separated by colon and no spaces in between.
 Separate 'entity':'value' pairs by hyphens. The entities and values should be closed by single quotes.
 Values that should be captured are:
- - pricerange: the price range of the hotel (cheap/expensive)
+ - pricerange: the price range of the hotel (cheap/moderate/expensive)
  - parking: if the hotel has parking (yes/no)
  - internet: if the hotel has internet (yes/no)
  - stars: the number of stars the hotel has (1/2/3/4/5)
  - area: the area where the hotel is located (north/east/west/south/centre)
- - type: the type of the hotel (hotel/bed and breakfast/guest house)
+ - type: the type of the hotel (hotel/guesthouse)
  - bookpeople: number of people booked (1/2/3...)
  - bookday: day of week reservation booked (monday/tuesday/wednesday/thursday/friday/saturday/sunday)
  - bookstay: how many nights booked (1/2/3...)
@@ -117,8 +116,8 @@ Values that should be captured are:
  - destination: the destination station of train
  - day: what day the train should leave (monday/tuesday/wednesday/thursday/friday/saturday/sunday)
  - bookpeople: number of people booked for train (1/2/3...)
- - arriveBy: what time the train should arrive
- - leaveAt: what time the train should leave
+ - arriveby: what time the train should arrive
+ - leaveat: what time the train should leave
 Do not capture any other values! If not specified, leave the value empty.
 ---
 history:
@@ -136,8 +135,8 @@ Separate 'entity':'value' pairs by hyphens. The entities and values should be cl
 Values that should be captured are:
  - destination: taxi destination station
  - departure: taxi departure station
- - arriveBy: time the taxi should arrive
- - leaveAt: what time the taxi should leave
+ - arriveby: time the taxi should arrive
+ - leaveat: what time the taxi should leave
  Do not capture any other values! If not specified, leave the value empty.
 ---
 history:
@@ -196,12 +195,12 @@ There is also a number of hotel in the database currently corresponding to the u
 If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
 If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 The values that can be captured are:
- - pricerange: the price range of the hotel (cheap/expensive)
+ - pricerange: the price range of the hotel (cheap/moderate/expensive)
  - parking: if the hotel has parking (yes/no)
  - internet: if the hotel has internet (yes/no)
  - stars: the number of stars the hotel has (1/2/3/4/5)
  - area: the area where the hotel is located (north/east/west/south/centre)
- - type: the type of the hotel (hotel/bed and breakfast/guest house)
+ - type: the type of the hotel (hotel/guesthouse)
  - bookpeople: number of people booked (1/2/3...)
  - bookday: day of week reservation booked (monday/tuesday/wednesday/thursday/friday/saturday/sunday)
  - bookstay: how many nights booked (1/2/3...)
@@ -264,8 +263,8 @@ The values that can be captured are:
  - destination: the destination station of train
  - day: what day the train should leave (monday/tuesday/wednesday/thursday/friday/saturday/sunday)
  - bookpeople: number of people booked for train (1/2/3...)
- - arriveBy: what time the train should arrive
- - leaveAt: what time the train should leave
+ - arriveby: what time the train should arrive
+ - leaveat: what time the train should leave
  - trainId: id of the train
  - ref: reference number for train ticket
  - price: price of train ticket
@@ -293,8 +292,8 @@ If the database results also return values: If vital details are missing based o
 The values that can be captured are:
  - destination: taxi destination station
  - departure: taxi departure station
- - arriveBy: time the taxi should arrive
- - leaveAt: what time the taxi should leave
+ - arriveby: time the taxi should arrive
+ - leaveat: what time the taxi should leave
  - phone: phone number for taxi service
  - type: color and make/model of taxi
 If you find a taxi, provide [arriveby], [leaveat] or [departure] if asked.
@@ -343,12 +342,12 @@ delex:
 mwz_hotel_delex_prompt = """
 You are an assistant that delexicalizes concrete entities into slot values. You will receive a response from a chatbot that helps people book a hotel. Please replace relevant entities with the entity type in brackets. 
 The entity types that can be delex-ed are:
- - pricerange: the price range of the hotel (cheap/expensive)
+ - pricerange: the price range of the hotel (cheap/moderate/expensive)
  - parking: if the hotel has parking (yes/no)
  - internet: if the hotel has internet (yes/no)
  - stars: the number of stars the hotel has (1/2/3/4/5)
  - area: the area where the hotel is located (north/east/west/south/centre)
- - type: the type of the hotel (hotel/bed and breakfast/guest house)
+ - type: the type of the hotel (hotel/guesthouse)
  - bookpeople: number of people booked (1/2/3...)
  - bookday: day of week reservation booked (monday/tuesday/wednesday/thursday/friday/saturday/sunday)
  - bookstay: how many nights booked (1/2/3...)
@@ -387,8 +386,8 @@ The entity types that can be delex-ed are:
  - destination: the destination station of train
  - day: day of the week the train is leaving (monday/tuesday/wednesday/thursday/friday/saturday/sunday)
  - bookpeople: number of people booked for train (1/2/3...)
- - arriveBy: what time the train should arrive
- - leaveAt: what time the train should leave
+ - arriveby: what time the train should arrive
+ - leaveat: what time the train should leave
  - trainId: id of the train
  - ref: reference code for train ticket
  - price: price of train ticket
@@ -404,8 +403,8 @@ You are an assistant that delexicalizes concrete entities into slot values. You 
 The entity types that can be delex-ed are:
  - destination: taxi destination station
  - departure: taxi departure station
- - arriveBy: time the taxi should arrive
- - leaveAt: what time the taxi should leave
+ - arriveby: time the taxi should arrive
+ - leaveat: what time the taxi should leave
  - phone: phone number for taxi service
  - type: color and make/model of taxi
 ---
