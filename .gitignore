@@ -183,4 +183,6 @@ agent_results/
 judge_results/
 heatmaps/
 elo_all_models_extended.json
-MultiWOZ_Evaluation/
+MultiWOZ_Evaluation/mwzeval/data/gold_states.json
+MultiWOZ_Evaluation/mwzeval/data/references/mwz22.json
+
