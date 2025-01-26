@@ -10,6 +10,7 @@ from time import sleep
 from typing import Dict
 import sys
 import copy
+from random import sample
 
 # need to add MultiWOZ_Evaluation to sys.path for absolute imports
 sys.path.insert(0, os.path.abspath("./MultiWOZ_Evaluation"))
@@ -158,10 +159,10 @@ def gen_conv_agent_results(evaluation_data_path, use_gt_state, agent_client_obj,
                 if not turn_state:
                     db_results[domain] = []
                 retrieved_items = {domain: database.query(domain, domain_state) for domain, domain_state in dial_state.items()}
-                # TODO: if there are too many results, give a sample 5-10
                 for domain, domain_results in retrieved_items.items():
                     if len(domain_results) > 10:
-                        turn_db_result = {"count": len(domain_results)}
+                        result_sample = sample(domain_results, 5)
+                        turn_db_result = {"count": len(domain_results), "sample": result_sample}
                     else: 
                         turn_db_result = {"count": len(domain_results), "results": domain_results}
                     db_results[domain] = turn_db_result

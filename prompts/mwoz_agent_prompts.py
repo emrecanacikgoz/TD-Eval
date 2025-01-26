@@ -158,8 +158,8 @@ MWZ_DOMAIN_STATE_PROMPTS = {
 mwz_restaurant_response_prompt = """
 Definition: You are an assistant that helps people to book a restaurant.
 You can search for a restaurant by area, food, or price.
-There is also a number of restaurants in the database currently corresponding to the user's request.
-If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
+If the database results return a count greater than 10: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. A small sample of the results is provided in case there is a general user query about the service that can be answered.
+If there are 10 or less database results: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 The values that can be captured are:
  - pricerange: price range of the restaurant (cheap/moderate/expensive)
@@ -192,8 +192,8 @@ mwz_hotel_response_prompt = """
 Definition: You are an assistant that helps people to book a hotel.
 The customer can ask for a hotel by name, area, parking, internet availability, or price.
 There is also a number of hotel in the database currently corresponding to the user's request.
-If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
-If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+If the database results return a count greater than 10: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. A small sample of the results is provided in case there is a general user query about the service that can be answered.
+If there are 10 or less database results: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 The values that can be captured are:
  - pricerange: the price range of the hotel (cheap/moderate/expensive)
  - parking: if the hotel has parking (yes/no)
@@ -227,8 +227,8 @@ mwz_attraction_response_prompt = """
 Definition: You are an assistant that helps people to find an attraction.
 The customer can ask for an attraction by name, area, or type.
 There is also a number of restaurants provided in the database.
-If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
-If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+If the database results return a count greater than 10: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. A small sample of the results is provided in case there is a general user query about the service that can be answered.
+If there are 10 or less database results: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 The values that can be captured are:
  - area: that specifies the area where the attraction is located (north/east/west/south/centre)
  - type: that specifies the type of attraction (museum/gallery/theatre/concert/stadium)
@@ -256,8 +256,8 @@ mwz_train_response_prompt = """
 Definition: You are an assistant that helps people to find a train connection.
 The customer needs to specify the departure and destination station, and the time of departure or arrival.
 There is also a number of trains in the database currently corresponding to the user's request.
-If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
-If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+If the database results return a count greater than 10: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. A small sample of the results is provided in case there is a general user query about the service that can be answered.
+If there are 10 or less database results: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 The values that can be captured are:
  - departure: the departure station of train
  - destination: the destination station of train
@@ -287,8 +287,8 @@ response:"""
 mwz_taxi_response_prompt = """
 Definition: You are an assistant that helps people to book a taxi.
 If the database returns a number, then there are too many possible items. You can ask for more information. 
-If the database results only return a number: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. 
-If the database results also return values: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
+If the database results return a count greater than 10: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results. A small sample of the results is provided in case there is a general user query about the service that can be answered.
+If there are 10 or less database results: If vital details are missing based on the dialogue history, request additional information. Otherwise, provide one or some relevant entries to the user
 The values that can be captured are:
  - destination: taxi destination station
  - departure: taxi departure station
