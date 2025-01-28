@@ -16,7 +16,7 @@ from random import sample
 sys.path.insert(0, os.path.abspath("./MultiWOZ_Evaluation"))
 
 from prompts.mwoz_agent_prompts import mwz_domain_prompt, MWZ_DOMAIN_RESPONSE_PROMPTS, MWZ_DOMAIN_STATE_PROMPTS, MWZ_DOMAIN_DELEX_PROMPTS
-from evaluator import judge
+from evaluator import judge_mwoz
 from postprocess import postprocess_results
 from mw_database import MultiWOZDatabase
 from MultiWOZ_Evaluation.mwzeval.metrics import Evaluator
@@ -95,7 +95,7 @@ def parse_state(state: str, default_domain: str = None) -> Dict[str, str]:
 def gen_conv_agent_results(evaluation_data_path, use_gt_state, agent_client_obj, agent_model):
     print('use_gt_state', use_gt_state)
     # load data with batch
-    with open('datasets/batch.jsonl', 'r') as fBatch:
+    with open('datasets/batch.json', 'r') as fBatch:
         batch = json.load(fBatch)
     with open(evaluation_data_path, 'r') as f:
         data = []
@@ -220,7 +220,7 @@ def judge_conv_agent_results(conv_agent_data, judge_client_obj, judge_model):
                 lex_response = curr_turn["lex_response"]
                 delex = curr_turn["response"]
                 ground_truth = curr_turn["ground_truth"]
-                scores = judge(conversation_history, domain, user_query, json.dumps(db_result), lex_response, judge_client_obj, judge_model)
+                scores = judge_mwoz(conversation_history, domain, user_query, json.dumps(db_result), lex_response, judge_client_obj, judge_model)
                 # record judge score
                 turn_responses.append({
                     "turn": i,

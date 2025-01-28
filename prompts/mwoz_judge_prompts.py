@@ -1,5 +1,5 @@
 ### TOD specific LLM judge dimensions ###
-prompt_conv_consistency = """
+mwoz_prompt_conv_consistency = """
 Evaluate the **conversation consistency** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
 The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
@@ -31,13 +31,13 @@ Justification: [YOUR RATIONALE HERE]
 {agent_response}
 """
 
-prompt_backend_consistency = """
+mwoz_prompt_backend_consistency = """
 Evaluate the **backend knowledge consistency** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
 The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
 ## Backend Knowledge Consistency Definition
 Backend knowledge consistency refers to how well the chatbot's response aligns with the information provided in the policy or database results, considering:
-- **Relevance**: The response directly reflects the information in the database results.
+- **Accuracy**: The response accurately reflects the information in the database results.
 - **Topic Consistency**: The response stays on-topic with the database results and the dialogue context.
 - **Coherence**: The response logically incorporates and progresses based on the database results.
 
@@ -64,15 +64,16 @@ Justification: [YOUR RATIONALE HERE]
 """
 
 # Policy Completeness split by domain
-prompt_policy_restaurant_completeness = """
-Evaluate the **policy completeness** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
+mwoz_prompt_restaurant_policy_compliance = """
+Evaluate the **policy compliance** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
 The prompt will include the **policy protocol**, **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
-## Policy Completeness Definition
-Policy completeness refers to how well the chatbot adheres to the expected policy protocol, specifically:
-- **Relevance of Suggestions**: Providing suggestions only when the database results are small enough to do so.
+## Policy Compliance Definition
+Policy compliance refers to how well the chatbot adheres to the expected policy protocol, specifically:
+- **Number of Suggestions**: Providing suggestions only when the database results are few enough to do so.
 - **Information Gathering**: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.
-- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
+- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation, before the necessary information is gathered from the user.
+- **Alignment with Policy**: Avoiding actions that do not align with the suggested flow of interaction in the policy, when available.
 
 ## Domain Possible Slots (May not be exhaustive)
 The current predicted domain for this turn in the conversation is "Restaurant". You should check if domain-relevant slots have been filled in the current conversation. The possible slots for all domains are shown below (these may not be totally exhaustive):
@@ -113,15 +114,16 @@ The chatbot response should depend on the database results and dialogue history:
 {agent_response}
 """
 
-prompt_policy_hotel_completeness = """
-Evaluate the **policy completeness** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
-The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
+mwoz_prompt_hotel_policy_compliance = """
+Evaluate the **policy compliance** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
+The prompt will include the **policy protocol**, **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
-## Policy Completeness Definition
-Policy completeness refers to how well the chatbot adheres to the expected policy protocol, specifically:
-- **Relevance of Suggestions**: Providing suggestions only when the database results are small enough to do so.
+## Policy Compliance Definition
+Policy compliance refers to how well the chatbot adheres to the expected policy protocol, specifically:
+- **Number of Suggestions**: Providing suggestions only when the database results are few enough to do so.
 - **Information Gathering**: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.
-- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
+- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation, before the necessary information is gathered from the user.
+- **Alignment with Policy**: Avoiding actions that do not align with the suggested flow of interaction in the policy, when available.
 
 ## Domain Possible Slots (May not be exhaustive)
 The current predicted domain for this turn in the conversation is "Hotel". You should check if domain-relevant slots have been filled in the current conversation. The possible slots for all domains are shown below (these may not be totally exhaustive):
@@ -165,15 +167,16 @@ The chatbot response should depend on the database results and dialogue history:
 {agent_response}
 """
 
-prompt_policy_attraction_completeness = """
-Evaluate the **policy completeness** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
-The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
+mwoz_prompt_attraction_policy_compliance = """
+Evaluate the **policy compliance** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
+The prompt will include the **policy protocol**, **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
-## Policy Completeness Definition
-Policy completeness refers to how well the chatbot adheres to the expected policy protocol, specifically:
-- **Relevance of Suggestions**: Providing suggestions only when the database results are small enough to do so.
+## Policy Compliance Definition
+Policy compliance refers to how well the chatbot adheres to the expected policy protocol, specifically:
+- **Number of Suggestions**: Providing suggestions only when the database results are few enough to do so.
 - **Information Gathering**: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.
-- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
+- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation, before the necessary information is gathered from the user.
+- **Alignment with Policy**: Avoiding actions that do not align with the suggested flow of interaction in the policy, when available.
 
 ## Domain Possible Slots (May not be exhaustive)
 The current predicted domain for this turn in the conversation is "Attraction". You should check if domain-relevant slots have been filled in the current conversation. The possible slots for all domains are shown below (these may not be totally exhaustive):
@@ -210,15 +213,16 @@ The chatbot response should depend on the database results and dialogue history:
 {agent_response}
 """
 
-prompt_policy_train_completeness = """
-Evaluate the **policy completeness** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
-The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
+mwoz_prompt_train_policy_compliance = """
+Evaluate the **policy compliance** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
+The prompt will include the **policy protocol**, **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
-## Policy Completeness Definition
-Policy completeness refers to how well the chatbot adheres to the expected policy protocol, specifically:
-- **Relevance of Suggestions**: Providing suggestions only when the database results are small enough to do so.
+## Policy Compliance Definition
+Policy compliance refers to how well the chatbot adheres to the expected policy protocol, specifically:
+- **Number of Suggestions**: Providing suggestions only when the database results are few enough to do so.
 - **Information Gathering**: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.
-- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
+- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation, before the necessary information is gathered from the user.
+- **Alignment with Policy**: Avoiding actions that do not align with the suggested flow of interaction in the policy, when available.
 
 ## Domain Possible Slots (May not be exhaustive)
 The current predicted domain for this turn in the conversation is "Train". You should check if domain-relevant slots have been filled in the current conversation. The possible slots for all domains are shown below (these may not be totally exhaustive):
@@ -258,15 +262,16 @@ The chatbot response should depend on the database results and dialogue history:
 {agent_response}
 """
 
-prompt_policy_taxi_completeness = """
-Evaluate the **policy completeness** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
-The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
+mwoz_prompt_taxi_policy_compliance = """
+Evaluate the **policy compliance** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
+The prompt will include the **policy protocol**, **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
-## Policy Completeness Definition
-Policy completeness refers to how well the chatbot adheres to the expected policy protocol, specifically:
-- **Relevance of Suggestions**: Providing suggestions only when the database results are small enough to do so.
+## Policy Compliance Definition
+Policy compliance refers to how well the chatbot adheres to the expected policy protocol, specifically:
+- **Number of Suggestions**: Providing suggestions only when the database results are few enough to do so.
 - **Information Gathering**: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.
-- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
+- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation, before the necessary information is gathered from the user.
+- **Alignment with Policy**: Avoiding actions that do not align with the suggested flow of interaction in the policy, when available.
 
 ## Domain Possible Slots (May not be exhaustive)
 The current predicted domain for this turn in the conversation is "Taxi". You should check if domain-relevant slots have been filled in the current conversation. The possible slots for all domains are shown below (these may not be totally exhaustive):
@@ -304,15 +309,16 @@ The chatbot response should depend on the database results and dialogue history:
 {agent_response}
 """
 
-prompt_policy_unknown_completeness = """
-Evaluate the **policy completeness** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
-The prompt will include the **dialogue history**, **current user query**, **database results**, **chatbot response**. 
+prompt_unknown_policy_compliance = """
+Evaluate the **policy compliance** of the following task-oriented dialogue chatbot response on a 5-point scale from "Very Bad" to "Very Good". 
+The prompt will include the **policy protocol**, **dialogue history**, **current user query**, **database results**, **chatbot response**. 
 
-## Policy Completeness Definition
-Policy completeness refers to how well the chatbot adheres to the expected policy protocol, specifically:
-- **Relevance of Suggestions**: Providing suggestions only when the database results are small enough to do so.
+## Policy Compliance Definition
+Policy compliance refers to how well the chatbot adheres to the expected policy protocol, specifically:
+- **Number of Suggestions**: Providing suggestions only when the database results are few enough to do so.
 - **Information Gathering**: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.
-- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.
+- **Appropriate Timing**: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation, before the necessary information is gathered from the user.
+- **Alignment with Policy**: Avoiding actions that do not align with the suggested flow of interaction in the policy, when available.
 
 ## Scoring Guide:
 - **5 (Very Good)**: Response fully follows policy protocol with no errors or omissions.
