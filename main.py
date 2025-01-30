@@ -155,6 +155,9 @@ def gen_conv_agent_results(evaluation_data_path, use_gt_state, agent_client_obj,
                             dial_state[domain][k] = v
                         else:
                             dial_state[domain] = {k: v}
+                    # if no state to parse then create domain in state
+                    if domain not in dial_state:
+                        dial_state[domain] = {}
                 # database retrieval
                 if not turn_state:
                     db_results[domain] = []
