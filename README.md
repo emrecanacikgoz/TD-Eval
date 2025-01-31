@@ -59,38 +59,50 @@ Replace `<your_xxx_api_key>` with the appropriate key.
 ## Running Evaluations
 You can evaluate dialogue agents using the following commands:
 
-1. **Standard evaluation with OpenAI's GPT-4o-mini as the agent and judge:**
+1. **Standard evaluation with OpenAI's GPT-4o-mini as the agent (to generate multiwoz responses) and judge:**
    ```bash
    python main.py --result_path path/to/results.json \
                   --agent_client openai \
                   --llm_agent gpt-4o \
                   --agent_model openai \
-                  --agent_result_path path/to/agent/results.json (optional) \
                   --judge_client openai \
                   --judge_model gpt-4o \
    ```
 
-2. **Evaluation with TogetherAI's meta-llama as judge:**
+2. **Evaluation with TogetherAI's meta-llama as judge. The agent responses for judgement are provided as a json file through (--agent_result_path)**
    ```bash
    python main.py --result_path path/to/results.json \
-                  --llm_agent_client openai \
-                  --llm_agent gpt-4o-mini \
-                  --agent_result_path path/to/agent/results.json (optional) \
+                  --agent_result_path path/to/agent/results.json \
                   --llm_judge_agent_client togetherai \
                   --llm_judge_agent meta-llama/Llama-3.1-405B-Instruct
    ```
 
-3. **Judge GPT-4o-mini with TogetherAI's meta-llama:**
+3. **Judge GPT-4o-mini multiwoz responses with TogetherAI's meta-llama:**
    ```bash
-   python main.py --result_path path/to/results.json \
+   python main.py --dataset_path path/to/dataset.json \
                   --llm_agent_client openai \
                   --llm_agent gpt-4o-mini \
-                  --agent_result_path path/to/agent/results.json (optional) \
                   --llm_judge_agent_client togetherai \
                   --llm_judge_agent meta-llama/Llama-3.1-405B-Instruct-4o
    ```
 
-Customize the `result_path`, `llm_agent_client`, `llm_agent`, `agent_result_path`, `llm_judge_agent_client`, and `llm_judge_agent` parameters as needed.
+4. **Evaluate tau-bench results with TogetherAI's meta-llama as judge (tau-bench dialogue provided as json file in --dataset_path)**
+   ```bash
+   python main.py --dataset_path path/to/dataset.json \
+                  --llm_judge_agent_client togetherai \
+                  --llm_judge_agent meta-llama/Llama-3.1-405B-Instruct-4o \
+                  --tau
+   ```
+
+Customize the `dataset_path`, `agent_client`, `agent_model`, `agent_result_path`, `use_gt_state`, `judge_client`, `judge_model`, and `tau` parameters as needed.
+
+- `dataset_path`: path to dataset of dialogues to either generate agent and judge results.
+- `agent_client`: client provider of agent model (i.e. openai, togetherai, mistral...etc.)
+- `agent_model`: name of agent model (i.e. gpt-4o, mistral-large-latest, claude-3-5-sonnet...etc.)
+- `agent_result_path`: path to previously generated dialogue agent responses, judge will evaluate is file instead of generating agent responses (optional and if used then you don't need to add `agent_client` or `agent_model`).
+- `use_gt_state`: flag to use ground truth dialogue state for response generation (multiwoz only and optional)
+- `judge_client`: client provider of judge model (i.e. openai, togetherai, mistral...etc.)
+- `judge_model`: name of judge model (i.e. gpt-4o, mistral-large-latest, claude-3-5-sonnet...etc.)
 
 ---
 
@@ -106,7 +118,7 @@ Ensure you have the required API keys for the clients you plan to use.
 ---
 
 ## Qualtrics Survey Integration
-TDEval provides a script, `convert_qualtrics.py`, to convert evaluation results into a format compatible with Qualtrics surveys.
+TDEval provides a script, `convert_qualtrics.py`, to convert evaluation results into a format compatible to import as Qualtrics surveys.
 
 ### Usage
 Run the following command to generate a Qualtrics-compatible file:
@@ -142,4 +154,4 @@ python3 convert_qualtrics.py --result_path results/20241121_015210/gpt4o_c-gpt4o
 
 ---
 
-For more information, please contact with authors Emre Can Acikgoz, Carl Guo, and Akul Datta.
+For more information, please contact with authors [Emre Can Acikgoz](acikgoz2@illinois.edu), [Carl Guo](carlguo2@illinois.edu), and [Akul Datta](akuld2@illinois.edu).

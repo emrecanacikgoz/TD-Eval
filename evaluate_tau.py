@@ -78,31 +78,25 @@ def evaluate_tau(judge_client, judge_model, dataset_path):
         return judge_scores, False
     return judge_scores, True
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Evaluate tau-bench TOD agent')
-    parser.add_argument('--dataset_path', type=str, default='datasets/tau_airline_gpt4o.json', help='Path to evaluation data')
-    parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
-    parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
-    args = parser.parse_args()
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-
+def main(dataset_path, judge_client, judge_model):
     # set up TOD judge agent
-    if args.judge_client == 'openai':
+    if judge_client == 'openai':
         judge_client_obj = openai_agent
-    elif args.judge_client == 'togetherai':
+    elif judge_client == 'togetherai':
         judge_client_obj = togetherai_agent
-    elif args.judge_client == 'mistral':
+    elif judge_client == 'mistral':
         judge_client_obj = mistral_agent
-    elif args.judge_client == 'anthropic':
+    elif judge_client == 'anthropic':
         judge_client_obj = anthropic_agent
     else:
         raise ValueError("Invalid client")
-
-    scores, isJudgeSuccess = evaluate_tau(judge_client_obj, args.judge_model, args.dataset_path)
+    
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    scores, isJudgeSuccess = evaluate_tau(judge_client_obj, judge_model, dataset_path)
     judge_metadata = {
-        "filename": args.dataset_path,
-        "judge_client": args.judge_client,
-        "judge_model": args.judge_model
+        "filename": dataset_path,
+        "judge_client": judge_client,
+        "judge_model": judge_model
     }
     judge_output = {
         "metadata": judge_metadata,
@@ -112,13 +106,23 @@ if __name__ == "__main__":
     result_dir = os.path.join('results', 'tau_judge_results')
     result_dir = os.path.join(result_dir, timestamp)
     os.makedirs(result_dir, exist_ok=True)
-    judge_fname = f"tau-{args.judge_model}_j.json"
+    judge_fname = f"tau-{judge_model}_j.json"
     full_result_path = os.path.join(result_dir, judge_fname)
     if not isJudgeSuccess:
         fname_split = full_result_path.split(".")
         full_result_path = f"{fname_split[0]}_CRASHED.{fname_split[1]}"
     with open(full_result_path, 'w') as f:
         json.dump(judge_output, f, indent=4, ensure_ascii=False)
+    return result_dir, full_result_path
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Evaluate tau-bench TOD agent')
+    parser.add_argument('--dataset_path', type=str, default='datasets/tau_airline_gpt4o.json', help='Path to evaluation data')
+    parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
+    parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
+    args = parser.parse_args()
+
+    result_dir, full_result_path = main(args.dataset_path, args.judge_client, args.judge_model)
     postprocess_results(full_result_path, result_dir)
 
     print("Evaluation completed successfully...")

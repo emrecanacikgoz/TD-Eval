@@ -11,6 +11,7 @@ from typing import Dict
 import sys
 import copy
 from random import sample
+from evaluate_tau import main as tau_main
 
 # need to add MultiWOZ_Evaluation to sys.path for absolute imports
 sys.path.insert(0, os.path.abspath("./MultiWOZ_Evaluation"))
@@ -345,9 +346,14 @@ if __name__ == "__main__":
     parser.add_argument('--use_gt_state', action='store_true', help='Uses ground truth state of multiwoz corpus (for debug)')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
+    parser.add_argument('--tau', action='store_true', help='Flag to decide running mwoz or tau')
+
     args = parser.parse_args()
-    # run scoring + judging then post-process
-    result_dir, full_result_path = main(args.agent_client, args.agent_model, args.use_gt_state, args.judge_client, args.judge_model, args.dataset_path, args.agent_result_path)
+    if args.tau:
+        result_dir, full_result_path = tau_main(args.dataset_path, args.judge_client, args.judge_model)
+    else:
+        # run scoring + judging then post-process
+        result_dir, full_result_path = main(args.agent_client, args.agent_model, args.use_gt_state, args.judge_client, args.judge_model, args.dataset_path, args.agent_result_path)
     postprocess_results(full_result_path, result_dir)
 
     print("Evaluation completed successfully...")
