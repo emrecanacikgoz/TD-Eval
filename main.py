@@ -284,6 +284,8 @@ def main(agent_client, agent_model, use_gt_state, judge_client, judge_model, dat
         result_dir = os.path.join(result_dir, timestamp)
         os.makedirs(result_dir, exist_ok=True)
         agent_fname = f"{agent_model}_c.json"
+        # replace slashes in model name with underscore to prevent file create error
+        agent_fname = agent_fname.replace("/", "_")
         full_result_path = os.path.join(result_dir, agent_fname)
         if not isAgentSuccess:
             fname_split = full_result_path.split(".")
@@ -322,6 +324,8 @@ def main(agent_client, agent_model, use_gt_state, judge_client, judge_model, dat
     result_dir = os.path.join(result_dir, timestamp)
     os.makedirs(result_dir, exist_ok=True)
     judge_fname = f"{agent_model}_c-{judge_model}_j.json"
+    # replace slashes in model name with underscore to prevent file create error
+    judge_fname = judge_fname.replace("/", "_")
     full_result_path = os.path.join(result_dir, judge_fname)
     if not isJudgeSuccess:
         fname_split = full_result_path.split(".")
