@@ -346,11 +346,16 @@ if __name__ == "__main__":
     parser.add_argument('--use_gt_state', action='store_true', help='Uses ground truth state of multiwoz corpus (for debug)')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
-    parser.add_argument('--tau', action='store_true', help='Flag to decide running mwoz or tau')
+    # TODO: split between tau_tool and tau_react
+    parser.add_argument('--tau_tool', action='store_true', help='Flag to judge as tau tool calling')
+    parser.add_argument('--tau_react', action='store_true', help='Flag to judge as tau react')
+
 
     args = parser.parse_args()
-    if args.tau:
-        result_dir, full_result_path = tau_main(args.dataset_path, args.judge_client, args.judge_model)
+    if args.tau_tool:
+        result_dir, full_result_path = tau_main(args.dataset_path, args.judge_client, args.judge_model, True)
+    elif args.tau_react:
+        result_dir, full_result_path = tau_main(args.dataset_path, args.judge_client, args.judge_model, False)
     else:
         # run scoring + judging then post-process
         result_dir, full_result_path = main(args.agent_client, args.agent_model, args.use_gt_state, args.judge_client, args.judge_model, args.dataset_path, args.agent_result_path)

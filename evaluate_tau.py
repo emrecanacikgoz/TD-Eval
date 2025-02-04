@@ -7,7 +7,7 @@ from evaluator import judge_tau
 from llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
 from postprocess import postprocess_results
 
-def evaluate_tau(judge_client, judge_model, dataset_path):
+def evaluate_tau_tool_call(judge_client, judge_model, dataset_path):
     with open(dataset_path, 'r') as f:
         dataset = json.load(f)
     judge_scores = {}
@@ -78,7 +78,83 @@ def evaluate_tau(judge_client, judge_model, dataset_path):
         return judge_scores, False
     return judge_scores, True
 
-def main(dataset_path, judge_client, judge_model):
+def evaluate_tau_react(judge_client, judge_model, dataset_path):
+    with open(dataset_path, 'r') as f:
+        dataset = json.load(f)
+    judge_scores = {}
+    try:
+        for dial_ind in tqdm(range(len(dataset))):
+            dial = dataset[dial_ind]['traj']
+            policy = ""
+            dialogue_history = []
+            user_query = ""
+            db_call = {}
+            db_results = ""
+            agent_response = ""
+            turn_responses = []
+            for i in tqdm(range(len(dial))):
+                turn = dial[i]
+                if i == 0:
+                    if turn['role'] != "system":
+                        tqdm.write('Format Error: System policy should be first')
+                        exit()
+                    else: 
+                        policy = turn['content']
+                else:
+                    content = turn['content']
+                    user_str_split = "API output:"
+                    assist_str_split = "Action:"
+                    if turn['role'] == 'user': 
+                        if user_str_split in content:
+                            api_output = content.split(user_str_split, 1)[1]
+                            # check if api output is empty
+                            if api_output.isspace():
+                                api_output = "{}"
+                            db_call[i-1]['output'] = api_output
+                        else:
+                            user_query = f"Customer: {turn['content']}"
+                    elif turn['role'] == 'assistant':
+                        content = content.replace("\n", "")
+                        assist_parts = content.split(assist_str_split, 1)
+                        thought = assist_parts[0]
+                        act = json.loads(assist_parts[1])
+                        if "respond" not in act['name']:
+                            db_call[i] = {'name': act['name'], 'args': json.dumps(act['arguments']), 'thought': thought}
+                        else:
+                            agent_response += f"Agent: {act['arguments']['content']}"
+                            # convert db call to string
+                            for turn, func in db_call.items():
+                                db_results += f"Thought: {func['thought']}\nFunction: {func['name']}\nArgs: {func['args']}\n Output: {func['output']}\n\n"
+                            dial_history = "\n".join(dialogue_history)
+                            scores = judge_tau(dial_history, user_query, db_results, agent_response, policy, judge_client, judge_model)
+                            turn_responses.append({
+                                "turn": i,
+                                "conversation_history": dial_history,
+                                "user": user_query,
+                                "db": db_call,
+                                "response": agent_response,
+                                "scores": scores
+                            })
+                            # print
+                            tqdm.write("dialogue history: " + "\n".join(dialogue_history))
+                            tqdm.write(user_query)
+                            tqdm.write("db call: " + db_results)
+                            tqdm.write(agent_response)
+                            # reset turn
+                            dialogue_history.append(user_query)
+                            dialogue_history.append(agent_response)
+                            # reset variables
+                            user_query = ""
+                            db_call = {}
+                            db_results = ""
+                            agent_response = ""
+            judge_scores[dataset[dial_ind]["task_id"]] = turn_responses
+    except Exception as e:
+        print("error: ", e)
+        return judge_scores, False
+    return judge_scores, True
+
+def main(dataset_path, judge_client, judge_model, is_react):
     # set up TOD judge agent
     if judge_client == 'openai':
         judge_client_obj = openai_agent
@@ -92,7 +168,10 @@ def main(dataset_path, judge_client, judge_model):
         raise ValueError("Invalid client")
     
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    scores, isJudgeSuccess = evaluate_tau(judge_client_obj, judge_model, dataset_path)
+    if is_react:
+        scores, isJudgeSuccess = evaluate_tau_react(judge_client_obj, judge_model, dataset_path)
+    else:
+        scores, isJudgeSuccess = evaluate_tau_tool_call(judge_client_obj, judge_model, dataset_path)
     judge_metadata = {
         "filename": dataset_path,
         "judge_client": judge_client,
@@ -120,9 +199,14 @@ if __name__ == "__main__":
     parser.add_argument('--dataset_path', type=str, default='datasets/tau_airline_gpt4o.json', help='Path to evaluation data')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
+    parser.add_argument('--tau_is_react', action='store_true', help='Flag to judge as react, if not set default to tool calling')
     args = parser.parse_args()
 
-    result_dir, full_result_path = main(args.dataset_path, args.judge_client, args.judge_model)
+    if args.tau_is_react:
+        result_dir, full_result_path = main(args.dataset_path, args.judge_client, args.judge_model, False)
+    else:
+        result_dir, full_result_path = main(args.dataset_path, args.judge_client, args.judge_model, True)
+
     postprocess_results(full_result_path, result_dir)
 
     print("Evaluation completed successfully...")
