@@ -83,7 +83,7 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
         dataset = json.load(f)
     judge_scores = {}
     try:
-        for dial_ind in tqdm(range(len(dataset))):
+        for dial_ind in tqdm(range(8, len(dataset))):
             dial = dataset[dial_ind]['traj']
             policy = ""
             dialogue_history = []
@@ -124,15 +124,33 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
                                 continue
                             action_split = action.split(act_str, 1)
                             thought = action_split[0]
-                            tqdm.write("act:\n" + action_split[1])
-                            act = json.loads(action_split[1])
+                            act_string = action_split[1]
+
+                            name_field = "\"name\": "
+                            name_index = act_string.find(name_field)
+                            arg_field = ", \"arguments\": "
+                            arg_index = act_string.find(arg_field)
+                            last_bracket_index = act_string.rfind("}")
+                            name = act_string[name_index+len(name_field):arg_index]
+                            args = act_string[arg_index+len(arg_field): last_bracket_index]
+                            try:
+                                act = json.loads(act_string[:last_bracket_index+1])
+                            except json.JSONDecodeError:
+                                act = {"name": name, "arguments": args}
                             if "respond" not in act['name']:
                                 if i in db_call:
-                                    db_call[i].append({'name': act['name'], 'args': json.dumps(act['arguments']), 'thought': thought})
+                                    db_call[i].append({'name': act['name'], 'args': json.dumps(act['arguments']) if not isinstance(act['arguments'], str) else act['arguments'], 'thought': thought})
                                 else: 
-                                    db_call[i] = [{'name': act['name'], 'args': json.dumps(act['arguments']), 'thought': thought}]
+                                    db_call[i] = [{'name': act['name'], 'args': json.dumps(act['arguments']) if not  isinstance(act['arguments'], str) else act['arguments'], 'thought': thought}]
                             else:
-                                agent_response += f"Agent: {act['arguments']['content']}"
+                                if isinstance(act['arguments'], str):
+                                    content_field = "\"content\": "
+                                    content_ind = act['arguments'].find(content_field)
+                                    last_bracket_index = act['arguments'].rfind("}")
+                                    response_str = act['arguments'][content_ind+len(content_field):last_bracket_index]
+                                    agent_response += f"Agent: {response_str}"
+                                else:
+                                    agent_response += f"Agent: {act['arguments']['content']}"
                                 # convert db call to string
                                 for turn, funcs in db_call.items():
                                     for f in funcs:
@@ -152,11 +170,6 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
                                     "response": agent_response,
                                     "scores": scores
                                 })
-                                # print
-                                tqdm.write("dialogue history: " + "\n".join(dialogue_history))
-                                tqdm.write(user_query)
-                                tqdm.write("db call: " + db_results)
-                                tqdm.write(agent_response)
                                 # reset turn
                                 dialogue_history.append(user_query)
                                 dialogue_history.append(agent_response)
