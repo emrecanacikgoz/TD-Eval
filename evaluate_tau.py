@@ -102,52 +102,69 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
                         policy = turn['content']
                 else:
                     content = turn['content']
-                    user_str_split = "API output:"
-                    assist_str_split = "Action:"
+                    content = content.replace("\n", "")
                     if turn['role'] == 'user': 
+                        user_str_split = "API output:"
                         if user_str_split in content:
                             api_output = content.split(user_str_split, 1)[1]
                             # check if api output is empty
                             if api_output.isspace():
                                 api_output = "{}"
-                            db_call[i-1]['output'] = api_output
+                            db_call_len = len(db_call[i-1])
+                            db_call[i-1][db_call_len-1]['output'] = api_output
                         else:
                             user_query = f"Customer: {turn['content']}"
                     elif turn['role'] == 'assistant':
-                        content = content.replace("\n", "")
-                        assist_parts = content.split(assist_str_split, 1)
-                        thought = assist_parts[0]
-                        act = json.loads(assist_parts[1])
-                        if "respond" not in act['name']:
-                            db_call[i] = {'name': act['name'], 'args': json.dumps(act['arguments']), 'thought': thought}
-                        else:
-                            agent_response += f"Agent: {act['arguments']['content']}"
-                            # convert db call to string
-                            for turn, func in db_call.items():
-                                db_results += f"Thought: {func['thought']}\nFunction: {func['name']}\nArgs: {func['args']}\n Output: {func['output']}\n\n"
-                            dial_history = "\n".join(dialogue_history)
-                            scores = judge_tau(dial_history, user_query, db_results, agent_response, policy, judge_client, judge_model)
-                            turn_responses.append({
-                                "turn": i,
-                                "conversation_history": dial_history,
-                                "user": user_query,
-                                "db": db_call,
-                                "response": agent_response,
-                                "scores": scores
-                            })
-                            # print
-                            tqdm.write("dialogue history: " + "\n".join(dialogue_history))
-                            tqdm.write(user_query)
-                            tqdm.write("db call: " + db_results)
-                            tqdm.write(agent_response)
-                            # reset turn
-                            dialogue_history.append(user_query)
-                            dialogue_history.append(agent_response)
-                            # reset variables
-                            user_query = ""
-                            db_call = {}
-                            db_results = ""
-                            agent_response = ""
+                        thought_str = "Thought:"
+                        act_str = "Action:"
+                        # model can hallucinate multiple actions apparently...
+                        assist_actions = content.split(thought_str)
+                        for action in assist_actions:
+                            if len(action.strip()) == 0:
+                                continue
+                            action_split = action.split(act_str, 1)
+                            thought = action_split[0]
+                            tqdm.write("act:\n" + action_split[1])
+                            act = json.loads(action_split[1])
+                            if "respond" not in act['name']:
+                                if i in db_call:
+                                    db_call[i].append({'name': act['name'], 'args': json.dumps(act['arguments']), 'thought': thought})
+                                else: 
+                                    db_call[i] = [{'name': act['name'], 'args': json.dumps(act['arguments']), 'thought': thought}]
+                            else:
+                                agent_response += f"Agent: {act['arguments']['content']}"
+                                # convert db call to string
+                                for turn, funcs in db_call.items():
+                                    for f in funcs:
+                                        db_results += f"Thought: {f['thought']}\nFunction: {f['name']}\nArgs: {f['args']}"
+                                        if "output" in f:
+                                            db_results += f"\n Output: {f['output']}\n\n"
+                                        else:
+                                            db_results += "\n\n"
+
+                                dial_history = "\n".join(dialogue_history)
+                                scores = judge_tau(dial_history, user_query, db_results, agent_response, policy, judge_client, judge_model)
+                                turn_responses.append({
+                                    "turn": i,
+                                    "conversation_history": dial_history,
+                                    "user": user_query,
+                                    "db": db_call,
+                                    "response": agent_response,
+                                    "scores": scores
+                                })
+                                # print
+                                tqdm.write("dialogue history: " + "\n".join(dialogue_history))
+                                tqdm.write(user_query)
+                                tqdm.write("db call: " + db_results)
+                                tqdm.write(agent_response)
+                                # reset turn
+                                dialogue_history.append(user_query)
+                                dialogue_history.append(agent_response)
+                                # reset variables
+                                user_query = ""
+                                db_call = {}
+                                db_results = ""
+                                agent_response = ""
             judge_scores[dataset[dial_ind]["task_id"]] = turn_responses
     except Exception as e:
         print("error: ", e)
@@ -199,13 +216,13 @@ if __name__ == "__main__":
     parser.add_argument('--dataset_path', type=str, default='datasets/tau_airline_gpt4o.json', help='Path to evaluation data')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
-    parser.add_argument('--tau_is_react', action='store_true', help='Flag to judge as react, if not set default to tool calling')
+    parser.add_argument('--is_react', action='store_true', help='Flag to judge as react, if not set default to tool calling')
     args = parser.parse_args()
 
-    if args.tau_is_react:
-        result_dir, full_result_path = main(args.dataset_path, args.judge_client, args.judge_model, False)
-    else:
+    if args.is_react:
         result_dir, full_result_path = main(args.dataset_path, args.judge_client, args.judge_model, True)
+    else:
+        result_dir, full_result_path = main(args.dataset_path, args.judge_client, args.judge_model, False)
 
     postprocess_results(full_result_path, result_dir)
 

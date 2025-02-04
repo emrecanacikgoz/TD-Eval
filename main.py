@@ -353,9 +353,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.tau_tool:
-        result_dir, full_result_path = tau_main(args.dataset_path, args.judge_client, args.judge_model, True)
-    elif args.tau_react:
         result_dir, full_result_path = tau_main(args.dataset_path, args.judge_client, args.judge_model, False)
+    elif args.tau_react:
+        result_dir, full_result_path = tau_main(args.dataset_path, args.judge_client, args.judge_model, True)
     else:
         # run scoring + judging then post-process
         result_dir, full_result_path = main(args.agent_client, args.agent_model, args.use_gt_state, args.judge_client, args.judge_model, args.dataset_path, args.agent_result_path)
