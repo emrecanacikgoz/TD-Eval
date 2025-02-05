@@ -7,6 +7,8 @@ from evaluator import judge_tau
 from llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
 from postprocess import postprocess_results
 
+import sys
+
 def evaluate_tau_tool_call(judge_client, judge_model, dataset_path):
     with open(dataset_path, 'r') as f:
         dataset = json.load(f)
@@ -74,6 +76,9 @@ def evaluate_tau_tool_call(judge_client, judge_model, dataset_path):
                         agent_response = ""
             judge_scores[dataset[dial_ind]["task_id"]] = turn_responses
     except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type, fname, exc_tb.tb_lineno)
         print("error: ", e)
         return judge_scores, False
     return judge_scores, True
@@ -83,7 +88,7 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
         dataset = json.load(f)
     judge_scores = {}
     try:
-        for dial_ind in tqdm(range(8, len(dataset))):
+        for dial_ind in tqdm(range(len(dataset))):
             dial = dataset[dial_ind]['traj']
             policy = ""
             dialogue_history = []
@@ -123,6 +128,10 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
                             if len(action.strip()) == 0:
                                 continue
                             action_split = action.split(act_str, 1)
+                            # skip invalid strings
+                            if len(action_split) < 2:
+                                continue
+                            tqdm.write("action: " + str(action_split))
                             thought = action_split[0]
                             act_string = action_split[1]
 
@@ -170,6 +179,11 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
                                     "response": agent_response,
                                     "scores": scores
                                 })
+
+                                tqdm.write("dialogue history: " + "\n".join(dialogue_history))
+                                tqdm.write(user_query)
+                                tqdm.write("db call: " + db_results)
+                                tqdm.write(agent_response)
                                 # reset turn
                                 dialogue_history.append(user_query)
                                 dialogue_history.append(agent_response)
@@ -180,6 +194,9 @@ def evaluate_tau_react(judge_client, judge_model, dataset_path):
                                 agent_response = ""
             judge_scores[dataset[dial_ind]["task_id"]] = turn_responses
     except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type, fname, exc_tb.tb_lineno)
         print("error: ", e)
         return judge_scores, False
     return judge_scores, True
