@@ -64,6 +64,7 @@ The chatbot response should depend on the database results and dialogue history:
 </ul>
 <br/><br/>
 
+<strong>Scoring Scale</strong><br/>
 <ol>
 <li><strong>Very Good</strong>: Response fully follows policy protocol with no errors or omissions.</li>
 <li><strong>Good</strong>: Response mostly follows policy protocol, with only minor room for improvement.</li>
