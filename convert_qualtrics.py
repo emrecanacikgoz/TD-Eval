@@ -3,7 +3,66 @@ import json
 import os
 import qualtrics_utils as qu
 
-def add_tau_q(batch: dict, tau_retail_path: str, tau_airline_path: str):
+def parse_db_tau_tool_call(db_dict: dict):
+    db_str = ""
+    for f_name, f_args in db_dict.items():
+        db_fname = f"<br/>\nFunction: {f_name}\n"
+        db_fargs = f'<br/>\nArgs: {f_args["args"]}\n'
+        db_fout = f_args["output"]
+
+        try:
+            db_results = json.loads(db_fout)
+        except json.JSONDecodeError as e:
+            print("error:", e)
+            print(db_fout)
+            db_results = db_fout
+
+        # if isinstance(db_results, str):
+        #     db_items = db_fout
+        # else: 
+        db_items = "<br/>\nOutput:\n"
+        if isinstance(db_results, list):
+            db_items += "<ul>\n"
+            for items in db_results:
+                db_items += f"\n<li>{str(items)}</li>"
+
+            db_items += "\n</ul>"
+        else:
+            db_items += f"<ul>\n<li>{db_results}</li>\n</ul>"
+        db_str += f"{db_fname}{db_fargs}{db_items}<br/>\n"
+    return db_str
+
+def parse_db_tau_react(db_dict: dict):
+    db_str = ""
+    for turn, funcs in db_dict.items():
+        for f in funcs:
+            db_fname = f"<br/>\nFunction: {f["name"]}\n"
+            db_fargs = f'<br/>\nArgs: {f["args"]}\n'
+            db_fout = f["output"] if "output" in f else "{}"
+
+            try:
+                db_results = json.loads(db_fout)
+            except json.JSONDecodeError as e:
+                print("error:", e)
+                print(db_fout)
+                db_results = db_fout
+
+            # if isinstance(db_results, str):
+            #     db_items = db_fout
+            # else: 
+            db_items = "<br/>\nOutput:\n"
+            if isinstance(db_results, list):
+                db_items += "<ul>\n"
+                for items in db_results:
+                    db_items += f"\n<li>{str(items)}</li>"
+
+                db_items += "\n</ul>"
+            else:
+                db_items += f"<ul>\n<li>{db_results}</li>\n</ul>"
+            db_str += f"{db_fname}{db_fargs}{db_items}<br/>\n"
+    return db_str
+
+def add_tau_q(batch: dict, tau_retail_path: str, tau_airline_path: str, tau_react: bool):
     # load data
     retail_data = None
     with open(tau_retail_path, 'r') as fRes:
@@ -21,8 +80,7 @@ def add_tau_q(batch: dict, tau_retail_path: str, tau_airline_path: str):
 
     # validate batches on tau
     batch_dials = {}
-    tau_batch_ids = batch["tau"]["gpt-4o"]
-    print(tau_batch_ids)
+    tau_batch_ids = batch["tau"]
 
     tau_retail_dialogues = retail_data["dialogues"]
     for dial_id, dial_turns in tau_retail_dialogues.items():
@@ -35,14 +93,16 @@ def add_tau_q(batch: dict, tau_retail_path: str, tau_airline_path: str):
             batch_dials[dial_id] = dial_turns
 
     # read to txt file
-    survey_output = qu.survey_header + qu.instr_prefix
+    survey_output = "" #qu.survey_header + qu.instr_prefix
     # read dialogues
     for dial_id, dial_turns in batch_dials.items():
         survey_output += qu.dial_block_prefix.format(index=dial_id)
         turn_eval_hist = ""
         dial_eval_hist = ""
         for turn in dial_turns:
-            user_turn = f"<strong>User:</strong> {turn['user']} <br/>\n"
+            user_str = turn['user'].replace('Customer:', "")
+            user_turn = f"<strong>User:</strong> {user_str} <br/>\n"
+
             dial_eval_hist += user_turn
             turn_eval_hist += user_turn
 
@@ -50,38 +110,19 @@ def add_tau_q(batch: dict, tau_retail_path: str, tau_airline_path: str):
             if not turn["db"]:
                 db_str = "Nothing Found"
             else:
-                for f_name, f_args in turn["db"].items():
-                    db_fname = f"<br/>\Function: {f_name}\n"
-                    db_fargs = f'<br/>\Args: {f_args["args"]}\n'
-                    db_fout = f_args["output"]
-
-                    try:
-                        db_results = json.loads(db_fout)
-                    except json.JSONDecodeError as e:
-                        print(e)
-                        db_results = db_fout
-
-                    if isinstance(db_results, str):
-                        db_items = db_fout
-                    else: 
-                        if isinstance(db_results, list):
-                            db_items = "<ul>\n"
-                            for items in db_results:
-                                db_items += f"\n<li>{str(items)}</li>"
-
-                            db_items += "\n</ul>"
-                        else:
-                            db_items = f"<ul>\n<li>{db_results}</li>\n</ul>"
-                    db_str = f"{db_fname}{db_fargs}{db_items}<br/>\n"
-
-
+                if tau_react:
+                    db_str = parse_db_tau_react(turn["db"])
+                else:
+                    db_str = parse_db_tau_tool_call(turn["db"])
             # db = str(turn["db"][domain]) if domain in turn["db"] else str({})
             db = f"<strong>Database Result</strong>: {db_str} <br/>\n"
             # turn_eval_hist += db
-            agent_resp = turn['response']
-            survey_output += qu.matrix_q_format.format(dial_hist=dial_eval_hist, db_results=db, agent_resp=agent_resp)
-            resp = f"<strong>Agent:</strong> {turn['response']} <br/>\n"  
-            # gt_resp = f"<strong>Agent:</strong> {turn['ground_truth']} <br/>\n"
+            # agent_resp = turn['response']
+
+            resp_str = turn['response'].replace('Agent:', "")
+            survey_output += qu.matrix_q_format.format(dial_hist=dial_eval_hist, db_results=db, agent_resp=resp_str)
+            
+            resp = f"<strong>Agent:</strong> {resp_str} <br/>\n"  
             turn_eval_hist += resp
             dial_eval_hist += resp    
         survey_output += qu.dial_completion_rate_q.format(dial_hist=turn_eval_hist)
@@ -136,16 +177,16 @@ def add_mwoz_q(batch: dict, mwoz_path: str):
             db = f"<strong>Database Result</strong>: {db_str} <br/>\n"
             # turn_eval_hist += db
             agent_resp = turn['lex_response']
-            survey_output += qu.matrix_q_format.format(dial_hist=dial_eval_hist, db_results=db, agent_resp=agent_resp)
+            survey_output += qu.matrix_q_format.format(dial_hist=turn_eval_hist, db_results=db, agent_resp=agent_resp)
             resp = f"<strong>Agent:</strong> {turn['lex_response']} <br/>\n"  
             gt_resp = f"<strong>Agent:</strong> {turn['ground_truth']} <br/>\n"
             turn_eval_hist += gt_resp
             dial_eval_hist += resp    
-        survey_output += qu.dial_completion_rate_q.format(dial_hist=turn_eval_hist)
-        survey_output += qu.dial_satisfaction_rate_q.format(dial_hist=turn_eval_hist)
+        survey_output += qu.dial_completion_rate_q.format(dial_hist=dial_eval_hist)
+        survey_output += qu.dial_satisfaction_rate_q.format(dial_hist=dial_eval_hist)
     return survey_output
 
-def main(batch_path: str, mwoz_path: str, tau_retail_path: str, tau_airline_path: str, output_name: str):
+def main(batch_path: str, mwoz_path: str, tau_retail_path: str, tau_airline_path: str, tau_react: bool, output_name: str):
     # load batches
     batch = None
     with open(batch_path, 'r') as fBatch:
@@ -154,7 +195,7 @@ def main(batch_path: str, mwoz_path: str, tau_retail_path: str, tau_airline_path
         print('No batches found at this path:', batch_path)
         exit()
     mwoz_survey_output = add_mwoz_q(batch, mwoz_path)
-    tau_survey_output = add_tau_q(batch, tau_retail_path, tau_airline_path)
+    tau_survey_output = add_tau_q(batch, tau_retail_path, tau_airline_path, tau_react)
     # read to txt file
     output_path = os.path.join("qualtrics", output_name)
     with open(output_path, 'w') as fOut:
@@ -164,11 +205,12 @@ def main(batch_path: str, mwoz_path: str, tau_retail_path: str, tau_airline_path
 # example: python3 convert_qualtrics.py --result_path results/openai/gpt4omini-c_gpt4omini-j.json --output_path qualtrics.txt
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Import Jsonl results to qualtrics human evaluation')
+    parser.add_argument('--batch_path', type=str, default='datasets/batch.jsonl', help='path to dialogue batches for qualtrics.')
     parser.add_argument('--mwoz_path', type=str, help='path to jsonl result file')
     parser.add_argument('--tau_retail_path', type=str, help='path to jsonl result file')
     parser.add_argument('--tau_airline_path', type=str, help='path to jsonl result file')
-    parser.add_argument('--batch_path', type=str, default='datasets/batch.jsonl', help='path to dialogue batches for qualtrics.')
+    parser.add_argument('--tau_react', action='store_true', help='extraction changes to match tau bench reat formatting')
     parser.add_argument('--output_name', type=str, default='qualtrics.txt', help='output file name for qualtrics txt file')
     args = parser.parse_args()
-    main(args.batch_path, args.mwoz_path, args.tau_retail_path, args.tau_airline_path, args.output_name)
+    main(args.batch_path, args.mwoz_path, args.tau_retail_path, args.tau_airline_path, args.tau_react, args.output_name)
 
