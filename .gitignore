@@ -187,3 +187,6 @@ MultiWOZ_Evaluation/mwzeval/data/gold_states.json
 MultiWOZ_Evaluation/mwzeval/data/references/mwz22.json
 stats/
 human_eval_results/
+agreement_scores/
+datasets/pilot_batch.json
+tmp.bash
