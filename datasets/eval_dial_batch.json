@@ -1,20 +1,28 @@
 {
     "mwoz": [
         "pmul1537", 
-        "sng0423", 
-        "pmul2848", 
-        "mul0890", 
-        "mul0034" 
+        "pmul2437", 
+        "sng0979", 
+        "sng0616" 
     ],
     "tau": {
         "retail": [
-            "16",
-            "25",
-            "23"
+            "40",
+            "21"
         ],
         "airline": [
-            "1",
+            "6",
             "32"
         ]
-    }
+    },
+    "order": [
+        {"id": "pmul1537", "type": "mwoz"},
+        {"id": "pmul2437", "type": "mwoz"},
+        {"id": "sng0979", "type": "mwoz"},
+        {"id": "sng0616", "type": "mwoz"},
+        {"id": "40", "type": "tau_retail"}, 
+        {"id": "21", "type": "tau_retail"}, 
+        {"id": "6", "type": "tau_airline"},
+        {"id": "32", "type": "tau_airline"}
+    ]
 }

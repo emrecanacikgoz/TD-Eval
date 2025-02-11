@@ -179,8 +179,8 @@ def add_mwoz_q(batch: dict, mwoz_path: str):
             agent_resp = turn['lex_response']
             survey_output += qu.matrix_q_format.format(dial_hist=turn_eval_hist, db_results=db, agent_resp=agent_resp)
             resp = f"<strong>Agent:</strong> {turn['lex_response']} <br/>\n"  
-            gt_resp = f"<strong>Agent:</strong> {turn['ground_truth']} <br/>\n"
-            turn_eval_hist += gt_resp
+            # gt_resp = f"<strong>Agent:</strong> {turn['ground_truth']} <br/>\n"
+            turn_eval_hist += resp # gt_resp
             dial_eval_hist += resp    
         survey_output += qu.dial_completion_rate_q.format(dial_hist=dial_eval_hist)
         survey_output += qu.dial_satisfaction_rate_q.format(dial_hist=dial_eval_hist)

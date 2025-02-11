@@ -5,7 +5,7 @@ survey_header = """
 instr_prefix = """
 [[Block:Instructions]]
 [[Question:Text]]
-Thank you for participating in this annotation task. We have provided 20 dialogues where an AI agent is responding to a user request, and we want you to evaluate the responses. This survey should take roughly 60-75 minutes. Progress will be saved automatically, so you can complete it in multiple sessions, but <strong>make sure you are using the same browser each time.</strong> Please rate individual dialogue responses of AI agents from 1 (worst) to 5 (best) on the following qualities: Conversation Consistency, Backend Knowledge Consistency, and Policy Completeness, the metric definitions are below. In addition, please rate the full dialogue in terms of task completion and response coherence. <br/><br/>
+Thank you for participating in this annotation task. We have provided 20 dialogues where an AI agent is responding to a user request, and we want you to evaluate the responses. This survey should take roughly 60-75 minutes. Progress will be saved automatically, so you can complete it in multiple sessions, but <strong>make sure you are using the same browser each time.</strong> Please rate individual dialogue responses of AI agents from 1 (worst) to 5 (best) on the following qualities: Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance, the metric definitions are below. In addition, please rate the full dialogue in terms of task completion and response coherence. <br/><br/>
 
 <strong>Conversation Consistency</strong><br/>
 How much an agent's response align with the context of conversation context. </br>
@@ -90,12 +90,12 @@ Read the dialogue context below:<br/><br/>
 <hr>
 <br/><br/>
 
-Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Completeness from 1 to 5 for the above response.<br/><br/>
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
 
 [[Choices]]
 Conversation Consistency
 Backend Knowledge Consistency
-Policy Completeness
+Policy Compliance
 
 [[AdvancedAnswers]]
 [[Answer]]
