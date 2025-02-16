@@ -25,7 +25,7 @@ def calculate_confidence_interval(elo_history, confidence=0.95):
     final_elo = elo_history[-1]
     return (final_elo - margin_error, final_elo + margin_error), z_score
 
-def get_judge_comparison(conv_a, conv_b, judge_agent, max_retries=5, retry_delay=60):
+def get_judge_comparison(conv_a, conv_b, judge_agent, judge_agent_type, max_retries=5, retry_delay=60):
     conv_a_formatted = "\n".join([
         f"User: {turn['user']}\nAssistant: {turn.get('lex_response', turn.get('response', ''))}"
         for turn in conv_a
@@ -74,7 +74,7 @@ EQUAL if they were roughly equivalent
 
     for attempt in range(max_retries):
         try:
-            response = str(judge_agent(prompt))  # Ensure response is a string
+            response = str(judge_agent(prompt, model=judge_agent_type))  # Ensure response is a string
             if "CONVERSATION_A" in response.upper():
                 return 1.0, response, conv_a_formatted, conv_b_formatted
             elif "CONVERSATION_B" in response.upper():
@@ -95,7 +95,7 @@ def load_conversations(filename):
     print(f"File {filename}: {len(data['dialogues'])} conversations")
     return data
 
-def run_elo_tournament(input_files, judge_name, existing_results=None, total_rounds=None):
+def run_elo_tournament(input_files, judge_name, judge_agent_type, existing_results=None, total_rounds=None):
     print("\nLoading conversation files:")
 
     if existing_results:
@@ -198,7 +198,7 @@ def run_elo_tournament(input_files, judge_name, existing_results=None, total_rou
                     'ground_truth': turn.get('ground_truth', '')
                 } for turn in model_convs[model_b]['dialogues'][list(model_convs[model_b]['dialogues'].keys())[conv_idx]]]
                 
-                score, judge_response, conv_a_fmt, conv_b_fmt = get_judge_comparison(conv_a, conv_b, judge_agent)
+                score, judge_response, conv_a_fmt, conv_b_fmt = get_judge_comparison(conv_a, conv_b, judge_agent, judge_agent_type)
                 change_a, change_b = calculate_elo_change(model_elos[model_a], model_elos[model_b], score)
                 elo_changes[model_a].append(change_a)
                 elo_changes[model_b].append(change_b)
@@ -379,6 +379,7 @@ if __name__ == "__main__":
         final_results, final_extended_results, new_detailed_comparisons, new_metadata = run_elo_tournament(
             new_models,
             args.judge,
+            args.judge_agent,
             existing_results=existing_extended_results,
             total_rounds=existing_rounds,
         )
