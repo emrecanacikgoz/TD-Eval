@@ -10,8 +10,11 @@ import numpy as np
 from collections import OrderedDict, defaultdict
 from scipy import stats
 import sys
+import certifi
 
-RANDOMIZE_CONV_ORDER = True  # Toggle to enable/disable conversation order randomization
+certifi.where()
+
+RANDOMIZE_CONV_ORDER = False
 
 def calculate_elo_change(rating_a, rating_b, score, k=32):
     expected_a = 1 / (1 + 10**((rating_b - rating_a) / 400))
@@ -37,11 +40,15 @@ def get_judge_comparison(conv_a, conv_b, judge_agent, judge_agent_type, max_retr
         swap_occurred = False
 
     conv_a_formatted = "\n".join([
-        f"User: {turn['user']}\nAssistant: {turn.get('lex_response', turn.get('response', ''))}\nDatabase: {turn.get('db', {})}\nGround Truth: {turn.get('ground_truth', '')}"
-        for turn in conv_a
+    f"User: {turn['user']}\nAssistant: {turn.get('lex_response', turn.get('response', ''))}" + 
+    (f"\nDatabase: {turn.get('db', {})}" if turn.get('db') else "") + 
+    (f"\nGround Truth: {turn.get('ground_truth', '')}" if turn.get('ground_truth') else "")
+    for turn in conv_a
     ])
     conv_b_formatted = "\n".join([
-        f"User: {turn['user']}\nAssistant: {turn.get('lex_response', turn.get('response', ''))}\nDatabase: {turn.get('db', {})}\nGround Truth: {turn.get('ground_truth', '')}"
+        f"User: {turn['user']}\nAssistant: {turn.get('lex_response', turn.get('response', ''))}" + 
+        (f"\nDatabase: {turn.get('db', {})}" if turn.get('db') else "") + 
+        (f"\nGround Truth: {turn.get('ground_truth', '')}" if turn.get('ground_truth') else "")
         for turn in conv_b
     ])
 
@@ -72,6 +79,9 @@ Consider the following aspects in order of importance:
 - **Task Completion**: Whether the assistant successfully completes all tasks and fulfills the user's requests.
 
 IMPORTANT: When comparing conversations, prioritize accuracy and correct use of database/ground truth information above all other aspects. A model that provides accurate information should be rated higher than one with better conversational flow but less accuracy.
+IMPORTANT: The "database" information during the query is per turn. In some messages it is alright to leave empty, it is up to you to decide. 
+IMPORTANT: If the database query doesn't look like it is there but the response afterward looks correct, assume the database has been queried.
+IMPORTANT: All else equal, the shorter result is better.
 
 Conversation A:
 {conv_a_formatted}
@@ -80,10 +90,13 @@ Conversation B:
 {conv_b_formatted}
 
 Based on the above criteria (especially accuracy and correct use of database/ground truth), which conversation demonstrated better performance?
-Answer with ONLY ONE of these exact responses:
+Answer first with ONLY ONE of these exact responses:
 CONVERSATION_A - if Conversation A was better (especially in terms of accuracy and database usage)
 CONVERSATION_B - if Conversation B was better (especially in terms of accuracy and database usage)
-EQUAL - if both conversations were truly equivalent in accuracy and overall performance"""
+EQUAL - if both conversations were truly equivalent in accuracy and overall performance
+
+Then after responding that give a concise and specific (give at least 2 examples on BOTH 1. why the winning conversation was better and 2. how the other conversation was worse) justification on why.
+"""
 
     for attempt in range(max_retries):
         try:
@@ -195,28 +208,59 @@ def run_elo_tournament(input_files, judge_name, judge_agent_type, existing_resul
     while completed_rounds < total_rounds:
         pairs = [(a, b) for idx, a in enumerate(all_models)
                  for b in all_models[idx + 1:]
-                 if (a in input_files or b in input_files)]  # Only compare if at least one is new
+                 if (a in input_files or b in input_files)]
 
-        # Ensure same conversation index is used for all pairs in the round
         conv_idx = completed_rounds % min_convs
         for model_a, model_b in pairs:
             try:
-                # Extract relevant fields for conv_a and conv_b
-                conv_a = [{
-                    'conversation_history': turn['conversation_history'],
-                    'user': turn['user'],
-                    'db': turn['db'],
-                    'lex_response': turn.get('lex_response', turn.get('response', '')),
-                    'ground_truth': turn.get('ground_truth', '')
-                } for turn in model_convs[model_a]['dialogues'][list(model_convs[model_a]['dialogues'].keys())[conv_idx]]]
-                conv_b = [{
-                    'conversation_history': turn['conversation_history'],
-                    'user': turn['user'],
-                    'db': turn['db'],
-                    'lex_response': turn.get('lex_response', turn.get('response', '')),
-                    'ground_truth': turn.get('ground_truth', '')
-                } for turn in model_convs[model_b]['dialogues'][list(model_convs[model_b]['dialogues'].keys())[conv_idx]]]
-                
+                conv_a = []
+                for turn in model_convs[model_a]['dialogues'][list(model_convs[model_a]['dialogues'].keys())[conv_idx]]:
+                    db_info = turn['db']
+                    if any(key.isdigit() for key in db_info.keys() if isinstance(key, str)):
+                        restructured_db = {}
+                        for _, calls in db_info.items():
+                            for call in calls:
+                                if 'name' in call and 'output' in call:
+                                    restructured_db[call['name']] = {
+                                        'args': call.get('args', ''),
+                                        'output': call['output']
+                                    }
+                        db_info = restructured_db
+                        
+                    turn_data = {
+                        'conversation_history': turn['conversation_history'],
+                        'user': turn['user'],
+                        'db': db_info,
+                        'lex_response': turn.get('lex_response', turn.get('response', '')),
+                        'ground_truth': turn.get('ground_truth', '')
+                    }
+                    conv_a.append(turn_data)
+                    # print("DATABASE FOR CONV A:", turn['db'])
+
+                conv_b = []
+                for turn in model_convs[model_b]['dialogues'][list(model_convs[model_b]['dialogues'].keys())[conv_idx]]:
+                    db_info = turn['db']
+                    if any(key.isdigit() for key in db_info.keys() if isinstance(key, str)):
+                        restructured_db = {}
+                        for _, calls in db_info.items():
+                            for call in calls:
+                                if 'name' in call and 'output' in call:
+                                    restructured_db[call['name']] = {
+                                        'args': call.get('args', ''),
+                                        'output': call['output']
+                                    }
+                        db_info = restructured_db
+                        
+                    turn_data = {
+                        'conversation_history': turn['conversation_history'],
+                        'user': turn['user'],
+                        'db': db_info,
+                        'lex_response': turn.get('lex_response', turn.get('response', '')),
+                        'ground_truth': turn.get('ground_truth', '')
+                    }
+                    conv_b.append(turn_data)
+                    # print("DATABASE FOR CONV B:", turn['db'])
+                # print("------------------------------------------------------------")
                 score, judge_response, conv_a_fmt, conv_b_fmt = get_judge_comparison(conv_a, conv_b, judge_agent, judge_agent_type)
                 change_a, change_b = calculate_elo_change(model_elos[model_a], model_elos[model_b], score)
                 
@@ -395,7 +439,6 @@ if __name__ == "__main__":
                 existing_extended_results = existing_extended_data['results']
                 existing_detailed_comparisons = existing_extended_data.get('detailed_comparisons', [])
 
-        # Get new models that aren't in existing results - use full path as key
         existing_models = set(existing_results.keys())
         new_models = [f for f in args.input_files if f not in existing_models]
 
@@ -411,7 +454,6 @@ if __name__ == "__main__":
             total_rounds=existing_rounds,
         )
 
-        # Preserve existing results while adding new ones
         for model, result in existing_results.items():
             if model not in final_results:
                 final_results[model] = result
@@ -441,7 +483,7 @@ if __name__ == "__main__":
             args.judge_agent,
             total_rounds=args.rounds
         )
-        new_metadata['judge_model'] = args.judge_agent  # correctly set
+        new_metadata['judge_model'] = args.judge_agent
 
         merged_metadata = {
             'judge_models': [new_metadata['judge_model']],
@@ -452,7 +494,7 @@ if __name__ == "__main__":
             'min_conversations': new_metadata['min_conversations'],
             'comparisons_per_round': new_metadata['comparisons_per_round'],
             'last_update': new_metadata['timestamp'],
-            'judge_agent': args.judge_agent  # Add here too
+            'judge_agent': args.judge_agent
         }
 
         existing_detailed_comparisons = []
