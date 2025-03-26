@@ -38,7 +38,7 @@ def process_extracted_human_csv_data(input_file, batch_dialogues, batch_order):
     """Read CSV data and convert to appropriate format"""
     eval_csv = pd.read_csv(input_file, on_bad_lines='warn') 
     start_col = 'QID3_1'
-    end_col = 'QID80' # QID83 QID76 QID83 QID91 QID80
+    end_col = 'QID83' # QID83 QID76 QID83 QID91 QID80
     search_str = '2025'
     turn_result = {}
     dial_result = {}
@@ -259,19 +259,22 @@ def calculate_human_llm_corr(human_scores, llm_scores):
         # print(f"llm_turn_scores[{metric}]: ", llm_turn_scores)
 
         avg_dial_human_score = np.array(human_scores[f"dial_{metric}"])
-        print(f"human_scores[dial_{metric}]: ", avg_dial_human_score)
+        # print(f"human_scores[dial_{metric}]: ", avg_dial_human_score)
         avg_dial_llm_scores = np.array(llm_scores[f"dial_{metric}"])
-        print(f"llm_scores[dial_{metric}]: ", avg_dial_llm_scores)
+        # print(f"llm_scores[dial_{metric}]: ", avg_dial_llm_scores)
 
         pear_stat, pear_pval = stats.pearsonr(x=avg_dial_human_score, y=avg_dial_llm_scores)
         print("pearson: ", pear_stat, pear_pval)
         spear_stat, spear_pval = stats.spearmanr(a=avg_dial_human_score, b=avg_dial_llm_scores)
         print("spearman: ", pear_stat, pear_pval)
 
+        # pear_mwoz_stat, pear_mwoz_pval = stats.pearsonr(x=avg_dial_human_score[:4], y=avg_dial_llm_scores[:4])
+        # print("mwoz pearson: ", pear_mwoz_stat, pear_mwoz_pval)
+        # pear_tau_stat, pear_tau_pval = stats.pearsonr(x=avg_dial_human_score[4:], y=avg_dial_llm_scores[4:])
+        # print("tau pearson: ", pear_tau_stat, pear_tau_pval)
+
         bin_human_metric_scores = np.where(human_turn_scores > 3, 1, 0)
-        print(f"bin_human_scores[{metric}]:", bin_human_metric_scores)
         bin_llm_metric_scores =  np.where(llm_turn_scores > 3, 1, 0)
-        print(f"bin_llm_scores[{metric}]:", bin_llm_metric_scores)
 
         # bin_pear_stat, bin_pear_pval = stats.pearsonr(x=bin_human_metric_scores, y=bin_llm_metric_scores)
         # print(f"bin_pearson: ", bin_pear_stat, bin_pear_pval)
@@ -283,6 +286,11 @@ def calculate_human_llm_corr(human_scores, llm_scores):
         bin_processed_scores = np.array([bin_human_metric_scores, bin_llm_metric_scores]).T
         f_kappa = calculate_fleiss_kappa(processed_scores, 5)
         bin_f_kappa = calculate_fleiss_kappa(bin_processed_scores, 2)
+
+        c_kappa = calculate_cohen_kappa(processed_scores, 5)
+        bin_c_kappa = calculate_cohen_kappa(bin_processed_scores, 5)
+        print("c_kappa", c_kappa)
+        print("bin_c_kappa", bin_c_kappa)
 
         human_llm_agreement[metric] = {
             'pearson': {
