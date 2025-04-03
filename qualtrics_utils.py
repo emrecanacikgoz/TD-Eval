@@ -110,14 +110,14 @@ Good
 Very Good
 """
 
-dial_completion_rate_q = """
+dial_conv_rate_q = """
 [[Question:MC:SingleAnswer:Horizontal]]
 Read the dialogue context below:<br/><br/>
 <hr>
 {dial_hist}<br/>
 <hr>
 <br/>
-Task Completion: Rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's ability to <strong>fully answer the users' queries?</strong> <br/><br/>
+Conversation Consistency: Rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>conversation consistency ability for the whole dialogue</strong>? <br/><br/>
 
 [[Choices]]
 Very Bad
@@ -127,13 +127,14 @@ Good
 Very Good
 """
 
-dial_satisfaction_rate_q = """
+dial_backend_rate_q = """
 [[Question:MC:SingleAnswer:Horizontal]]
 Read the dialogue context below:<br/><br/>
 <hr>
 {dial_hist}
-<hr><br/>
-Response Coherence: Rate your satisfaction with the chatbot's answers to the user's questions. How would you rate your satisfaction with bot's responses in terms of being <strong>easy to understand and helpful?</strong> <br/><br/>
+<hr>
+<br/>
+Backend Knowledge Consistency: Rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>backend knowledge consistency ability for the whole dialogue</strong>? <br/><br/>
 
 [[Choices]]
 Very Bad
@@ -141,4 +142,51 @@ Bad
 Fair
 Good
 Very Good
+"""
+
+dial_policy_rate_q = """
+[[Question:MC:SingleAnswer:Horizontal]]
+Read the dialogue context below:<br/><br/>
+<hr>
+{dial_hist}
+<hr>
+<br/>
+Policy Compliance: Rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>policy compliance ability for the whole dialogue</strong>? <br/><br/>
+
+[[Choices]]
+Very Bad
+Bad
+Fair
+Good
+Very Good
+"""
+
+dial_eval_q = """
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+{dial_hist}
+<hr>
+<br/>
+<strong>For the whole dialogue</strong> rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>conversation consistency, backend knowledge consistency, and policy compliance</strong> ability? <br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above conversation.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
 """

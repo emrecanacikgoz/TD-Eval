@@ -28,7 +28,7 @@ def evaluate_mwoz_react(judge_client, judge_model, dataset_path):
         dataset = json.load(f)
     judge_scores = {}
     try:
-        for dial_id, dial_info in tqdm(dataset.items()):#tqdm(len(dataset)):
+        for dial_id, dial_info in tqdm(dataset.items()):
             dial = dial_info['log']
             policy = ""
             domain = ""
@@ -38,7 +38,7 @@ def evaluate_mwoz_react(judge_client, judge_model, dataset_path):
             db_results = ""
             agent_response = ""
             turn_responses = []
-            api_pattern = r"API Name:(.*?)\nAPI Input:(.*?)\n(?:API Result:(.*?)\n)?"
+            api_pattern = r"API Name:(.*?)\nAPI Input:(.*?)\n(?:API Result:(.*?))$"
             response_pattern = r"Response:(.*?)(?=Thought:|API Name:|\n```|$)"
             # get policy from goal field
             policy = dial_info['goal']
@@ -69,10 +69,12 @@ def evaluate_mwoz_react(judge_client, judge_model, dataset_path):
                         try:
                             api_input = json.loads(api_input)
                         except (json.JSONDecodeError, TypeError):
+                            print("json decode input fail")
                             pass # leave as string
                         try: 
                             api_result = json.loads(api_result)
                         except (json.JSONDecodeError, TypeError):
+                            print("json decode results fail")
                             pass
                         react_thought_blocks.append({
                             "thought": f"Thought: {thought_message}",
@@ -97,6 +99,7 @@ def evaluate_mwoz_react(judge_client, judge_model, dataset_path):
                         db_results += f"{block["thought"]}\n"
                 # compile inputs for llm call
                 dial_history = "\n".join(dialogue_history)
+                db_call = react_thought_blocks
 
                 # print turn results
                 tqdm.write("dialogue history: " + "\n".join(dialogue_history))
