@@ -346,7 +346,6 @@ if __name__ == "__main__":
     parser.add_argument('--use_gt_state', action='store_true', help='Uses ground truth state of multiwoz corpus (for debug)')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
-    # TODO: split between tau_tool and tau_react
     parser.add_argument('--tau_tool', action='store_true', help='Flag to judge as tau tool calling')
     parser.add_argument('--tau_react', action='store_true', help='Flag to judge as tau react')
 
