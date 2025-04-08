@@ -3,8 +3,9 @@ import json
 import os
 import re
 import qualtrics_utils as qu
+import markdown
 
-def stringify_dial_hist(dial_eval_hist: list, include_db: bool) -> str:
+def stringify_dial_hist(dial_eval_hist: list) -> str:
     """
     Convert the dialogue evaluation history to a string format.
     """
@@ -13,14 +14,9 @@ def stringify_dial_hist(dial_eval_hist: list, include_db: bool) -> str:
         if "user" in turn:
             user_str = turn['user']
             dial_hist_str += user_str
-        if "db" in turn and include_db:
-            db_str = turn['db']
-            dial_hist_str += db_str
         if "response" in turn:
             resp_str = turn['response']
             dial_hist_str += resp_str
-        if i < len(dial_eval_hist) - 1:
-            dial_hist_str += "<br/>\n"
 
     return dial_hist_str
 
@@ -56,7 +52,7 @@ def parse_db_tau_react(db_dict: dict):
     db_str = ""
     for turn, funcs in db_dict.items():
         for f in funcs:
-            db_fname = f"<br/>\n<i>Function</i>: {f["name"]}\n"
+            db_fname = f'<br/>\n<i>Function</i>: {f["name"]}\n'
             db_fargs = f'<br/>\n<i>Args</i>: {f["args"]}\n'
             db_fout = f["output"] if "output" in f else "{}"
 
@@ -133,15 +129,19 @@ def add_tau_q(batch: dict, tau_retail_path: str, tau_airline_path: str, tau_reac
             dial_eval_hist[i]["db"] = db
 
             resp_str = turn['response'].replace('Agent:', "")
-            if len(dial_eval_hist) >= 3:
-                turn_hist = stringify_dial_hist(dial_eval_hist[-3:], False)
+            resp_str = markdown.markdown(resp_str, extensions=['extra'])
+            resp_str = resp_str.replace("<p>", "", 1).replace("</p>", "", 1)
+            if len(dial_eval_hist) == 1:
+                turn_hist = dial_eval_hist[0]["user"]
             else:
-                turn_hist = stringify_dial_hist(dial_eval_hist, False)
+                prev_agent_resp = dial_eval_hist[-2]["response"]
+                user_req = dial_eval_hist[-1]["user"]
+                turn_hist = prev_agent_resp + user_req
             survey_output += qu.matrix_q_format.format(dial_hist=turn_hist, db_results=db, agent_resp=resp_str)
             resp = f"<strong>Agent:</strong> {resp_str} <br/>\n"  
             dial_eval_hist[i]["response"] = resp
 
-        dial_hist_str = stringify_dial_hist(dial_eval_hist, True)
+        dial_hist_str = stringify_dial_hist(dial_eval_hist)
         survey_output += qu.dial_eval_q.format(dial_hist=dial_hist_str)
     return survey_output
 
@@ -228,15 +228,22 @@ def add_autotod_q(batch: dict, autotod_path: str) -> str:
 
             # parse agent response
             resp_str = turn['response'].strip().replace("```", "")
-            if len(dial_eval_hist) >= 3:
-                turn_hist = stringify_dial_hist(dial_eval_hist[-3:], False)
+            print(resp_str)
+            resp_str = markdown.markdown(resp_str, extensions=['extra'])
+            resp_str = resp_str.replace("<p>", "", 1).replace("</p>", "", 1)
+            if len(dial_eval_hist) == 1:
+                turn_hist = dial_eval_hist[0]["user"]
             else:
-                turn_hist = stringify_dial_hist(dial_eval_hist, False)
+                prev_agent_resp = dial_eval_hist[-2]["response"]
+                user_req = dial_eval_hist[-1]["user"]
+                turn_hist = prev_agent_resp + user_req
             survey_output += qu.matrix_q_format.format(dial_hist=turn_hist, db_results=db, agent_resp=resp_str)
             resp = f"<strong>Agent:</strong> {resp_str} <br/>\n"  
+            print(resp)
+
             dial_eval_hist[i]["response"] = resp
 
-        dial_hist_str = stringify_dial_hist(dial_eval_hist, True)
+        dial_hist_str = stringify_dial_hist(dial_eval_hist)
         survey_output += qu.dial_eval_q.format(dial_hist=dial_hist_str)
     return survey_output
 
@@ -286,15 +293,19 @@ def add_mwoz_q(batch: dict, mwoz_path: str):
             dial_eval_hist[i]["db"] = db
 
             agent_resp = turn['lex_response']
-            if len(dial_eval_hist) >= 3:
-                turn_hist = stringify_dial_hist(dial_eval_hist[-3:], False)
+            resp_str = markdown.markdown(agent_resp, extensions=['extra'])
+            resp_str = resp_str.replace("<p>", "", 1).replace("</p>", "", 1)
+            if len(dial_eval_hist) == 1:
+                turn_hist = dial_eval_hist[0]["user"]
             else:
-                turn_hist = stringify_dial_hist(dial_eval_hist, False)
-            survey_output += qu.matrix_q_format.format(dial_hist=turn_hist, db_results=db, agent_resp=agent_resp)
-            resp = f"<strong>Agent:</strong> {turn['lex_response']} <br/>\n"  
+                prev_agent_resp = dial_eval_hist[-2]["response"]
+                user_req = dial_eval_hist[-1]["user"]
+                turn_hist = prev_agent_resp + user_req
+            survey_output += qu.matrix_q_format.format(dial_hist=turn_hist, db_results=db, agent_resp=resp_str)
+            resp = f"<strong>Agent:</strong> {resp_str} <br/>\n"  
             dial_eval_hist[i]["response"] = resp
 
-        dial_hist_str = stringify_dial_hist(dial_eval_hist, True)
+        dial_hist_str = stringify_dial_hist(dial_eval_hist)
         survey_output += qu.dial_eval_q.format(dial_hist=dial_hist_str)
     return survey_output
 

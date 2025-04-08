@@ -18,3 +18,4 @@ pingouin
 pandas
 statsmodels
 seaborn
+markdown
