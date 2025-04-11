@@ -1,0 +1,32 @@
+{
+    "autotod_mwoz": [
+        "mul1926",
+        "mul0309", 
+        "pmul1344",
+        "pmul1266",
+        "mul2206", 
+        "mul2294"
+    ],
+    "tau": {
+        "retail": [
+            "8",
+            "47"
+        ],
+        "airline": [
+            "6",
+            "40"
+        ]
+    },
+    "order": [
+        {"id": "mul1926", "type": "autotod_mwoz"},
+        {"id": "mul0309", "type": "autotod_mwoz"},
+        {"id": "pmul1344", "type": "autotod_mwoz"},
+        {"id": "pmul1266", "type": "autotod_mwoz"},
+        {"id": "mul2206", "type": "autotod_mwoz"},
+        {"id": "mul2294", "type": "autotod_mwoz"},
+        {"id": "8", "type": "tau_retail"},
+        {"id": "47", "type": "tau_retail"},
+        {"id": "6", "type": "tau_airline"},
+        {"id": "40", "type": "tau_airline"}
+    ]
+}

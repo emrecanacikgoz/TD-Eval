@@ -378,7 +378,7 @@
             },
             {
                 "sys": "Your train ticket has been successfully booked for 1 person on the train departing from Broxbourne at 14:32 and arriving in Cambridge at 15:32. Your reference number is I65IEONR. If you need any further assistance, feel free to ask!",
-                "usr": "",
+                "usr": "That will be all. Thank you.",
                 "state": {
                     "train-arriveby": "16:30",
                     "train-day": "friday",
@@ -1675,7 +1675,7 @@
             },
             {
                 "sys": "The Michaelhouse Cafe is located in the centre area, specifically at St. Michael's Church, Trinity Street, City Centre.\n```",
-                "usr": "Thank you for the information. Is there anything else you need assistance with?",
+                "usr": "Thank you for the information.",
                 "state": {
                     "hotel-area": "any",
                     "hotel-internet": "any",
@@ -1694,7 +1694,7 @@
             },
             {
                 "sys": "You're welcome! If you have any more questions or need further assistance, feel free to ask.\n```",
-                "usr": "",
+                "usr": "That will be all. Thank you.",
                 "state": {
                     "hotel-area": "any",
                     "hotel-internet": "any",
@@ -2148,7 +2148,7 @@
             },
             {
                 "sys": "The Cambridge University Botanic Gardens is located on Bateman Street in the centre. It has an entrance fee of 4 pounds. The gardens open from 10:00 a.m. to 6:00 p.m. from April to September, from 10:00 a.m. to 5:00 p.m. in February, March, and October, and from 10:00 a.m. to 4:00 p.m. from November to January. You can contact them at 01223336265.\n```",
-                "usr": "Got it. The Cambridge University Botanic Gardens is located on Bateman Street in the centre. The entrance fee is 4 pounds. The phone number is 01223336265. \n\nIs there anything else you need help with?",
+                "usr": "Got it. The Cambridge University Botanic Gardens is located on Bateman Street in the centre. The entrance fee is 4 pounds. The phone number is 01223336265. Thanks.",
                 "state": {
                     "attraction-area": "any",
                     "attraction-name": "cambridge university botanic gardens",
@@ -6165,7 +6165,7 @@
             },
             {
                 "sys": "I have successfully booked a table for 1 person at De Luca Cucina and Bar at 14:30 on Wednesday. Your reference number is **S5IISS2V**. Let me know if you need anything else!",
-                "usr": "",
+                "usr": "That will be all. Thank you.",
                 "state": {
                     "attraction-area": "centre",
                     "attraction-name": "any",

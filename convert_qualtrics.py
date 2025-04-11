@@ -100,12 +100,12 @@ def add_tau_q(batch: dict, tau_retail_path: str, tau_airline_path: str, tau_reac
     tau_retail_dialogues = retail_data["dialogues"]
     for dial_id, dial_turns in tau_retail_dialogues.items():
         if dial_id in tau_batch_ids["retail"]:
-            batch_dials[dial_id] = dial_turns
+            batch_dials[f"retail_{dial_id}"] = dial_turns
 
     tau_air_dialogues = airline_data["dialogues"]
     for dial_id, dial_turns in tau_air_dialogues.items():
         if dial_id in tau_batch_ids["airline"]:
-            batch_dials[dial_id] = dial_turns
+            batch_dials[f'airline_{dial_id}'] = dial_turns
 
     survey_output = "" 
     # read dialogues
