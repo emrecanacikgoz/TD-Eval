@@ -4,19 +4,34 @@ import matplotlib.pyplot as plt
 import numpy as np
 import argparse
 
-def extract_score(score_str):
+"""Compare human evaluation data with LLM evaluation data"""    
+def extract_score(score_str: str) -> int:
     try:
         import re
-        
+        # regex matching
         match = re.search(r'Score: (\d+)', str(score_str))
-        if match:
-            return float(match.group(1))
-        else: 
+        if not match:
             print("Score not found in string:",score_str)
-            return -1.0
+            print("Checking substring")
+            # check substring
+            if "Very Good" in score_str:
+                return 5
+            elif "Good" in score_str:
+                return 4
+            elif "Fair" in score_str:
+                return 3
+            # check more detailed string first
+            elif "Very Bad" in score_str: 
+                return 4
+            elif "Bad" in score_str:
+                return 1
+            else:
+                print("Score still not found with substring check")
+                return 1
+        return int(match.group(1)) if match else 1
     except:
         print("Score not found in string:",score_str)
-        return -1.0
+        return 1
 
 def calculate_turn_scores(results):
     all_scores = {

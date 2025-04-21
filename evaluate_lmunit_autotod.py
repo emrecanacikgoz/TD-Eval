@@ -10,7 +10,6 @@ from postprocess import postprocess_results
 import requests
 import json
 from time import sleep
-from calculate_annotator_agreement import extract_score
 
 url = "https://api.contextual.ai/v1/lmunit"
 
@@ -37,13 +36,11 @@ policy_qs = [
 ]
 
 def eval_dials_lmunit(dialogue_history, db_results, user_query, agent_response):
-    # history = turn["conversation_history"] + "\nCustomer: " + turn["user"]
-    history = dialogue_history + f"\nCustomer: {user_query}"
-    # db = json.dumps(turn["db"])
+    query_dial = dialogue_history + f"\n{user_query}"
     # get conversation consistency score
     conv_payload = {
-        "query": history,
-        "response": agent_response,#turn["response"],
+        "query": query_dial,
+        "response": agent_response,
         "unit_test": ""
     }
     tqdm.write("Conv. Consistency")
@@ -58,8 +55,8 @@ def eval_dials_lmunit(dialogue_history, db_results, user_query, agent_response):
     conv_score = round(conv_score/3, 2)
     # get backend knowledge consistency score
     backend_payload = {
-        "query": history + "\nDatabase result: " + db_results,
-        "response": user_query, #turn["response"],
+        "query": query_dial + "\nDatabase result: " + db_results,
+        "response": agent_response,
         "unit_test": ""
     }
     tqdm.write("Backend Knowledge")
@@ -74,8 +71,8 @@ def eval_dials_lmunit(dialogue_history, db_results, user_query, agent_response):
     backend_score = round(backend_score/3, 2)
     # get policy compliance score
     policy_payload = {
-        "query": history + "\nDatabase result: " + db_results,
-        "response": user_query, #turn["response"],
+        "query": query_dial + "\nDatabase result: " + db_results,
+        "response": agent_response,
         "unit_test": ""
     }
     policy_score = 0
@@ -116,8 +113,8 @@ def evaluate_mwoz_react(dataset_path):
             policy = dial_info['goal']
             for i in tqdm(range(len(dial))):
                 turn = dial[i]
-                user_query = f"Customer: {turn["usr"]}"
-                agent_response = f"Agent: {turn["response"]}"
+                user_query = f"Customer: {turn['usr']}"
+                agent_response = f"Agent: {turn['response']}"
                 # parse db call
                 react_backend = turn["answers"]
                 react_thoughts = react_backend.split("Thought:")
@@ -165,7 +162,7 @@ def evaluate_mwoz_react(dataset_path):
                     if i < len(react_thought_blocks) - 1:
                         db_results += f"{json.dumps(block)}\n"
                     else:
-                        db_results += f"{block["thought"]}\n"
+                        db_results += f"{block['thought']}\n"
                 # compile inputs for llm call
                 dial_history = "\n".join(dialogue_history)
                 db_call = react_thought_blocks
@@ -175,8 +172,7 @@ def evaluate_mwoz_react(dataset_path):
                 tqdm.write("user_query: " + user_query)
                 tqdm.write("db call: " + db_results)
                 tqdm.write("agent_response: " + agent_response)
-                scores = eval_dials_lmunit(dial_history, db_results, user_query, agent_response)
-                
+                scores = eval_dials_lmunit(dial_history, db_results, user_query, agent_response)                
                 turn_responses.append({
                     "turn": i,
                     "conversation_history": dial_history,

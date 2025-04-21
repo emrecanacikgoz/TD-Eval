@@ -19,3 +19,4 @@ pandas
 statsmodels
 seaborn
 markdown
+# irrcac install this manually with args --no-deps
