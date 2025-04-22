@@ -3,9 +3,9 @@ from datetime import datetime
 import json
 import os
 from tqdm import tqdm
-from evaluator import judge_tau
-from llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
-from postprocess import postprocess_results
+from judge.evaluator import judge_tau
+from generate.llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
+from postprocess.postprocess import postprocess_results
 
 import sys
 

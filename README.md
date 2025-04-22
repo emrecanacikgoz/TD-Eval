@@ -4,11 +4,37 @@ From Turns to Dialogues: Rethinking TOD Evaluation by Combining Turn-Level Preci
 TD-Eval is a framework for evaluating conversational agents and their ability to assess dialogue quality. This README provides a step-by-step guide to set up the environment, configure API credentials, run evaluations, and use the Qualtrics integration.
 
 ## Table of Contents
-1. [Environment Setup](#environment-setup)
-2. [API Credential Configuration](#api-credential-configuration)
-3. [Running Evaluations](#running-evaluations)
-4. [Supported Clients](#supported-clients)
-5. [Qualtrics Survey Integration](#qualtrics-survey-integration)
+1. [Project Structure](#project-structure)
+2. [Environment Setup](#environment-setup)
+3. [API Credential Configuration](#api-credential-configuration)
+4. [Running Evaluations](#running-evaluations)
+5. [Supported Clients](#supported-clients)
+6. [Qualtrics Survey Integration](#qualtrics-survey-integration)
+
+---
+
+## Project Structure
+The project is organized into the following modules:
+
+- **generate/**: Contains code for generating agent responses
+  - `generate.py`: Main entry point for generating agent responses
+  - `llm_agents.py`: Client interfaces for different LLM providers
+  - `mw_database.py`: MultiWOZ database utilities
+  - `prompts/`: Agent prompts for different domains
+
+- **judge/**: Contains code for evaluating agent responses
+  - `judge.py`: Main entry point for judging agent responses
+  - `evaluator.py`: Evaluation logic and metrics
+  - `prompts/`: Judge prompts for different evaluation dimensions
+
+- **postprocess/**: Contains code for postprocessing evaluation results
+  - `postprocess.py`: Functions for generating visualizations and statistics
+
+- **qualtrics/**: Contains code for Qualtrics integration
+  - `qualtrics.py`: Main entry point for generating Qualtrics surveys
+  - `qualtrics_utils.py`: Utility functions for Qualtrics
+
+- **main.py**: Main entry point for the entire framework
 
 ---
 
@@ -61,48 +87,45 @@ You can evaluate dialogue agents using the following commands:
 
 1. **Standard evaluation with OpenAI's GPT-4o-mini as the agent (to generate multiwoz responses) and judge:**
    ```bash
-   python main.py --result_path path/to/results.json \
+   python main.py --dataset_path path/to/dataset.json \
                   --agent_client openai \
-                  --llm_agent gpt-4o \
-                  --agent_model openai \
+                  --agent_model gpt-4o-mini \
                   --judge_client openai \
-                  --judge_model gpt-4o \
+                  --judge_model gpt-4o-mini
    ```
 
 2. **Evaluation with TogetherAI's meta-llama as judge. The agent responses for judgement are provided as a json file through (--agent_result_path)**
    ```bash
-   python main.py --result_path path/to/results.json \
-                  --agent_result_path path/to/agent/results.json \
-                  --llm_judge_agent_client togetherai \
-                  --llm_judge_agent meta-llama/Llama-3.1-405B-Instruct
+   python main.py --agent_result_path path/to/agent/results.json \
+                  --judge_client togetherai \
+                  --judge_model meta-llama/Llama-3.1-405B-Instruct
    ```
 
-3. **Judge GPT-4o-mini multiwoz responses with TogetherAI's meta-llama:**
+3. **Skip generation and use pre-generated agent responses:**
+   ```bash
+   python main.py --agent_result_path path/to/agent/results.json \
+                  --skip_generation \
+                  --judge_client openai \
+                  --judge_model gpt-4o
+   ```
+
+4. **Generate responses without judging them:**
    ```bash
    python main.py --dataset_path path/to/dataset.json \
-                  --llm_agent_client openai \
-                  --llm_agent gpt-4o-mini \
-                  --llm_judge_agent_client togetherai \
-                  --llm_judge_agent meta-llama/Llama-3.1-405B-Instruct-4o
+                  --agent_client openai \
+                  --agent_model gpt-4o-mini \
+                  --skip_judging
    ```
 
-4. **Evaluate tau-bench results with TogetherAI's meta-llama as judge (tau-bench dialogue provided as json file in --dataset_path)**
+5. **Evaluate tau-bench results with TogetherAI's meta-llama as judge (tau-bench dialogue provided as json file in --dataset_path)**
    ```bash
    python main.py --dataset_path path/to/dataset.json \
-                  --llm_judge_agent_client togetherai \
-                  --llm_judge_agent meta-llama/Llama-3.1-405B-Instruct-4o \
-                  --tau
+                  --judge_client togetherai \
+                  --judge_model meta-llama/Llama-3.1-405B-Instruct \
+                  --tau_tool
    ```
 
-Customize the `dataset_path`, `agent_client`, `agent_model`, `agent_result_path`, `use_gt_state`, `judge_client`, `judge_model`, and `tau` parameters as needed.
-
-- `dataset_path`: path to dataset of dialogues to either generate agent and judge results.
-- `agent_client`: client provider of agent model (i.e. openai, togetherai, mistral...etc.)
-- `agent_model`: name of agent model (i.e. gpt-4o, mistral-large-latest, claude-3-5-sonnet...etc.)
-- `agent_result_path`: path to previously generated dialogue agent responses, judge will evaluate is file instead of generating agent responses (optional and if used then you don't need to add `agent_client` or `agent_model`).
-- `use_gt_state`: flag to use ground truth dialogue state for response generation (multiwoz only and optional)
-- `judge_client`: client provider of judge model (i.e. openai, togetherai, mistral...etc.)
-- `judge_model`: name of judge model (i.e. gpt-4o, mistral-large-latest, claude-3-5-sonnet...etc.)
+Customize the `dataset_path`, `agent_client`, `agent_model`, `agent_result_path`, `use_gt_state`, `judge_client`, `judge_model`, and `tau_tool`/`tau_react` parameters as needed.
 
 ---
 
@@ -118,40 +141,33 @@ Ensure you have the required API keys for the clients you plan to use.
 ---
 
 ## Qualtrics Survey Integration
-TDEval provides a script, `convert_qualtrics.py`, to convert evaluation results into a format compatible to import as Qualtrics surveys.
+TDEval provides a module, `qualtrics/qualtrics.py`, to convert evaluation results into a format compatible to import as Qualtrics surveys.
 
 ### Usage
 Run the following command to generate a Qualtrics-compatible file:
 ```bash
-python3 convert_qualtrics.py --result_path results/<your_results_file>.json \
-                             --batch_path batches.json \
-                             --output_path qualtrics/<output_file>.txt
+python -m qualtrics.qualtrics --batch_path batches.json \
+                              --mwoz_path results/<your_results_file>.json \
+                              --output_name qualtrics_output.txt
 ```
 
 ### Parameters
-- `--result_path`: Path to the model output JSON file.
 - `--batch_path`: Path to the JSON file specifying batches of dialogues.
-- `--output_path`: Path to save the Qualtrics-compatible text file.
+- `--mwoz_path`: Path to the model output JSON file for MultiWOZ datasets.
+- `--is_autotod`: Flag to indicate AutoTOD format.
+- `--tau_retail_path`: Path to retail TAU benchmark results.
+- `--tau_airline_path`: Path to airline TAU benchmark results.
+- `--tau_react`: Flag to indicate TAU React format.
+- `--output_name`: Name of the output file.
 
 ### Import into Qualtrics
 1. Create a new survey in Qualtrics.
 2. Navigate to `Tools > Import/Export > Import Survey`.
 3. Upload the generated `.txt` file.
 
-### Example Commands
-```bash
-python3 convert_qualtrics.py --result_path results/openai/gpt4omini-c_gpt4omini-j.json \
-                             --batch_path batches.json \
-                             --output_path qualtrics/qualtrics_gpt4omini.txt
-
-python3 convert_qualtrics.py --result_path results/20241121_015210/gpt4o_c-gpt4o_j.json \
-                             --batch_path batches.json \
-                             --output_path qualtrics/qualtrics_gpt4o_j.txt
-```
-
 ### Notes
 - Processing more than 50 dialogue questions may take over 10 minutes.
 
 ---
 
-For more information, please contact with authors [Emre Can Acikgoz](acikgoz2@illinois.edu), [Carl Guo](carlguo2@illinois.edu), and [Akul Datta](akuld2@illinois.edu).
+For more information, please contact with authors [Emre Can Acikgoz](acikgoz2@illinois.edu), [Carl Guo](carlguo2@illinois.edu), and [Akul Datta](akuld2@illinois.edu). 
