@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "/home/acikgoz2/TD-Eval/results-tau/tool-calling-claude-3-5-sonnet-20241022-0.0_range_0--1_user-gpt-4o-llm_0129005714-retail.json",
+        "judge_client": "openai",
+        "judge_model": "gpt-4o"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.6976,
+        "avg_backend_consistency": 4.1512,
+        "avg_policy_completeness": 4.5853,
+        "total_dialogues": 115,
+        "total_turns": 751
+    }
+}

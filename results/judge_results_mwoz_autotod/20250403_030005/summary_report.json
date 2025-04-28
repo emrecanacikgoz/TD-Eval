@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "datasets/out_basic_100_bt.json",
+        "judge_client": "anthropic",
+        "judge_model": "claude-3-5-sonnet-20241022"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.4337,
+        "avg_backend_consistency": 4.6737,
+        "avg_policy_completeness": 4.2295,
+        "total_dialogues": 100,
+        "total_turns": 475
+    }
+}

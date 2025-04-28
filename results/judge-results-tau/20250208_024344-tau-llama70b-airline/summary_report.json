@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "results/agent-results-tau/react-Llama-3.3-70B-Instruct-0.0_range_0--1_user-gpt-4o-llm_0121014436-airline.json",
+        "judge_client": "openai",
+        "judge_model": "gpt-4o"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.7014,
+        "avg_backend_consistency": 4.4932,
+        "avg_policy_completeness": 4.0362,
+        "total_dialogues": 50,
+        "total_turns": 222
+    }
+}

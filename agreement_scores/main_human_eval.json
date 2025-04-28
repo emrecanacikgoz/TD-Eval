@@ -1,0 +1,354 @@
+{
+    "turn_level_corrs": {
+        "human-tdeval": {
+            "conv": {
+                "coeff": 0.155,
+                "pval": 0.001
+            },
+            "backend": {
+                "coeff": 0.082,
+                "pval": 0.071
+            },
+            "policy": {
+                "coeff": 0.031,
+                "pval": 0.496
+            },
+            "overall": {
+                "coeff": 0.088,
+                "pval": 0.001
+            }
+        },
+        "human-lmunit": {
+            "conv": {
+                "coeff": 0.102,
+                "pval": 0.024
+            },
+            "backend": {
+                "coeff": 0.028,
+                "pval": 0.534
+            },
+            "policy": {
+                "coeff": 0.024,
+                "pval": 0.596
+            },
+            "overall": {
+                "coeff": 0.051,
+                "pval": 0.052
+            }
+        }
+    },
+    "turn_level_irr": {
+        "human-tdeval": {
+            "conv": {
+                "gwet-ac1": 0.5607,
+                "r_kappa": 0.5053680981595092
+            },
+            "backend": {
+                "gwet-ac1": 0.55238,
+                "r_kappa": 0.4970055506865322
+            },
+            "policy": {
+                "gwet-ac1": 0.55795,
+                "r_kappa": 0.5026344893785736
+            },
+            "overall": {
+                "gwet-ac1": 0.55734,
+                "r_kappa": 0.5020433632949436
+            }
+        },
+        "human-lmunit": {
+            "conv": {
+                "gwet-ac1": 0.45193,
+                "r_kappa": 0.4283210216601978
+            },
+            "backend": {
+                "gwet-ac1": 0.42211,
+                "r_kappa": 0.3990338466675013
+            },
+            "policy": {
+                "gwet-ac1": 0.41463,
+                "r_kappa": 0.39363966445473886
+            },
+            "overall": {
+                "gwet-ac1": 0.42936,
+                "r_kappa": 0.4068342108797228
+            }
+        }
+    },
+    "dial_level_corrs": {
+        "human-tdeval": {
+            "conv": {
+                "coeff": 0.135,
+                "pval": 0.204
+            },
+            "backend": {
+                "coeff": 0.119,
+                "pval": 0.263
+            },
+            "policy": {
+                "coeff": 0.024,
+                "pval": 0.821
+            },
+            "overall": {
+                "coeff": 0.066,
+                "pval": 0.278
+            }
+        },
+        "human-lmunit": {
+            "conv": {
+                "coeff": 0.209,
+                "pval": 0.048
+            },
+            "backend": {
+                "coeff": 0.054,
+                "pval": 0.614
+            },
+            "policy": {
+                "coeff": 0.143,
+                "pval": 0.178
+            },
+            "overall": {
+                "coeff": 0.131,
+                "pval": 0.217
+            }
+        },
+        "human-inform_reward": {
+            "conv": {
+                "coeff": 0.125,
+                "pval": 0.24
+            },
+            "backend": {
+                "coeff": 0.241,
+                "pval": 0.022
+            },
+            "policy": {
+                "coeff": 0.093,
+                "pval": 0.383
+            },
+            "overall": {
+                "coeff": 0.15,
+                "pval": 0.158
+            }
+        },
+        "human-success_reward": {
+            "conv": {
+                "coeff": 0.13,
+                "pval": 0.221
+            },
+            "backend": {
+                "coeff": 0.086,
+                "pval": 0.418
+            },
+            "policy": {
+                "coeff": 0.13,
+                "pval": 0.224
+            },
+            "overall": {
+                "coeff": 0.124,
+                "pval": 0.243
+            }
+        },
+        "human-trad_auto": {
+            "conv": {
+                "coeff": 0.052,
+                "pval": 0.623
+            },
+            "backend": {
+                "coeff": 0.003,
+                "pval": 0.981
+            },
+            "policy": {
+                "coeff": -0.117,
+                "pval": 0.27
+            },
+            "overall": {
+                "coeff": -0.015,
+                "pval": 0.891
+            }
+        }
+    },
+    "dial_level_irr": {
+        "human-tdeval": {
+            "conv": {
+                "gwet-ac1": 0.65316,
+                "r_kappa": 0.6173533083645443
+            },
+            "backend": {
+                "gwet-ac1": 0.64257,
+                "r_kappa": 0.6048689138576778
+            },
+            "policy": {
+                "gwet-ac1": 0.43156,
+                "r_kappa": 0.3770287141073657
+            },
+            "overall": {
+                "gwet-ac1": 0.57162,
+                "r_kappa": 0.5184324659231723
+            }
+        },
+        "human-lmunit": {
+            "conv": {
+                "gwet-ac1": 0.46474,
+                "r_kappa": 0.43117977528089885
+            },
+            "backend": {
+                "gwet-ac1": 0.49033,
+                "r_kappa": 0.4578651685393258
+            },
+            "policy": {
+                "gwet-ac1": 0.47535,
+                "r_kappa": 0.4449126092384519
+            },
+            "overall": {
+                "gwet-ac1": 0.43605,
+                "r_kappa": 0.39497503121098626
+            }
+        },
+        "human-inform-reward": {
+            "conv": {
+                "gwet-ac1": 0.56747,
+                "r_kappa": 0.41747815230961294
+            },
+            "backend": {
+                "gwet-ac1": 0.60496,
+                "r_kappa": 0.45742821473158557
+            },
+            "policy": {
+                "gwet-ac1": 0.53034,
+                "r_kappa": 0.3795255930087391
+            },
+            "overall": {
+                "gwet-ac1": 0.53034,
+                "r_kappa": 0.3795255930087391
+            }
+        },
+        "human-success-reward": {
+            "conv": {
+                "gwet-ac1": 0.49539,
+                "r_kappa": 0.37478152309613
+            },
+            "backend": {
+                "gwet-ac1": 0.53596,
+                "r_kappa": 0.4147315855181024
+            },
+            "policy": {
+                "gwet-ac1": 0.45543,
+                "r_kappa": 0.33682896379525595
+            },
+            "overall": {
+                "gwet-ac1": 0.45543,
+                "r_kappa": 0.33682896379525595
+            }
+        },
+        "human-trad-auto": {
+            "conv": {
+                "gwet-ac1": 0.45496,
+                "r_kappa": 0.37253433208489395
+            },
+            "backend": {
+                "gwet-ac1": 0.49743,
+                "r_kappa": 0.41248439450686636
+            },
+            "policy": {
+                "gwet-ac1": 0.41344,
+                "r_kappa": 0.3345817727840199
+            },
+            "overall": {
+                "gwet-ac1": 0.41344,
+                "r_kappa": 0.3345817727840199
+            }
+        }
+    },
+    "mwoz_dial_level_irr": {
+        "mwoz-human-tdeval": {
+            "conv": {
+                "gwet-ac1": 0.712,
+                "r_kappa": 0.676362683438155
+            },
+            "backend": {
+                "gwet-ac1": 0.77404,
+                "r_kappa": 0.7497379454926625
+            },
+            "policy": {
+                "gwet-ac1": 0.43763,
+                "r_kappa": 0.40688329839273235
+            },
+            "overall": {
+                "gwet-ac1": 0.63235,
+                "r_kappa": 0.5933018940265317
+            }
+        },
+        "mwoz-human-lmunit": {
+            "conv": {
+                "gwet-ac1": 0.52024,
+                "r_kappa": 0.5156359189378057
+            },
+            "backend": {
+                "gwet-ac1": 0.54416,
+                "r_kappa": 0.5890111809923131
+            },
+            "policy": {
+                "gwet-ac1": 0.51396,
+                "r_kappa": 0.50777428371768
+            },
+            "overall": {
+                "gwet-ac1": 0.48636,
+                "r_kappa": 0.4710866526904262
+            }
+        },
+        "mwoz-human-inform": {
+            "conv": {
+                "gwet-ac1": 0.62361,
+                "r_kappa": 0.4563242487770789
+            },
+            "backend": {
+                "gwet-ac1": 0.73558,
+                "r_kappa": 0.5904961565338924
+            },
+            "policy": {
+                "gwet-ac1": 0.62361,
+                "r_kappa": 0.4563242487770789
+            },
+            "overall": {
+                "gwet-ac1": 0.62361,
+                "r_kappa": 0.4563242487770789
+            }
+        },
+        "mwoz-human-success": {
+            "conv": {
+                "gwet-ac1": 0.46946,
+                "r_kappa": 0.3368273934311672
+            },
+            "backend": {
+                "gwet-ac1": 0.60212,
+                "r_kappa": 0.4709993011879803
+            },
+            "policy": {
+                "gwet-ac1": 0.46946,
+                "r_kappa": 0.3368273934311672
+            },
+            "overall": {
+                "gwet-ac1": 0.46946,
+                "r_kappa": 0.3368273934311672
+            }
+        },
+        "mwoz-human-trad-auto": {
+            "conv": {
+                "gwet-ac1": 0.39748,
+                "r_kappa": 0.33053808525506634
+            },
+            "backend": {
+                "gwet-ac1": 0.54091,
+                "r_kappa": 0.4647099930118799
+            },
+            "policy": {
+                "gwet-ac1": 0.39748,
+                "r_kappa": 0.33053808525506634
+            },
+            "overall": {
+                "gwet-ac1": 0.39748,
+                "r_kappa": 0.33053808525506634
+            }
+        }
+    }
+}

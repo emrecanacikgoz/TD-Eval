@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "datasets/out_basic_100_bt.json",
+        "judge_client": "openai",
+        "judge_model": "gpt-4o"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.4821,
+        "avg_backend_consistency": 4.7768,
+        "avg_policy_completeness": 4.5116,
+        "total_dialogues": 100,
+        "total_turns": 475
+    }
+}

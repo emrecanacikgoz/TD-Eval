@@ -1,0 +1,267 @@
+id: sng0855    turns: 5       domains: {'hotel'}
+id: pmul3558   turns: 15      domains: {'train', 'hotel'}
+id: pmul1983   turns: 11      domains: {'train', 'hotel'}
+id: sng0423    turns: 6       domains: {'train'}
+id: pmul4998   turns: 7       domains: {'train', 'attraction'}
+id: mul0199    turns: 6       domains: {'hotel', 'restaurant'}
+id: pmul1844   turns: 10      domains: {'train', 'hotel'}
+id: mul1376    turns: 11      domains: {'hotel', 'restaurant'}
+id: sng0830    turns: 5       domains: {'hotel'}
+id: mul2218    turns: 8       domains: {'train', 'hotel'}
+id: mul0939    turns: 11      domains: {'attraction', 'restaurant'}
+id: sng0616    turns: 6       domains: {'restaurant'}
+id: mul1392    turns: 12      domains: {'hotel', 'taxi', 'restaurant'}
+id: mul1015    turns: 10      domains: {'hotel', 'attraction', 'taxi'}
+id: sng0649    turns: 5       domains: {'restaurant'}
+id: mul0890    turns: 10      domains: {'restaurant'}
+id: pmul3012   turns: 8       domains: {'train', 'attraction'}
+id: sng0006    turns: 3       domains: {'taxi'}
+id: pmul4622   turns: 6       domains: {'train', 'attraction'}
+id: mul0297    turns: 9       domains: {'train', 'restaurant'}
+id: sng0085    turns: 2       domains: {'taxi'}
+id: sng0979    turns: 10      domains: {'hotel'}
+id: pmul1811   turns: 11      domains: {'train', 'hotel'}
+id: sng01692   turns: 6       domains: {'hotel'}
+id: sng1066    turns: 3       domains: {'attraction'}
+id: mul1855    turns: 6       domains: {'train'}
+id: sng01386   turns: 3       domains: {'hotel'}
+id: pmul3858   turns: 11      domains: {'hotel', 'restaurant'}
+id: sng01898   turns: 4       domains: {'train'}
+id: sng1041    turns: 6       domains: {'hotel'}
+id: sng01679   turns: 2       domains: {'taxi'}
+id: mul0088    turns: 12      domains: {'hotel', 'taxi', 'restaurant'}
+id: mul0071    turns: 9       domains: {'hotel', 'taxi', 'restaurant'}
+id: mul2386    turns: 8       domains: {'taxi', 'attraction', 'restaurant'}
+id: mul1588    turns: 9       domains: {'train', 'restaurant'}
+id: pmul3127   turns: 5       domains: {'train'}
+id: sng0983    turns: 3       domains: {'hotel'}
+id: mul0080    turns: 5       domains: {'hotel', 'restaurant'}
+id: sng01323   turns: 5       domains: {'hotel'}
+id: mul1697    turns: 13      domains: {'train', 'restaurant'}
+id: pmul4383   turns: 9       domains: {'attraction', 'restaurant'}
+id: sng1090    turns: 3       domains: {'attraction'}
+id: mul2305    turns: 9       domains: {'taxi', 'attraction', 'restaurant'}
+id: pmul4106   turns: 8       domains: {'attraction'}
+id: sng0274    turns: 4       domains: {'train'}
+id: sng0571    turns: 5       domains: {'restaurant'}
+id: sng0721    turns: 6       domains: {'restaurant'}
+id: pmul3596   turns: 7       domains: {'train', 'hotel'}
+id: pmul4756   turns: 8       domains: {'hotel', 'restaurant'}
+id: mul2122    turns: 8       domains: {'train', 'hotel'}
+id: sng0004    turns: 5       domains: {'taxi'}
+id: sng01359   turns: 5       domains: {'taxi'}
+id: pmul0713   turns: 8       domains: {'train', 'restaurant'}
+id: pmul3940   turns: 7       domains: {'train', 'attraction'}
+id: pmul4603   turns: 8       domains: {'train', 'hotel'}
+id: sng01403   turns: 4       domains: {'taxi'}
+id: mul0621    turns: 7       domains: {'train', 'hotel'}
+id: pmul3425   turns: 7       domains: {'train', 'restaurant'}
+id: pmul1036   turns: 9       domains: {'train', 'attraction'}
+id: mul1139    turns: 9       domains: {'hotel', 'taxi'}
+id: pmul1537   turns: 10      domains: {'train', 'hotel'}
+id: mul0212    turns: 9       domains: {'train', 'restaurant'}
+id: pmul4643   turns: 8       domains: {'hotel', 'restaurant'}
+id: pmul0509   turns: 10      domains: {'train', 'restaurant'}
+id: pmul2848   turns: 13      domains: {'hotel', 'attraction', 'taxi'}
+id: pmul1183   turns: 7       domains: {'train', 'attraction'}
+id: mul0787    turns: 7       domains: {'train', 'hotel'}
+id: sng01940   turns: 4       domains: {'taxi'}
+id: mul2284    turns: 6       domains: {'train', 'hotel'}
+id: pmul3126   turns: 6       domains: {'train', 'attraction'}
+id: pmul4344   turns: 6       domains: {'train', 'hotel'}
+id: mul0034    turns: 10      domains: {'hotel', 'taxi', 'restaurant'}
+id: mul0694    turns: 11      domains: {'train', 'hotel'}
+id: pmul2279   turns: 6       domains: {'attraction', 'restaurant'}
+id: pmul0522   turns: 8       domains: {'train', 'restaurant'}
+id: sng0477    turns: 5       domains: {'restaurant'}
+id: sng01391   turns: 5       domains: {'restaurant'}
+id: pmul3868   turns: 7       domains: {'hotel', 'attraction'}
+id: mul2415    turns: 8       domains: {'taxi', 'attraction', 'restaurant'}
+id: mul2270    turns: 7       domains: {'train', 'hotel'}
+id: pmul3785   turns: 7       domains: {'hotel', 'restaurant'}
+id: pmul2215   turns: 11      domains: {'attraction', 'restaurant'}
+id: mul0116    turns: 10      domains: {'hotel', 'restaurant'}
+id: pmul2437   turns: 11      domains: {'attraction', 'restaurant'}
+id: mul2130    turns: 8       domains: {'train', 'hotel'}
+id: sng01153   turns: 5       domains: {'taxi'}
+id: mul1848    turns: 8       domains: {'train', 'attraction'}
+id: mul1008    turns: 7       domains: {'hotel', 'attraction'}
+id: pmul1978   turns: 6       domains: {'train', 'hotel'}
+id: pmul1895   turns: 7       domains: {'train', 'hotel'}
+id: pmul4125   turns: 6       domains: {'train', 'restaurant'}
+id: mul2089    turns: 8       domains: {'train', 'hotel'}
+id: mul1986    turns: 6       domains: {'train', 'attraction'}
+id: pmul2719   turns: 8       domains: {'hotel', 'attraction', 'taxi'}
+id: sng02018   turns: 4       domains: {'taxi'}
+id: sng1012    turns: 7       domains: {'hotel'}
+id: pmul3557   turns: 7       domains: {'taxi', 'restaurant'}
+id: pmul3328   turns: 9       domains: {'hotel', 'attraction'}
+id: pmul1772   turns: 9       domains: {'train', 'hotel'}
+id: pmul2859   turns: 9       domains: {'hotel', 'attraction'}
+
+id: 0          turns: 8       domain: retail
+id: 1          turns: 8       domain: retail
+id: 2          turns: 4       domain: retail
+id: 3          turns: 8       domain: retail
+id: 4          turns: 7       domain: retail
+id: 5          turns: 7       domain: retail
+id: 6          turns: 6       domain: retail
+id: 7          turns: 7       domain: retail
+id: 8          turns: 8       domain: retail
+id: 9          turns: 6       domain: retail
+id: 10         turns: 5       domain: retail
+id: 11         turns: 6       domain: retail
+id: 12         turns: 5       domain: retail
+id: 13         turns: 7       domain: retail
+id: 14         turns: 5       domain: retail
+id: 15         turns: 7       domain: retail
+id: 16         turns: 7       domain: retail
+id: 17         turns: 5       domain: retail
+id: 18         turns: 6       domain: retail
+id: 19         turns: 7       domain: retail
+id: 20         turns: 5       domain: retail
+id: 21         turns: 6       domain: retail
+id: 22         turns: 8       domain: retail
+id: 23         turns: 9       domain: retail
+id: 24         turns: 8       domain: retail
+id: 25         turns: 4       domain: retail
+id: 26         turns: 4       domain: retail
+id: 27         turns: 4       domain: retail
+id: 28         turns: 10      domain: retail
+id: 29         turns: 9       domain: retail
+id: 30         turns: 11      domain: retail
+id: 31         turns: 11      domain: retail
+id: 32         turns: 8       domain: retail
+id: 33         turns: 5       domain: retail
+id: 34         turns: 7       domain: retail
+id: 35         turns: 13      domain: retail
+id: 36         turns: 5       domain: retail
+id: 37         turns: 8       domain: retail
+id: 38         turns: 4       domain: retail
+id: 39         turns: 7       domain: retail
+id: 40         turns: 5       domain: retail
+id: 41         turns: 5       domain: retail
+id: 42         turns: 10      domain: retail
+id: 43         turns: 10      domain: retail
+id: 44         turns: 9       domain: retail
+id: 45         turns: 7       domain: retail
+id: 46         turns: 9       domain: retail
+id: 47         turns: 5       domain: retail
+id: 48         turns: 5       domain: retail
+id: 49         turns: 9       domain: retail
+id: 50         turns: 5       domain: retail
+id: 51         turns: 9       domain: retail
+id: 52         turns: 7       domain: retail
+id: 53         turns: 3       domain: retail
+id: 54         turns: 8       domain: retail
+id: 55         turns: 15      domain: retail
+id: 56         turns: 6       domain: retail
+id: 57         turns: 6       domain: retail
+id: 58         turns: 12      domain: retail
+id: 59         turns: 6       domain: retail
+id: 60         turns: 6       domain: retail
+id: 61         turns: 6       domain: retail
+id: 62         turns: 7       domain: retail
+id: 63         turns: 8       domain: retail
+id: 64         turns: 8       domain: retail
+id: 65         turns: 5       domain: retail
+id: 66         turns: 10      domain: retail
+id: 67         turns: 2       domain: retail
+id: 68         turns: 3       domain: retail
+id: 69         turns: 5       domain: retail
+id: 70         turns: 11      domain: retail
+id: 71         turns: 10      domain: retail
+id: 72         turns: 2       domain: retail
+id: 73         turns: 4       domain: retail
+id: 74         turns: 6       domain: retail
+id: 75         turns: 7       domain: retail
+id: 76         turns: 7       domain: retail
+id: 77         turns: 5       domain: retail
+id: 78         turns: 6       domain: retail
+id: 79         turns: 4       domain: retail
+id: 80         turns: 7       domain: retail
+id: 81         turns: 6       domain: retail
+id: 82         turns: 5       domain: retail
+id: 83         turns: 4       domain: retail
+id: 84         turns: 8       domain: retail
+id: 85         turns: 6       domain: retail
+id: 86         turns: 7       domain: retail
+id: 87         turns: 3       domain: retail
+id: 88         turns: 4       domain: retail
+id: 89         turns: 7       domain: retail
+id: 90         turns: 5       domain: retail
+id: 91         turns: 6       domain: retail
+id: 92         turns: 7       domain: retail
+id: 93         turns: 4       domain: retail
+id: 94         turns: 6       domain: retail
+id: 95         turns: 6       domain: retail
+id: 96         turns: 6       domain: retail
+id: 97         turns: 8       domain: retail
+id: 98         turns: 4       domain: retail
+id: 99         turns: 13      domain: retail
+id: 100        turns: 12      domain: retail
+id: 101        turns: 11      domain: retail
+id: 102        turns: 14      domain: retail
+id: 103        turns: 9       domain: retail
+id: 104        turns: 10      domain: retail
+id: 105        turns: 10      domain: retail
+id: 106        turns: 9       domain: retail
+id: 107        turns: 8       domain: retail
+id: 108        turns: 9       domain: retail
+id: 109        turns: 5       domain: retail
+id: 110        turns: 7       domain: retail
+id: 111        turns: 6       domain: retail
+id: 112        turns: 11      domain: retail
+id: 113        turns: 6       domain: retail
+id: 114        turns: 5       domain: retail
+
+id: 0          turns: 8       domain: airline
+id: 1          turns: 8       domain: airline
+id: 2          turns: 8       domain: airline
+id: 3          turns: 8       domain: airline
+id: 4          turns: 6       domain: airline
+id: 5          turns: 8       domain: airline
+id: 6          turns: 6       domain: airline
+id: 7          turns: 8       domain: airline
+id: 8          turns: 25      domain: airline
+id: 9          turns: 8       domain: airline
+id: 10         turns: 13      domain: airline
+id: 11         turns: 4       domain: airline
+id: 12         turns: 3       domain: airline
+id: 13         turns: 5       domain: airline
+id: 14         turns: 3       domain: airline
+id: 15         turns: 5       domain: airline
+id: 16         turns: 7       domain: airline
+id: 17         turns: 8       domain: airline
+id: 18         turns: 3       domain: airline
+id: 19         turns: 10      domain: airline
+id: 20         turns: 8       domain: airline
+id: 21         turns: 6       domain: airline
+id: 22         turns: 8       domain: airline
+id: 23         turns: 7       domain: airline
+id: 24         turns: 9       domain: airline
+id: 25         turns: 14      domain: airline
+id: 26         turns: 6       domain: airline
+id: 27         turns: 7       domain: airline
+id: 28         turns: 4       domain: airline
+id: 29         turns: 4       domain: airline
+id: 30         turns: 5       domain: airline
+id: 31         turns: 8       domain: airline
+id: 32         turns: 13      domain: airline
+id: 33         turns: 5       domain: airline
+id: 34         turns: 6       domain: airline
+id: 35         turns: 2       domain: airline
+id: 36         turns: 4       domain: airline
+id: 37         turns: 9       domain: airline
+id: 38         turns: 4       domain: airline
+id: 39         turns: 4       domain: airline
+id: 40         turns: 5       domain: airline
+id: 41         turns: 4       domain: airline
+id: 42         turns: 5       domain: airline
+id: 43         turns: 4       domain: airline
+id: 44         turns: 4       domain: airline
+id: 45         turns: 7       domain: airline
+id: 46         turns: 4       domain: airline
+id: 47         turns: 6       domain: airline
+id: 48         turns: 4       domain: airline
+id: 49         turns: 3       domain: airline

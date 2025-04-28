@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "judge_client": "openai",
+        "judge_model": "gpt-4o",
+        "agent_client": "anthropic",
+        "agent_model": "claude-3-5-sonnet-20241022",
+        "inform": {
+            "total": 82.0,
+            "hotel": 85.7,
+            "train": 90.9,
+            "attraction": 78.1,
+            "restaurant": 100.0,
+            "taxi": 100.0
+        },
+        "success": {
+            "total": 67.0,
+            "hotel": 61.2,
+            "train": 75.0,
+            "attraction": 68.8,
+            "restaurant": 75.7,
+            "taxi": 63.6
+        }
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.6518,
+        "avg_backend_consistency": 4.5447,
+        "avg_policy_completeness": 4.393,
+        "total_dialogues": 100,
+        "total_turns": 739
+    }
+}

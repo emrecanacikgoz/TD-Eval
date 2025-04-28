@@ -1,0 +1,2292 @@
+
+[[AdvancedFormat]]
+
+[[Block:Instructions]]
+[[Question:Text]]
+Thank you for participating in this annotation task. We have provided 20 dialogues where an AI agent is responding to a user request, and we want you to evaluate the responses. This survey should take roughly 60-75 minutes. Progress will be saved automatically, so you can complete it in multiple sessions, but <strong>make sure you are using the same browser each time.</strong> Please rate individual dialogue responses of AI agents from 1 (worst) to 5 (best) on the following qualities: Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance, the metric definitions are below. In addition, please rate the full dialogue in terms of task completion and response coherence. <br/><br/>
+
+<strong>Conversation Consistency</strong><br/>
+How much an agent's response align with the context of conversation context. </br>
+<ul>
+<li><strong>Relevance</strong>: The response directly relates to the dialogue history and the current user query.</li>
+<li> <strong>Topic Consistency</strong>: The response remains on-topic with the dialogue history and the user query.</li>
+<li><strong>Coherence</strong>: The response logically continues the progression of the dialogue.</li>
+</ul>
+</br>
+
+<strong>Scoring Scale</strong><br/>
+<ol>
+<li><strong>Very Good (5)</strong>: Response is completely consistent with the previous conversation context, with no inconsistencies or errors.</li>
+<li><strong>Good (4)</strong>: Response is mostly consistent with the context. Only minor improvements are needed.</li>
+<li><strong>Fair (3)</strong>: Response is somewhat consistent but contains noticeable inconsistencies or lacks depth in addressing the context.</li>
+<li><strong>Bad (2)</strong>: Response shows limited consistency with the conversation context and requires significant improvement.</li>
+<li><strong>Very Bad (1)</strong>: Response is incoherent or completely inconsistent with the conversation context.</li>
+</ol>
+</br></br>
+
+<strong>Backend Knowledge Consistency</strong><br/>
+How well an agent's response aligns with information provided by backend database results.</br>
+<ul>
+<li><strong>Accuracy</strong>: The response directly reflects the information in the database results.</li>
+<li> <strong>Topic Consistency</strong>: The response stays on-topic with the database results and the dialogue context.</li>
+<li><strong>Coherence</strong>: The response logically incorporates and progresses based on the database results.</li>
+</ul>
+</br></br>
+
+<strong>Scoring Scale</strong><br/>
+<ol>
+<li><strong>Very Good (5)</strong>: Response is completely consistent with the database results, with no inconsistencies or errors.</li>
+<li><strong>Good (4)</strong>: Response is mostly consistent with the database results. Only minor improvements are needed.</li>
+<li><strong>Fair (3)</strong>: Response is sufficiently consistent with the database results but contains noticeable inconsistencies or lacks depth in addressing the results.</li>
+<li><strong>Bad (2)</strong>: Response shows limited consistency with the database results and requires significant improvement.</li>
+<li><strong>Very Bad (1)</strong>: Response is incoherent or completely inconsistent with the database results.</li>
+</ol>
+</br></br>
+
+<strong>Policy Compliance</strong><br/>
+How well an agent's response adheres to the expected policy protocol. </br>
+<ul>
+<li><strong>Number of Suggestions</strong>: Providing suggestions only when the database results are small enough to do so.</li>
+<li> <strong>Information Gathering</strong>: Requesting required, relevant information (slots) from the user before offering suggestions or booking services.</li>
+<li><strong>Appropriate Timing</strong>: Avoiding premature actions, such as making a booking or suggesting a service too early in the conversation.</li>
+<li><strong>Alignment with Policy</strong>: Avoiding actions that do not align with the suggested flow of interaction in the policy, when available.</li>
+
+</ul>
+</br>
+
+<strong>Expected Policy</strong></br>
+The chatbot response should depend on the database results and dialogue history: <br/>
+<ul>
+<li>If the database results return a number larger than 10: Indicate the number of entries that match the user's query and request additional information if needed to narrow down the results.</li>
+<li>If the database results return values less than 10: If vital details are missing, request additional information. Otherwise, provide the relevant entries to the user</li>
+</ul>
+<br/><br/>
+
+<strong>Scoring Scale</strong><br/>
+<ol>
+<li><strong>Very Good</strong>: Response fully follows policy protocol with no errors or omissions.</li>
+<li><strong>Good</strong>: Response mostly follows policy protocol, with only minor room for improvement.</li>
+<li><strong>Fair</strong>: Response sufficiently follows policy protocol but has clear areas where it could improve in completeness or timing.</li>
+<li><strong>Bad</strong>: Response does not adequately follow policy protocol, though there may be partial adherence.</li>
+<li><strong>Very Bad</strong>: Response fails to follow policy protocol and is incomplete or incoherent.</li>
+</ol>
+
+[[Block:Dialogue #pmul3301]]
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong> looking for hotel with 4 star in the center of town . <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API. <br/>
+<i>Function</i>: query_hotels<br/>
+<i>Args</i>: {"area": "centre", "internet": "any", "name": "any", "parking": "any", "pricerange": "any", "stars": "4", "type": "any"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'address': '56 saint barnabas road', 'area': 'centre', 'internet': 'yes', 'parking': 'yes', 'id': '2', 'location': [52.1986444444444, 0.138133333333333], 'name': 'alexander bed and breakfast', 'phone': '01223525725', 'postcode': 'cb12de', 'price': {'double': '50', 'single': '40'}, 'pricerange': 'cheap', 'stars': '4', 'takesbookings': 'yes', 'type': 'guesthouse'}</li>
+<li>{'address': 'regent street', 'area': 'centre', 'internet': 'yes', 'parking': 'yes', 'id': '30', 'location': [52.19942, 0.12722], 'name': 'university arms hotel', 'phone': '01223351241', 'postcode': 'cb21ad', 'price': {'double': '124', 'family': '144', 'single': '104'}, 'pricerange': 'expensive', 'stars': '4', 'takesbookings': 'yes', 'type': 'hotel'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I found two 4-star hotels in the center of town:
+<ol>
+<li><strong>Alexander Bed and Breakfast</strong></li>
+<ul>
+<li>Address: 56 Saint Barnabas Road</li>
+<li>Phone: 01223525725</li>
+<li>Price Range: Cheap</li>
+<li>Internet: Yes</li>
+<li>
+<p>Parking: Yes</p>
+</li>
+</ul>
+<li>
+<p><strong>University Arms Hotel</strong></p>
+</li>
+<ul>
+<li>Address: Regent Street</li>
+<li>Phone: 01223351241</li>
+<li>Price Range: Expensive</li>
+<li>Internet: Yes</li>
+<li>Parking: Yes</li>
+</ul>
+</ol>
+<p>Let me know if you would like to book a room at any of these hotels!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I found two 4-star hotels in the center of town:
+<ol>
+<li><strong>Alexander Bed and Breakfast</strong></li>
+<ul>
+<li>Address: 56 Saint Barnabas Road</li>
+<li>Phone: 01223525725</li>
+<li>Price Range: Cheap</li>
+<li>Internet: Yes</li>
+<li>
+<p>Parking: Yes</p>
+</li>
+</ul>
+<li>
+<p><strong>University Arms Hotel</strong></p>
+</li>
+<ul>
+<li>Address: Regent Street</li>
+<li>Phone: 01223351241</li>
+<li>Price Range: Expensive</li>
+<li>Internet: Yes</li>
+<li>Parking: Yes</li>
+</ul>
+</ol>
+<p>Let me know if you would like to book a room at any of these hotels!</p> <br/>
+<strong>User:</strong> I am looking for a particular hotel called Archway House. Can you help me find it? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API. <br/>
+<i>Function</i>: query_hotels<br/>
+<i>Args</i>: {"area": "any", "internet": "any", "name": "Archway House", "parking": "any", "pricerange": "any", "stars": "any", "type": "any"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'address': '52 gilbert road', 'area': 'north', 'internet': 'yes', 'parking': 'yes', 'id': '6', 'location': [52.2309912, 0.1295545], 'name': 'archway house', 'phone': '01223575314', 'postcode': 'cb43pe', 'price': {'double': '70', 'single': '40'}, 'pricerange': 'moderate', 'stars': '4', 'takesbookings': 'yes', 'type': 'guesthouse'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I found the hotel you were looking for:
+<p><strong>Archway House</strong>
+- Address: 52 Gilbert Road, North
+- Phone: 01223575314
+- Price Range: Moderate
+- Stars: 4
+- Internet: Yes
+- Parking: Yes</p>
+<p>Let me know if you would like to book a room or need more information!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I found the hotel you were looking for:
+<p><strong>Archway House</strong>
+- Address: 52 Gilbert Road, North
+- Phone: 01223575314
+- Price Range: Moderate
+- Stars: 4
+- Internet: Yes
+- Parking: Yes</p>
+<p>Let me know if you would like to book a room or need more information!</p> <br/>
+<strong>User:</strong> I would like to book a room at Archway House for 8 people and 2 nights starting from Saturday. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API. <br/>
+<i>Function</i>: book_hotel<br/>
+<i>Args</i>: {"name": "Archway House", "people": "8", "day": "saturday", "stay": "2"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'reference': 'B5CZ1Y09'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I have successfully booked a room at Archway House for 8 people for 2 nights starting from Saturday. Your reference number is <strong>B5CZ1Y09</strong>. Let me know if you need anything else!<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I have successfully booked a room at Archway House for 8 people for 2 nights starting from Saturday. Your reference number is <strong>B5CZ1Y09</strong>. Let me know if you need anything else! <br/>
+<strong>User:</strong> I am also looking for a train on the same day as the hotel booking. The train should leave after 19:00, depart from Norwich, and go to Cambridge. Can you provide the price and arrival time? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API. <br/>
+<i>Function</i>: query_trains<br/>
+<i>Args</i>: {"arriveBy": "any", "day": "saturday", "departure": "Norwich", "destination": "Cambridge", "leaveAt": "19:00", "trainID": "any"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'arriveBy': '20:35', 'day': 'saturday', 'departure': 'norwich', 'destination': 'cambridge', 'duration': '79 minutes', 'leaveAt': '19:16', 'price': '14.08 pounds', 'trainID': 'TR5589'}</li>
+<li>{'arriveBy': '21:35', 'day': 'saturday', 'departure': 'norwich', 'destination': 'cambridge', 'duration': '79 minutes', 'leaveAt': '20:16', 'price': '14.08 pounds', 'trainID': 'TR0615'}</li>
+<li>{'arriveBy': '22:35', 'day': 'saturday', 'departure': 'norwich', 'destination': 'cambridge', 'duration': '79 minutes', 'leaveAt': '21:16', 'price': '14.08 pounds', 'trainID': 'TR3267'}</li>
+<li>{'arriveBy': '23:35', 'day': 'saturday', 'departure': 'norwich', 'destination': 'cambridge', 'duration': '79 minutes', 'leaveAt': '22:16', 'price': '14.08 pounds', 'trainID': 'TR6105'}</li>
+<li>{'arriveBy': '24:35', 'day': 'saturday', 'departure': 'norwich', 'destination': 'cambridge', 'duration': '79 minutes', 'leaveAt': '23:16', 'price': '14.08 pounds', 'trainID': 'TR4244'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> Here are the train options from Norwich to Cambridge on Saturday, leaving after 19:00:
+<ol>
+<li><strong>Train ID: TR5589</strong></li>
+<ul>
+<li>Departure: 19:16</li>
+<li>Arrival: 20:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR0615</strong></p>
+</li>
+<ul>
+<li>Departure: 20:16</li>
+<li>Arrival: 21:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR3267</strong></p>
+</li>
+<ul>
+<li>Departure: 21:16</li>
+<li>Arrival: 22:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR6105</strong></p>
+</li>
+<ul>
+<li>Departure: 22:16</li>
+<li>Arrival: 23:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR4244</strong></p>
+</li>
+<ul>
+<li>Departure: 23:16</li>
+<li>Arrival: 24:35</li>
+<li>Duration: 79 minutes</li>
+<li>Price: £14.08</li>
+</ul>
+</ol>
+<p>Let me know if you would like to book a ticket for any of these trains!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> Here are the train options from Norwich to Cambridge on Saturday, leaving after 19:00:
+<ol>
+<li><strong>Train ID: TR5589</strong></li>
+<ul>
+<li>Departure: 19:16</li>
+<li>Arrival: 20:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR0615</strong></p>
+</li>
+<ul>
+<li>Departure: 20:16</li>
+<li>Arrival: 21:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR3267</strong></p>
+</li>
+<ul>
+<li>Departure: 21:16</li>
+<li>Arrival: 22:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR6105</strong></p>
+</li>
+<ul>
+<li>Departure: 22:16</li>
+<li>Arrival: 23:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR4244</strong></p>
+</li>
+<ul>
+<li>Departure: 23:16</li>
+<li>Arrival: 24:35</li>
+<li>Duration: 79 minutes</li>
+<li>Price: £14.08</li>
+</ul>
+</ol>
+<p>Let me know if you would like to book a ticket for any of these trains!</p> <br/>
+<strong>User:</strong> Thank you for the information. I will take the train with ID TR5589. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API. <br/>
+<i>Function</i>: buy_train_tickets<br/>
+<i>Args</i>: {"arriveBy": "20:35", "day": "saturday", "departure": "Norwich", "destination": "Cambridge", "leaveAt": "19:16", "trainID": "TR5589", "people": "1"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'reference': 'QYO7XUP5'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I have successfully booked a ticket for the train with ID <strong>TR5589</strong> from Norwich to Cambridge. Your reference number is <strong>QYO7XUP5</strong>. If you need any further assistance, feel free to ask!<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong> looking for hotel with 4 star in the center of town . <br/>
+<strong>Agent:</strong> I found two 4-star hotels in the center of town:
+<ol>
+<li><strong>Alexander Bed and Breakfast</strong></li>
+<ul>
+<li>Address: 56 Saint Barnabas Road</li>
+<li>Phone: 01223525725</li>
+<li>Price Range: Cheap</li>
+<li>Internet: Yes</li>
+<li>
+<p>Parking: Yes</p>
+</li>
+</ul>
+<li>
+<p><strong>University Arms Hotel</strong></p>
+</li>
+<ul>
+<li>Address: Regent Street</li>
+<li>Phone: 01223351241</li>
+<li>Price Range: Expensive</li>
+<li>Internet: Yes</li>
+<li>Parking: Yes</li>
+</ul>
+</ol>
+<p>Let me know if you would like to book a room at any of these hotels!</p> <br/>
+<strong>User:</strong> I am looking for a particular hotel called Archway House. Can you help me find it? <br/>
+<strong>Agent:</strong> I found the hotel you were looking for:
+<p><strong>Archway House</strong>
+- Address: 52 Gilbert Road, North
+- Phone: 01223575314
+- Price Range: Moderate
+- Stars: 4
+- Internet: Yes
+- Parking: Yes</p>
+<p>Let me know if you would like to book a room or need more information!</p> <br/>
+<strong>User:</strong> I would like to book a room at Archway House for 8 people and 2 nights starting from Saturday. <br/>
+<strong>Agent:</strong> I have successfully booked a room at Archway House for 8 people for 2 nights starting from Saturday. Your reference number is <strong>B5CZ1Y09</strong>. Let me know if you need anything else! <br/>
+<strong>User:</strong> I am also looking for a train on the same day as the hotel booking. The train should leave after 19:00, depart from Norwich, and go to Cambridge. Can you provide the price and arrival time? <br/>
+<strong>Agent:</strong> Here are the train options from Norwich to Cambridge on Saturday, leaving after 19:00:
+<ol>
+<li><strong>Train ID: TR5589</strong></li>
+<ul>
+<li>Departure: 19:16</li>
+<li>Arrival: 20:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR0615</strong></p>
+</li>
+<ul>
+<li>Departure: 20:16</li>
+<li>Arrival: 21:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR3267</strong></p>
+</li>
+<ul>
+<li>Departure: 21:16</li>
+<li>Arrival: 22:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR6105</strong></p>
+</li>
+<ul>
+<li>Departure: 22:16</li>
+<li>Arrival: 23:35</li>
+<li>Duration: 79 minutes</li>
+<li>
+<p>Price: £14.08</p>
+</li>
+</ul>
+<li>
+<p><strong>Train ID: TR4244</strong></p>
+</li>
+<ul>
+<li>Departure: 23:16</li>
+<li>Arrival: 24:35</li>
+<li>Duration: 79 minutes</li>
+<li>Price: £14.08</li>
+</ul>
+</ol>
+<p>Let me know if you would like to book a ticket for any of these trains!</p> <br/>
+<strong>User:</strong> Thank you for the information. I will take the train with ID TR5589. <br/>
+<strong>Agent:</strong> I have successfully booked a ticket for the train with ID <strong>TR5589</strong> from Norwich to Cambridge. Your reference number is <strong>QYO7XUP5</strong>. If you need any further assistance, feel free to ask! <br/>
+
+<hr>
+<br/>
+<strong>For the whole dialogue</strong> rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>conversation consistency, backend knowledge consistency, and policy compliance</strong> ability? <br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above conversation.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+
+[[Block:Dialogue #pmul3283]]
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong> can you help me find a particular restaurant that i am looking for? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> Yes, I can help you with that. What is the name of the restaurant you are looking for?<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> Yes, I can help you with that. What is the name of the restaurant you are looking for? <br/>
+<strong>User:</strong> I am looking for a restaurant called Eraina. Can you provide me with the food type and phone number? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to find information about the restaurant. <br/>
+<i>Function</i>: query_restaurants<br/>
+<i>Args</i>: {"area":"any","pricerange":"any","food":"any","name":"Eraina"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'address': 'Free School Lane City Centre', 'area': 'centre', 'food': 'european', 'id': '19245', 'introduction': 'eraina serves a variety of drinks and european dishes with influences from france spain italy and greece catering for vegetarians is also provided', 'location': [52.203708, 0.119082], 'name': 'eraina', 'phone': '01223368786', 'postcode': 'cb23rh', 'pricerange': 'expensive', 'type': 'restaurant'}</li>
+<li>{'address': '33 Bridge Street', 'area': 'centre', 'food': 'european', 'id': '6780', 'introduction': '', 'location': [52.20951, 0.11669], 'name': 'galleria', 'phone': '01223362054', 'postcode': 'cb21uw', 'pricerange': 'moderate', 'signature': 'poached fillets of monkfish in lemongrass with sweet red chilli cream sauce and tiger prawns with leeks and mushrooms served with rice', 'type': 'restaurant'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I found the restaurant "Eraina" for you. It serves European food and its phone number is 01223368786. The address is Free School Lane, City Centre.<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I found the restaurant "Eraina" for you. It serves European food and its phone number is 01223368786. The address is Free School Lane, City Centre. <br/>
+<strong>User:</strong> Thank you! I am also looking for a hotel called Bridge Guest House. Can you provide me with the postcode? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to find information about the hotel. <br/>
+<i>Function</i>: query_hotels<br/>
+<i>Args</i>: {"area":"any","internet":"any","name":"Bridge Guest House","parking":"any","pricerange":"any","stars":"any","type":"any"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'address': '82 arbury road', 'area': 'north', 'internet': 'yes', 'parking': 'yes', 'id': '5', 'location': [52.2309912, 0.1295545], 'name': 'arbury lodge guesthouse', 'phone': '01223364319', 'postcode': 'cb42je', 'price': {'double': '75', 'family': '100', 'single': '50'}, 'pricerange': 'moderate', 'stars': '4', 'takesbookings': 'yes', 'type': 'guesthouse'}</li>
+<li>{'address': '5 mowbray road', 'area': 'south', 'internet': 'yes', 'parking': 'yes', 'id': '10', 'location': [52.1815361111111, 0.150375], 'name': 'aylesbray lodge guest house', 'phone': '01223240089', 'postcode': 'cb17sr', 'price': {'double': '75', 'family': '95', 'single': '65'}, 'pricerange': 'moderate', 'stars': '4', 'takesbookings': 'yes', 'type': 'guesthouse'}</li>
+<li>{'address': '151 hills road', 'area': 'south', 'internet': 'yes', 'parking': 'yes', 'id': '11', 'location': [52.1725982, 0.1112224], 'name': 'bridge guest house', 'phone': '01223247942', 'postcode': 'cb28rj', 'price': {'double': '75', 'family': '90', 'single': '50'}, 'pricerange': 'moderate', 'stars': '3', 'takesbookings': 'yes', 'type': 'guesthouse'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I found the hotel "Bridge Guest House" for you. Its postcode is CB2 8RJ, and the address is 151 Hills Road, South.<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I found the hotel "Bridge Guest House" for you. Its postcode is CB2 8RJ, and the address is 151 Hills Road, South. <br/>
+<strong>User:</strong> Great! I also need to book a taxi to commute between Eraina and Bridge Guest House. I want to leave the hotel by 23:30. Can you provide me with the contact number and car type? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to find information about taxi services, but I don't have the specific details about the taxi service to provide the contact number and car type. Unfortunately, I cannot assist with that request as it requires information not available through the APIs I can access.  <br/>
+
+<hr>
+<strong>Agent:</strong> I'm sorry, but I cannot provide the contact number and car type for taxi services. You may want to check local taxi services directly for that information.<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I'm sorry, but I cannot provide the contact number and car type for taxi services. You may want to check local taxi services directly for that information. <br/>
+<strong>User:</strong> Could you please book the taxi for me then? I need to leave the hotel by 23:30. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to book a taxi, but I need the departure address (Bridge Guest House) and the destination address (Eraina) to proceed with the booking.  <br/>
+<i>Function</i>: book_taxi<br/>
+<i>Args</i>: {"arriveBy":"dontcare","departure":"151 hills road","destination":"Free School Lane City Centre","leaveAt":"23:30"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'type': 'grey tesla', 'phone': '8628652947'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I have successfully booked a taxi for you to commute from Bridge Guest House to Eraina. The taxi is a grey Tesla, and the contact number for the taxi service is 8628652947. Your reference number has been returned!<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong> can you help me find a particular restaurant that i am looking for? <br/>
+<strong>Agent:</strong> Yes, I can help you with that. What is the name of the restaurant you are looking for? <br/>
+<strong>User:</strong> I am looking for a restaurant called Eraina. Can you provide me with the food type and phone number? <br/>
+<strong>Agent:</strong> I found the restaurant "Eraina" for you. It serves European food and its phone number is 01223368786. The address is Free School Lane, City Centre. <br/>
+<strong>User:</strong> Thank you! I am also looking for a hotel called Bridge Guest House. Can you provide me with the postcode? <br/>
+<strong>Agent:</strong> I found the hotel "Bridge Guest House" for you. Its postcode is CB2 8RJ, and the address is 151 Hills Road, South. <br/>
+<strong>User:</strong> Great! I also need to book a taxi to commute between Eraina and Bridge Guest House. I want to leave the hotel by 23:30. Can you provide me with the contact number and car type? <br/>
+<strong>Agent:</strong> I'm sorry, but I cannot provide the contact number and car type for taxi services. You may want to check local taxi services directly for that information. <br/>
+<strong>User:</strong> Could you please book the taxi for me then? I need to leave the hotel by 23:30. <br/>
+<strong>Agent:</strong> I have successfully booked a taxi for you to commute from Bridge Guest House to Eraina. The taxi is a grey Tesla, and the contact number for the taxi service is 8628652947. Your reference number has been returned! <br/>
+
+<hr>
+<br/>
+<strong>For the whole dialogue</strong> rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>conversation consistency, backend knowledge consistency, and policy compliance</strong> ability? <br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above conversation.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+
+[[Block:Dialogue #mul2316]]
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong> i want to visit some architecture . <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to find attractions related to architecture.  <br/>
+<i>Function</i>: query_attractions<br/>
+<i>Args</i>: {"area":"any","name":"any","type":"architecture"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'address': 'jesus lane', 'area': 'centre', 'entrance fee': 'free', 'id': '3', 'location': [52.2078083333333, 0.125616666666667], 'name': 'all saints church', 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m., at other times the key can be borrowed from a nearby key holder.', 'phone': '01223452587', 'postcode': 'cb58bs', 'pricerange': 'free', 'type': 'architecture'}</li>
+<li>{'address': 'market square', 'area': 'centre', 'entrance fee': '2 pounds', 'id': '31', 'location': [52.2049472222222, 0.118222222222222], 'name': "great saint mary's church", 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m.', 'phone': '01223350914', 'postcode': 'cb23pq', 'pricerange': 'cheap', 'type': 'architecture'}</li>
+<li>{'address': 'market street', 'area': 'centre', 'entrance fee': 'free', 'id': '32', 'location': [52.2057694444444, 0.120033333333333], 'name': 'holy trinity church', 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m.', 'phone': '01223355397', 'postcode': 'cb23nz', 'pricerange': 'free', 'type': 'architecture'}</li>
+<li>{'address': "little saint mary's lane", 'area': 'centre', 'entrance fee': 'free', 'id': '40', 'location': [52.2005111111111, 0.119883333333333], 'name': "little saint mary's church", 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m.', 'phone': '01223366202', 'postcode': 'cb21qy', 'pricerange': 'free', 'type': 'architecture'}</li>
+<li>{'address': 'trinity lane', 'area': 'centre', 'entrance fee': 'free', 'id': '48', 'location': [52.2052638888889, 0.116641666666667], 'name': 'old schools', 'openhours': 'it opens normally daily from 08:00 a.m. to 5:45 p.m.', 'phone': '01223332320', 'postcode': 'cb21tt', 'pricerange': 'free', 'type': 'architecture'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> Here are some architectural attractions you can visit:
+<ol>
+<li><strong>All Saints Church</strong></li>
+<ul>
+<li>Address: Jesus Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m. (key can be borrowed at other times)</li>
+<li>
+<p>Phone: 01223452587</p>
+</li>
+</ul>
+<li>
+<p><strong>Great Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Square, Centre</li>
+<li>Entrance Fee: 2 pounds</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223350914</p>
+</li>
+</ul>
+<li>
+<p><strong>Holy Trinity Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Street, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223355397</p>
+</li>
+</ul>
+<li>
+<p><strong>Little Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Little Saint Mary's Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223366202</p>
+</li>
+</ul>
+<li>
+<p><strong>Old Schools</strong></p>
+</li>
+<ul>
+<li>Address: Trinity Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 08:00 a.m. to 5:45 p.m.</li>
+<li>Phone: 01223332320</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> Here are some architectural attractions you can visit:
+<ol>
+<li><strong>All Saints Church</strong></li>
+<ul>
+<li>Address: Jesus Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m. (key can be borrowed at other times)</li>
+<li>
+<p>Phone: 01223452587</p>
+</li>
+</ul>
+<li>
+<p><strong>Great Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Square, Centre</li>
+<li>Entrance Fee: 2 pounds</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223350914</p>
+</li>
+</ul>
+<li>
+<p><strong>Holy Trinity Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Street, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223355397</p>
+</li>
+</ul>
+<li>
+<p><strong>Little Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Little Saint Mary's Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223366202</p>
+</li>
+</ul>
+<li>
+<p><strong>Old Schools</strong></p>
+</li>
+<ul>
+<li>Address: Trinity Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 08:00 a.m. to 5:45 p.m.</li>
+<li>Phone: 01223332320</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p> <br/>
+<strong>User:</strong> I am looking for places to go in town. The attraction should be in the type of architecture. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to find attractions related to architecture.  <br/>
+<i>Function</i>: query_attractions<br/>
+<i>Args</i>: {"area":"any","name":"any","type":"architecture"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'address': 'jesus lane', 'area': 'centre', 'entrance fee': 'free', 'id': '3', 'location': [52.2078083333333, 0.125616666666667], 'name': 'all saints church', 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m., at other times the key can be borrowed from a nearby key holder.', 'phone': '01223452587', 'postcode': 'cb58bs', 'pricerange': 'free', 'type': 'architecture'}</li>
+<li>{'address': 'market square', 'area': 'centre', 'entrance fee': '2 pounds', 'id': '31', 'location': [52.2049472222222, 0.118222222222222], 'name': "great saint mary's church", 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m.', 'phone': '01223350914', 'postcode': 'cb23pq', 'pricerange': 'cheap', 'type': 'architecture'}</li>
+<li>{'address': 'market street', 'area': 'centre', 'entrance fee': 'free', 'id': '32', 'location': [52.2057694444444, 0.120033333333333], 'name': 'holy trinity church', 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m.', 'phone': '01223355397', 'postcode': 'cb23nz', 'pricerange': 'free', 'type': 'architecture'}</li>
+<li>{'address': "little saint mary's lane", 'area': 'centre', 'entrance fee': 'free', 'id': '40', 'location': [52.2005111111111, 0.119883333333333], 'name': "little saint mary's church", 'openhours': 'it opens normally daily from 9 a.m. to 5 p.m.', 'phone': '01223366202', 'postcode': 'cb21qy', 'pricerange': 'free', 'type': 'architecture'}</li>
+<li>{'address': 'trinity lane', 'area': 'centre', 'entrance fee': 'free', 'id': '48', 'location': [52.2052638888889, 0.116641666666667], 'name': 'old schools', 'openhours': 'it opens normally daily from 08:00 a.m. to 5:45 p.m.', 'phone': '01223332320', 'postcode': 'cb21tt', 'pricerange': 'free', 'type': 'architecture'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> Here are some architectural attractions you can visit in town:
+<ol>
+<li><strong>All Saints Church</strong></li>
+<ul>
+<li>Address: Jesus Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m. (key can be borrowed at other times)</li>
+<li>
+<p>Phone: 01223452587</p>
+</li>
+</ul>
+<li>
+<p><strong>Great Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Square, Centre</li>
+<li>Entrance Fee: 2 pounds</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223350914</p>
+</li>
+</ul>
+<li>
+<p><strong>Holy Trinity Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Street, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223355397</p>
+</li>
+</ul>
+<li>
+<p><strong>Little Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Little Saint Mary's Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223366202</p>
+</li>
+</ul>
+<li>
+<p><strong>Old Schools</strong></p>
+</li>
+<ul>
+<li>Address: Trinity Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 08:00 a.m. to 5:45 p.m.</li>
+<li>Phone: 01223332320</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> Here are some architectural attractions you can visit in town:
+<ol>
+<li><strong>All Saints Church</strong></li>
+<ul>
+<li>Address: Jesus Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m. (key can be borrowed at other times)</li>
+<li>
+<p>Phone: 01223452587</p>
+</li>
+</ul>
+<li>
+<p><strong>Great Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Square, Centre</li>
+<li>Entrance Fee: 2 pounds</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223350914</p>
+</li>
+</ul>
+<li>
+<p><strong>Holy Trinity Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Street, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223355397</p>
+</li>
+</ul>
+<li>
+<p><strong>Little Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Little Saint Mary's Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223366202</p>
+</li>
+</ul>
+<li>
+<p><strong>Old Schools</strong></p>
+</li>
+<ul>
+<li>Address: Trinity Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 08:00 a.m. to 5:45 p.m.</li>
+<li>Phone: 01223332320</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p> <br/>
+<strong>User:</strong> Can you provide me with the phone number for Great Saint Mary's Church? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> The phone number for Great Saint Mary's Church is 01223350914. If you need any more information, feel free to ask!<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> The phone number for Great Saint Mary's Church is 01223350914. If you need any more information, feel free to ask! <br/>
+<strong>User:</strong> I am also looking for a restaurant. The restaurant should be in the expensive price range and should serve Italian food. It should be in the centre. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to find a restaurant that meets the specified criteria. <br/>
+<i>Function</i>: query_restaurants<br/>
+<i>Args</i>: {"area":"centre","pricerange":"expensive","food":"Italian","name":"any"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'address': 'Market Hill City Centre', 'area': 'centre', 'food': 'italian', 'id': '19240', 'location': [52.205442, 0.119706], 'name': 'stazione restaurant and coffee bar', 'phone': '01223352607', 'postcode': 'cb23nj', 'pricerange': 'expensive', 'type': 'restaurant'}</li>
+<li>{'address': '54 King Street City Centre', 'area': 'centre', 'food': 'italian', 'id': '19176', 'introduction': 'clowns cafe serve a variety of drinks as well as italian dishes such as pasta ciabatta and salads', 'location': [52.207312, 0.124201], 'name': 'clowns cafe', 'phone': '01223355711', 'postcode': 'cb11ln', 'pricerange': 'expensive', 'type': 'restaurant'}</li>
+<li>{'address': '12 Market Hill City Centre', 'area': 'centre', 'food': 'italian', 'id': '19239', 'introduction': 'don pasquale pizzeria serves an extensive range of pizzas and italian dishes including pasta as well as a selection of beverages. Catering for private parties of up to 80 guests is available upon request', 'location': [52.205442, 0.119706], 'name': 'don pasquale pizzeria', 'phone': '01223350106', 'postcode': 'cb23nj', 'pricerange': 'expensive', 'type': 'restaurant'}</li>
+<li>{'address': '32 Bridge Street City Centre', 'area': 'centre', 'food': 'italian', 'id': '19234', 'introduction': 'caffe uno is a chain of cafe style restaurants that offer a wide selection of meals and snacks to suit any time of the day including an extensive breakfast menu and choice of hot or cold drinks', 'location': [52.209632, 0.117213], 'name': 'caffe uno', 'phone': '01223448620', 'postcode': 'cb21uj', 'pricerange': 'expensive', 'type': 'restaurant'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> Here are some expensive Italian restaurants in the centre:
+<ol>
+<li><strong>Stazione Restaurant and Coffee Bar</strong></li>
+<ul>
+<li>Address: Market Hill, City Centre</li>
+<li>Phone: 01223352607</li>
+<li>
+<p>Postcode: CB2 3NJ</p>
+</li>
+</ul>
+<li>
+<p><strong>Clowns Cafe</strong></p>
+</li>
+<ul>
+<li>Address: 54 King Street, City Centre</li>
+<li>Phone: 01223355711</li>
+<li>Postcode: CB1 1LN</li>
+<li>
+<p>Introduction: Clowns Cafe serves a variety of drinks as well as Italian dishes such as pasta, ciabatta, and salads.</p>
+</li>
+</ul>
+<li>
+<p><strong>Don Pasquale Pizzeria</strong></p>
+</li>
+<ul>
+<li>Address: 12 Market Hill, City Centre</li>
+<li>Phone: 01223350106</li>
+<li>Postcode: CB2 3NJ</li>
+<li>
+<p>Introduction: Don Pasquale Pizzeria serves an extensive range of pizzas and Italian dishes including pasta, and can cater for private parties of up to 80 guests upon request.</p>
+</li>
+</ul>
+<li>
+<p><strong>Caffe Uno</strong></p>
+</li>
+<ul>
+<li>Address: 32 Bridge Street, City Centre</li>
+<li>Phone: 01223448620</li>
+<li>Postcode: CB2 1UJ</li>
+<li>Introduction: Caffe Uno is a chain of cafe-style restaurants that offer a wide selection of meals and snacks, including an extensive breakfast menu and a choice of hot or cold drinks.</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> Here are some expensive Italian restaurants in the centre:
+<ol>
+<li><strong>Stazione Restaurant and Coffee Bar</strong></li>
+<ul>
+<li>Address: Market Hill, City Centre</li>
+<li>Phone: 01223352607</li>
+<li>
+<p>Postcode: CB2 3NJ</p>
+</li>
+</ul>
+<li>
+<p><strong>Clowns Cafe</strong></p>
+</li>
+<ul>
+<li>Address: 54 King Street, City Centre</li>
+<li>Phone: 01223355711</li>
+<li>Postcode: CB1 1LN</li>
+<li>
+<p>Introduction: Clowns Cafe serves a variety of drinks as well as Italian dishes such as pasta, ciabatta, and salads.</p>
+</li>
+</ul>
+<li>
+<p><strong>Don Pasquale Pizzeria</strong></p>
+</li>
+<ul>
+<li>Address: 12 Market Hill, City Centre</li>
+<li>Phone: 01223350106</li>
+<li>Postcode: CB2 3NJ</li>
+<li>
+<p>Introduction: Don Pasquale Pizzeria serves an extensive range of pizzas and Italian dishes including pasta, and can cater for private parties of up to 80 guests upon request.</p>
+</li>
+</ul>
+<li>
+<p><strong>Caffe Uno</strong></p>
+</li>
+<ul>
+<li>Address: 32 Bridge Street, City Centre</li>
+<li>Phone: 01223448620</li>
+<li>Postcode: CB2 1UJ</li>
+<li>Introduction: Caffe Uno is a chain of cafe-style restaurants that offer a wide selection of meals and snacks, including an extensive breakfast menu and a choice of hot or cold drinks.</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p> <br/>
+<strong>User:</strong> I would like to book a table at Don Pasquale Pizzeria for 2 people at 19:30 on Monday. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+ <strong>Thought</strong>: I need to call an API to book a restaurant table. <br/>
+<i>Function</i>: book_restaurant<br/>
+<i>Args</i>: {"name":"don pasquale pizzeria","people":"2","day":"monday","time":"19:30"}<br/>
+<i>Output</i>:<br/>
+<ul>
+<li>{'reference': '803CTBSP'}</li>
+</ul><br/>
+<strong>Thought</strong>: I don't need an API and want to respond to the user. <br/>
+
+<hr>
+<strong>Agent:</strong> I have successfully booked a table for 2 people at Don Pasquale Pizzeria for 19:30 on Monday. Your reference number is 803CTBSP. If you need anything else, feel free to ask!<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong> i want to visit some architecture . <br/>
+<strong>Agent:</strong> Here are some architectural attractions you can visit:
+<ol>
+<li><strong>All Saints Church</strong></li>
+<ul>
+<li>Address: Jesus Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m. (key can be borrowed at other times)</li>
+<li>
+<p>Phone: 01223452587</p>
+</li>
+</ul>
+<li>
+<p><strong>Great Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Square, Centre</li>
+<li>Entrance Fee: 2 pounds</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223350914</p>
+</li>
+</ul>
+<li>
+<p><strong>Holy Trinity Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Street, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223355397</p>
+</li>
+</ul>
+<li>
+<p><strong>Little Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Little Saint Mary's Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223366202</p>
+</li>
+</ul>
+<li>
+<p><strong>Old Schools</strong></p>
+</li>
+<ul>
+<li>Address: Trinity Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 08:00 a.m. to 5:45 p.m.</li>
+<li>Phone: 01223332320</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p> <br/>
+<strong>User:</strong> I am looking for places to go in town. The attraction should be in the type of architecture. <br/>
+<strong>Agent:</strong> Here are some architectural attractions you can visit in town:
+<ol>
+<li><strong>All Saints Church</strong></li>
+<ul>
+<li>Address: Jesus Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m. (key can be borrowed at other times)</li>
+<li>
+<p>Phone: 01223452587</p>
+</li>
+</ul>
+<li>
+<p><strong>Great Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Square, Centre</li>
+<li>Entrance Fee: 2 pounds</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223350914</p>
+</li>
+</ul>
+<li>
+<p><strong>Holy Trinity Church</strong></p>
+</li>
+<ul>
+<li>Address: Market Street, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223355397</p>
+</li>
+</ul>
+<li>
+<p><strong>Little Saint Mary's Church</strong></p>
+</li>
+<ul>
+<li>Address: Little Saint Mary's Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 9 a.m. to 5 p.m.</li>
+<li>
+<p>Phone: 01223366202</p>
+</li>
+</ul>
+<li>
+<p><strong>Old Schools</strong></p>
+</li>
+<ul>
+<li>Address: Trinity Lane, Centre</li>
+<li>Entrance Fee: Free</li>
+<li>Open Hours: Daily from 08:00 a.m. to 5:45 p.m.</li>
+<li>Phone: 01223332320</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p> <br/>
+<strong>User:</strong> Can you provide me with the phone number for Great Saint Mary's Church? <br/>
+<strong>Agent:</strong> The phone number for Great Saint Mary's Church is 01223350914. If you need any more information, feel free to ask! <br/>
+<strong>User:</strong> I am also looking for a restaurant. The restaurant should be in the expensive price range and should serve Italian food. It should be in the centre. <br/>
+<strong>Agent:</strong> Here are some expensive Italian restaurants in the centre:
+<ol>
+<li><strong>Stazione Restaurant and Coffee Bar</strong></li>
+<ul>
+<li>Address: Market Hill, City Centre</li>
+<li>Phone: 01223352607</li>
+<li>
+<p>Postcode: CB2 3NJ</p>
+</li>
+</ul>
+<li>
+<p><strong>Clowns Cafe</strong></p>
+</li>
+<ul>
+<li>Address: 54 King Street, City Centre</li>
+<li>Phone: 01223355711</li>
+<li>Postcode: CB1 1LN</li>
+<li>
+<p>Introduction: Clowns Cafe serves a variety of drinks as well as Italian dishes such as pasta, ciabatta, and salads.</p>
+</li>
+</ul>
+<li>
+<p><strong>Don Pasquale Pizzeria</strong></p>
+</li>
+<ul>
+<li>Address: 12 Market Hill, City Centre</li>
+<li>Phone: 01223350106</li>
+<li>Postcode: CB2 3NJ</li>
+<li>
+<p>Introduction: Don Pasquale Pizzeria serves an extensive range of pizzas and Italian dishes including pasta, and can cater for private parties of up to 80 guests upon request.</p>
+</li>
+</ul>
+<li>
+<p><strong>Caffe Uno</strong></p>
+</li>
+<ul>
+<li>Address: 32 Bridge Street, City Centre</li>
+<li>Phone: 01223448620</li>
+<li>Postcode: CB2 1UJ</li>
+<li>Introduction: Caffe Uno is a chain of cafe-style restaurants that offer a wide selection of meals and snacks, including an extensive breakfast menu and a choice of hot or cold drinks.</li>
+</ul>
+</ol>
+<p>Let me know if you need more information or assistance!</p> <br/>
+<strong>User:</strong> I would like to book a table at Don Pasquale Pizzeria for 2 people at 19:30 on Monday. <br/>
+<strong>Agent:</strong> I have successfully booked a table for 2 people at Don Pasquale Pizzeria for 19:30 on Monday. Your reference number is 803CTBSP. If you need anything else, feel free to ask! <br/>
+
+<hr>
+<br/>
+<strong>For the whole dialogue</strong> rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>conversation consistency, backend knowledge consistency, and policy compliance</strong> ability? <br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above conversation.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+
+[[Block:Dialogue #9]]
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong>  Hi! I'd like to exchange a couple of items I bought, if that's possible. <br/>
+
+<hr>
+<strong>Backend Result</strong>: Nothing Found <br/>
+
+<hr>
+<strong>Agent:</strong> I can help you with that. To get started, could you please provide your email address or your name and zip code so I can authenticate your identity?<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I can help you with that. To get started, could you please provide your email address or your name and zip code so I can authenticate your identity? <br/>
+<strong>User:</strong>  Sure, my name is Mei Kovacs, and my zip code is 28236. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+<i>Function</i>: find_user_id_by_name_zip
+<br/>
+<i>Args</i>: {"first_name":"Mei","last_name":"Kovacs","zip":"28236"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>mei_kovacs_8020</li>
+</ul><br/>
+ <br/>
+
+<hr>
+<strong>Agent:</strong> Thank you, Mei. Your identity has been authenticated. Could you please provide the order ID and the details of the items you would like to exchange?<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> Thank you, Mei. Your identity has been authenticated. Could you please provide the order ID and the details of the items you would like to exchange? <br/>
+<strong>User:</strong>  I'm sorry, I don't have the order ID with me at the moment. But I'm looking to exchange a water bottle for a larger one, and a desk lamp for a brighter option. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+<i>Function</i>: get_user_details
+<br/>
+<i>Args</i>: {"user_id":"mei_kovacs_8020"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>{'name': {'first_name': 'Mei', 'last_name': 'Kovacs'}, 'address': {'address1': '317 Elm Street', 'address2': 'Suite 461', 'city': 'Charlotte', 'country': 'USA', 'province': 'NC', 'zip': '28236'}, 'email': 'mei.kovacs8232@example.com', 'payment_methods': {'paypal_7644869': {'source': 'paypal', 'id': 'paypal_7644869'}}, 'orders': ['#W6390527', '#W7800651', '#W8065207']}</li>
+</ul><br/>
+<br/>
+<i>Function</i>: get_order_details
+<br/>
+<i>Args</i>: {"order_id": "#W6390527"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>{'order_id': '#W6390527', 'user_id': 'mei_kovacs_8020', 'address': {'address1': '317 Elm Street', 'address2': 'Suite 461', 'city': 'Charlotte', 'country': 'USA', 'state': 'NC', 'zip': '28236'}, 'items': [{'name': 'Desk Lamp', 'product_id': '6817146515', 'item_id': '8384507844', 'price': 137.94, 'options': {'color': 'white', 'brightness': 'medium', 'power source': 'USB'}}, {'name': 'Hiking Boots', 'product_id': '7363354090', 'item_id': '1615379700', 'price': 253.89, 'options': {'size': '10', 'material': 'synthetic', 'waterproof': 'yes'}}, {'name': 'Water Bottle', 'product_id': '8310926033', 'item_id': '8538875209', 'price': 45.13, 'options': {'capacity': '500ml', 'material': 'glass', 'color': 'black'}}], 'fulfillments': [{'tracking_id': ['745984883162'], 'item_ids': ['8384507844', '1615379700', '8538875209']}], 'status': 'delivered', 'payment_history': [{'transaction_type': 'payment', 'amount': 436.96, 'payment_method_id': 'paypal_7644869'}]}</li>
+</ul><br/>
+<br/>
+<i>Function</i>: get_product_details
+<br/>
+<i>Args</i>: {"product_id":"8310926033"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>{'name': 'Water Bottle', 'product_id': '8310926033', 'variants': {'1434748144': {'item_id': '1434748144', 'options': {'capacity': '1000ml', 'material': 'glass', 'color': 'red'}, 'available': False, 'price': 49.72}, '4579334072': {'item_id': '4579334072', 'options': {'capacity': '750ml', 'material': 'glass', 'color': 'black'}, 'available': True, 'price': 54.85}, '6469567736': {'item_id': '6469567736', 'options': {'capacity': '1000ml', 'material': 'glass', 'color': 'blue'}, 'available': False, 'price': 47.84}, '3453331371': {'item_id': '3453331371', 'options': {'capacity': '500ml', 'material': 'stainless steel', 'color': 'black'}, 'available': True, 'price': 52.79}, '2439754078': {'item_id': '2439754078', 'options': {'capacity': '1000ml', 'material': 'stainless steel', 'color': 'red'}, 'available': True, 'price': 49.51}, '7843064651': {'item_id': '7843064651', 'options': {'capacity': '750ml', 'material': 'stainless steel', 'color': 'blue'}, 'available': True, 'price': 50.14}, '7918497119': {'item_id': '7918497119', 'options': {'capacity': '500ml', 'material': 'glass', 'color': 'blue'}, 'available': False, 'price': 54.51}, '5758737025': {'item_id': '5758737025', 'options': {'capacity': '500ml', 'material': 'glass', 'color': 'green'}, 'available': True, 'price': 45.09}, '7533802601': {'item_id': '7533802601', 'options': {'capacity': '500ml', 'material': 'stainless steel', 'color': 'green'}, 'available': True, 'price': 48.59}, '3229676465': {'item_id': '3229676465', 'options': {'capacity': '500ml', 'material': 'plastic', 'color': 'black'}, 'available': True, 'price': 51.94}, '2366567022': {'item_id': '2366567022', 'options': {'capacity': '1000ml', 'material': 'stainless steel', 'color': 'blue'}, 'available': False, 'price': 54.04}, '6974536207': {'item_id': '6974536207', 'options': {'capacity': '750ml', 'material': 'plastic', 'color': 'blue'}, 'available': True, 'price': 49.3}, '6777246137': {'item_id': '6777246137', 'options': {'capacity': '750ml', 'material': 'stainless steel', 'color': 'red'}, 'available': True, 'price': 47.76}, '8538875209': {'item_id': '8538875209', 'options': {'capacity': '500ml', 'material': 'glass', 'color': 'black'}, 'available': True, 'price': 45.13}, '9127591879': {'item_id': '9127591879', 'options': {'capacity': '750ml', 'material': 'stainless steel', 'color': 'black'}, 'available': False, 'price': 48.47}, '7661609223': {'item_id': '7661609223', 'options': {'capacity': '1000ml', 'material': 'stainless steel', 'color': 'black'}, 'available': True, 'price': 46.51}, '4947921075': {'item_id': '4947921075', 'options': {'capacity': '750ml', 'material': 'stainless steel', 'color': 'green'}, 'available': False, 'price': 49.57}, '7199146548': {'item_id': '7199146548', 'options': {'capacity': '750ml', 'material': 'plastic', 'color': 'black'}, 'available': True, 'price': 48.02}}}</li>
+</ul><br/>
+ <br/>
+
+<hr>
+<strong>Agent:</strong> No problem, Mei. I can help you look up your order details. Let me retrieve the information for you.
+ Here are the available options for exchanging your items:
+<h3>Desk Lamp</h3>
+<ul>
+<li><strong>Current Item</strong>: White, Medium Brightness, USB</li>
+<li><strong>Available Options</strong>:</li>
+<li>White, High Brightness, USB - $164.28</li>
+<li>Black, High Brightness, AC Adapter - $154.17</li>
+<li>Silver, Medium Brightness, USB - $164.97</li>
+</ul>
+<h3>Water Bottle</h3>
+<ul>
+<li><strong>Current Item</strong>: 500ml, Glass, Black</li>
+<li><strong>Available Options</strong>:</li>
+<li>750ml, Glass, Black - $54.85</li>
+<li>1000ml, Stainless Steel, Red - $49.51</li>
+<li>750ml, Stainless Steel, Blue - $50.14</li>
+<li>1000ml, Stainless Steel, Black - $46.51</li>
+</ul>
+<p>Please let me know which options you'd like to choose for the exchange, and confirm that you have provided all items to be exchanged. Also, the payment method on file is PayPal. Would you like to use it for any price differences?</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> No problem, Mei. I can help you look up your order details. Let me retrieve the information for you.
+ Here are the available options for exchanging your items:
+<h3>Desk Lamp</h3>
+<ul>
+<li><strong>Current Item</strong>: White, Medium Brightness, USB</li>
+<li><strong>Available Options</strong>:</li>
+<li>White, High Brightness, USB - $164.28</li>
+<li>Black, High Brightness, AC Adapter - $154.17</li>
+<li>Silver, Medium Brightness, USB - $164.97</li>
+</ul>
+<h3>Water Bottle</h3>
+<ul>
+<li><strong>Current Item</strong>: 500ml, Glass, Black</li>
+<li><strong>Available Options</strong>:</li>
+<li>750ml, Glass, Black - $54.85</li>
+<li>1000ml, Stainless Steel, Red - $49.51</li>
+<li>750ml, Stainless Steel, Blue - $50.14</li>
+<li>1000ml, Stainless Steel, Black - $46.51</li>
+</ul>
+<p>Please let me know which options you'd like to choose for the exchange, and confirm that you have provided all items to be exchanged. Also, the payment method on file is PayPal. Would you like to use it for any price differences?</p> <br/>
+<strong>User:</strong>  I'd like to exchange the desk lamp for the Black, High Brightness option with the AC Adapter. Can we start with that, please? <br/>
+
+<hr>
+<strong>Backend Result</strong>: Nothing Found <br/>
+
+<hr>
+<strong>Agent:</strong> To proceed with the exchange of the Desk Lamp to the Black, High Brightness option with the AC Adapter, there will be a price difference of $16.23, which will be refunded to your PayPal account.
+<p>Please confirm if you would like to proceed with this exchange.</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> To proceed with the exchange of the Desk Lamp to the Black, High Brightness option with the AC Adapter, there will be a price difference of $16.23, which will be refunded to your PayPal account.
+<p>Please confirm if you would like to proceed with this exchange.</p> <br/>
+<strong>User:</strong>  Yes, please go ahead with that exchange. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+<i>Function</i>: exchange_delivered_order_items
+<br/>
+<i>Args</i>: {"order_id":"#W6390527","item_ids":["8384507844"],"new_item_ids":["7624783998"],"payment_method_id":"paypal_7644869"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>{'order_id': '#W6390527', 'user_id': 'mei_kovacs_8020', 'address': {'address1': '317 Elm Street', 'address2': 'Suite 461', 'city': 'Charlotte', 'country': 'USA', 'state': 'NC', 'zip': '28236'}, 'items': [{'name': 'Desk Lamp', 'product_id': '6817146515', 'item_id': '8384507844', 'price': 137.94, 'options': {'color': 'white', 'brightness': 'medium', 'power source': 'USB'}}, {'name': 'Hiking Boots', 'product_id': '7363354090', 'item_id': '1615379700', 'price': 253.89, 'options': {'size': '10', 'material': 'synthetic', 'waterproof': 'yes'}}, {'name': 'Water Bottle', 'product_id': '8310926033', 'item_id': '8538875209', 'price': 45.13, 'options': {'capacity': '500ml', 'material': 'glass', 'color': 'black'}}], 'fulfillments': [{'tracking_id': ['745984883162'], 'item_ids': ['8384507844', '1615379700', '8538875209']}], 'status': 'exchange requested', 'payment_history': [{'transaction_type': 'payment', 'amount': 436.96, 'payment_method_id': 'paypal_7644869'}], 'exchange_items': ['8384507844'], 'exchange_new_items': ['7624783998'], 'exchange_payment_method_id': 'paypal_7644869', 'exchange_price_difference': 16.23}</li>
+</ul><br/>
+ <br/>
+
+<hr>
+<strong>Agent:</strong> The exchange for your Desk Lamp to the Black, High Brightness option with the AC Adapter has been successfully requested. A refund of $16.23 will be processed to your PayPal account. You will receive an email with instructions on how to return the original item.
+<p>If you need further assistance or wish to exchange the Water Bottle as well, feel free to let me know!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong>  Hi! I'd like to exchange a couple of items I bought, if that's possible. <br/>
+<strong>Agent:</strong> I can help you with that. To get started, could you please provide your email address or your name and zip code so I can authenticate your identity? <br/>
+<strong>User:</strong>  Sure, my name is Mei Kovacs, and my zip code is 28236. <br/>
+<strong>Agent:</strong> Thank you, Mei. Your identity has been authenticated. Could you please provide the order ID and the details of the items you would like to exchange? <br/>
+<strong>User:</strong>  I'm sorry, I don't have the order ID with me at the moment. But I'm looking to exchange a water bottle for a larger one, and a desk lamp for a brighter option. <br/>
+<strong>Agent:</strong> No problem, Mei. I can help you look up your order details. Let me retrieve the information for you.
+ Here are the available options for exchanging your items:
+<h3>Desk Lamp</h3>
+<ul>
+<li><strong>Current Item</strong>: White, Medium Brightness, USB</li>
+<li><strong>Available Options</strong>:</li>
+<li>White, High Brightness, USB - $164.28</li>
+<li>Black, High Brightness, AC Adapter - $154.17</li>
+<li>Silver, Medium Brightness, USB - $164.97</li>
+</ul>
+<h3>Water Bottle</h3>
+<ul>
+<li><strong>Current Item</strong>: 500ml, Glass, Black</li>
+<li><strong>Available Options</strong>:</li>
+<li>750ml, Glass, Black - $54.85</li>
+<li>1000ml, Stainless Steel, Red - $49.51</li>
+<li>750ml, Stainless Steel, Blue - $50.14</li>
+<li>1000ml, Stainless Steel, Black - $46.51</li>
+</ul>
+<p>Please let me know which options you'd like to choose for the exchange, and confirm that you have provided all items to be exchanged. Also, the payment method on file is PayPal. Would you like to use it for any price differences?</p> <br/>
+<strong>User:</strong>  I'd like to exchange the desk lamp for the Black, High Brightness option with the AC Adapter. Can we start with that, please? <br/>
+<strong>Agent:</strong> To proceed with the exchange of the Desk Lamp to the Black, High Brightness option with the AC Adapter, there will be a price difference of $16.23, which will be refunded to your PayPal account.
+<p>Please confirm if you would like to proceed with this exchange.</p> <br/>
+<strong>User:</strong>  Yes, please go ahead with that exchange. <br/>
+<strong>Agent:</strong> The exchange for your Desk Lamp to the Black, High Brightness option with the AC Adapter has been successfully requested. A refund of $16.23 will be processed to your PayPal account. You will receive an email with instructions on how to return the original item.
+<p>If you need further assistance or wish to exchange the Water Bottle as well, feel free to let me know!</p> <br/>
+
+<hr>
+<br/>
+<strong>For the whole dialogue</strong> rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>conversation consistency, backend knowledge consistency, and policy compliance</strong> ability? <br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above conversation.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+
+[[Block:Dialogue #2]]
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong>  Hi, I'm having a bit of a money issue and need to downgrade all my business flights to economy. Could you help me with that? <br/>
+
+<hr>
+<strong>Backend Result</strong>: Nothing Found <br/>
+
+<hr>
+<strong>Agent:</strong> I can assist you with downgrading your business flights to economy. Could you please provide your user ID and the reservation ID for the flights you wish to downgrade?<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I can assist you with downgrading your business flights to economy. Could you please provide your user ID and the reservation ID for the flights you wish to downgrade? <br/>
+<strong>User:</strong>  My user ID is omar_davis_3817, but I don't have the reservation IDs on me right now. Can you work with just my user ID? <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+<i>Function</i>: get_user_details
+<br/>
+<i>Args</i>: {"user_id":"omar_davis_3817"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>{'name': {'first_name': 'Omar', 'last_name': 'Davis'}, 'address': {'address1': '281 Spruce Street', 'address2': 'Suite 942', 'city': 'San Diego', 'country': 'USA', 'province': 'CA', 'zip': '92164'}, 'email': 'omar.davis7857@example.com', 'dob': '1982-10-19', 'payment_methods': {'gift_card_3481935': {'source': 'gift_card', 'amount': 22, 'id': 'gift_card_3481935'}, 'credit_card_2929732': {'source': 'credit_card', 'brand': 'visa', 'last_four': '7803', 'id': 'credit_card_2929732'}, 'credit_card_9525117': {'source': 'credit_card', 'brand': 'visa', 'last_four': '2172', 'id': 'credit_card_9525117'}, 'gift_card_6847880': {'source': 'gift_card', 'amount': 31, 'id': 'gift_card_6847880'}}, 'saved_passengers': [{'first_name': 'Juan', 'last_name': 'Ahmed', 'dob': '1992-11-19'}, {'first_name': 'Anya', 'last_name': 'Thomas', 'dob': '1990-10-11'}], 'membership': 'regular', 'reservations': ['JG7FMM', 'LQ940Q', '2FBBAH', 'X7BYG1', 'EQ1G6C', 'BOH180']}</li>
+</ul><br/>
+ <br/>
+
+<hr>
+<strong>Agent:</strong> I need the reservation ID to proceed with downgrading your flights. If you don't have it on hand, I can look up your reservations using your user ID. Let me retrieve your reservation details first.
+ I found several reservations under your user ID. Here are the reservation IDs:
+<ol>
+<li>JG7FMM</li>
+<li>LQ940Q</li>
+<li>2FBBAH</li>
+<li>X7BYG1</li>
+<li>EQ1G6C</li>
+<li>BOH180</li>
+</ol>
+<p>Please let me know which reservation(s) you would like to downgrade from business to economy.</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> I need the reservation ID to proceed with downgrading your flights. If you don't have it on hand, I can look up your reservations using your user ID. Let me retrieve your reservation details first.
+ I found several reservations under your user ID. Here are the reservation IDs:
+<ol>
+<li>JG7FMM</li>
+<li>LQ940Q</li>
+<li>2FBBAH</li>
+<li>X7BYG1</li>
+<li>EQ1G6C</li>
+<li>BOH180</li>
+</ol>
+<p>Please let me know which reservation(s) you would like to downgrade from business to economy.</p> <br/>
+<strong>User:</strong>  I want to downgrade all of them, please. I need to save as much as possible. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+<i>Function</i>: get_reservation_details
+<br/>
+<i>Args</i>: {"reservation_id":"BOH180"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>{'reservation_id': 'BOH180', 'user_id': 'omar_davis_3817', 'origin': 'SEA', 'destination': 'IAH', 'flight_type': 'one_way', 'cabin': 'business', 'flights': [{'origin': 'SEA', 'destination': 'JFK', 'flight_number': 'HAT276', 'date': '2024-05-21', 'price': 1981}, {'origin': 'JFK', 'destination': 'IAH', 'flight_number': 'HAT279', 'date': '2024-05-22', 'price': 820}], 'passengers': [{'first_name': 'Omar', 'last_name': 'Davis', 'dob': '1982-10-19'}, {'first_name': 'Anya', 'last_name': 'Thomas', 'dob': '1990-10-11'}], 'payment_history': [{'payment_id': 'credit_card_9525117', 'amount': 5662}], 'created_at': '2024-05-06T19:53:46', 'total_baggages': 1, 'nonfree_baggages': 0, 'insurance': 'yes'}</li>
+</ul><br/>
+<br/>
+<i>Function</i>: think
+<br/>
+<i>Args</i>: {"thought":"I have retrieved the details for all reservations. I need to ensure that the flights are not basic economy and that downgrading is possible. All reservations are currently in business class, which can be downgraded to economy. I will proceed to calculate the price difference for each reservation and prepare the downgrade request."}
+<br/>
+<i>Output</i>:
+No output data<br/>
+ <br/>
+
+<hr>
+<strong>Agent:</strong> Before proceeding, I need to check the details of each reservation to ensure they can be downgraded. I'll start by retrieving the details for each reservation. Please hold on for a moment.
+ I have confirmed that all your reservations are currently in business class, and they can be downgraded to economy. Here are the details of the reservations that will be downgraded:
+<ol>
+<li><strong>Reservation ID: JG7FMM</strong></li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: 2FBBAH</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: X7BYG1</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: EQ1G6C</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: BOH180</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>New Cabin: Economy</li>
+</ul>
+</ol>
+<p>The reservation LQ940Q is already in economy class, so no changes are needed for that one.</p>
+<p>Please confirm if you would like to proceed with downgrading these reservations.</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> Before proceeding, I need to check the details of each reservation to ensure they can be downgraded. I'll start by retrieving the details for each reservation. Please hold on for a moment.
+ I have confirmed that all your reservations are currently in business class, and they can be downgraded to economy. Here are the details of the reservations that will be downgraded:
+<ol>
+<li><strong>Reservation ID: JG7FMM</strong></li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: 2FBBAH</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: X7BYG1</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: EQ1G6C</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: BOH180</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>New Cabin: Economy</li>
+</ul>
+</ol>
+<p>The reservation LQ940Q is already in economy class, so no changes are needed for that one.</p>
+<p>Please confirm if you would like to proceed with downgrading these reservations.</p> <br/>
+<strong>User:</strong>  Yes, please proceed with downgrading the reservations to economy class. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+<i>Function</i>: update_reservation_flights
+<br/>
+<i>Args</i>: {"reservation_id":"BOH180","cabin":"economy","flights":[{"flight_number":"HAT276","date":"2024-05-21"},{"flight_number":"HAT279","date":"2024-05-22"}],"payment_id":"credit_card_9525117"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>{'reservation_id': 'BOH180', 'user_id': 'omar_davis_3817', 'origin': 'SEA', 'destination': 'IAH', 'flight_type': 'one_way', 'cabin': 'business', 'flights': [{'flight_number': 'HAT276', 'date': '2024-05-21', 'price': 117, 'origin': 'SEA', 'destination': 'JFK'}, {'flight_number': 'HAT279', 'date': '2024-05-22', 'price': 102, 'origin': 'JFK', 'destination': 'IAH'}], 'passengers': [{'first_name': 'Omar', 'last_name': 'Davis', 'dob': '1982-10-19'}, {'first_name': 'Anya', 'last_name': 'Thomas', 'dob': '1990-10-11'}], 'payment_history': [{'payment_id': 'credit_card_9525117', 'amount': 5662}, {'payment_id': 'credit_card_9525117', 'amount': -5164}], 'created_at': '2024-05-06T19:53:46', 'total_baggages': 1, 'nonfree_baggages': 0, 'insurance': 'yes'}</li>
+</ul><br/>
+ <br/>
+
+<hr>
+<strong>Agent:</strong> All your business class reservations have been successfully downgraded to economy class. Here are the updated details:
+<ol>
+<li><strong>Reservation ID: JG7FMM</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: 2FBBAH</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: X7BYG1</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: EQ1G6C</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: BOH180</strong> - Downgraded to Economy</li>
+</ol>
+<p>The refunds for the price differences have been processed to your original payment methods. If you have any more questions or need further assistance, feel free to ask!</p><br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> All your business class reservations have been successfully downgraded to economy class. Here are the updated details:
+<ol>
+<li><strong>Reservation ID: JG7FMM</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: 2FBBAH</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: X7BYG1</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: EQ1G6C</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: BOH180</strong> - Downgraded to Economy</li>
+</ol>
+<p>The refunds for the price differences have been processed to your original payment methods. If you have any more questions or need further assistance, feel free to ask!</p> <br/>
+<strong>User:</strong>  Thanks. But I really need to know how much money I've saved in total by doing this downgrade. <br/>
+
+<hr>
+<strong>Backend Result</strong>: <br/>
+<i>Function</i>: calculate
+<br/>
+<i>Args</i>: {"expression":"(1859 + 1679 - 140 - 101) + (537 + 996 + 1440 + 1417 - 107 - 141 - 108 - 109) + (1505 + 1519 - 162 - 153) + (1820 + 940 - 172 - 136) + (1981 + 820 - 117 - 102)"}
+<br/>
+<i>Output</i>:
+<ul>
+<li>14965.0</li>
+</ul><br/>
+ <br/>
+
+<hr>
+<strong>Agent:</strong> You have saved a total of $14,965 by downgrading your flights from business class to economy class. If there's anything else you need, feel free to let me know!<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>Agent:</strong> You have saved a total of $14,965 by downgrading your flights from business class to economy class. If there's anything else you need, feel free to let me know! <br/>
+<strong>User:</strong>  Okay, thanks for your help. That's quite a relief. <br/>
+
+<hr>
+<strong>Backend Result</strong>: Nothing Found <br/>
+
+<hr>
+<strong>Agent:</strong> You're welcome! I'm glad I could help. If you have any more questions or need further assistance in the future, don't hesitate to reach out. Safe travels!<br/>
+<hr>
+<br/><br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above response.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+
+[[Question:Matrix]]
+Read the dialogue context below:<br/><br/>
+<hr>
+<strong>User:</strong>  Hi, I'm having a bit of a money issue and need to downgrade all my business flights to economy. Could you help me with that? <br/>
+<strong>Agent:</strong> I can assist you with downgrading your business flights to economy. Could you please provide your user ID and the reservation ID for the flights you wish to downgrade? <br/>
+<strong>User:</strong>  My user ID is omar_davis_3817, but I don't have the reservation IDs on me right now. Can you work with just my user ID? <br/>
+<strong>Agent:</strong> I need the reservation ID to proceed with downgrading your flights. If you don't have it on hand, I can look up your reservations using your user ID. Let me retrieve your reservation details first.
+ I found several reservations under your user ID. Here are the reservation IDs:
+<ol>
+<li>JG7FMM</li>
+<li>LQ940Q</li>
+<li>2FBBAH</li>
+<li>X7BYG1</li>
+<li>EQ1G6C</li>
+<li>BOH180</li>
+</ol>
+<p>Please let me know which reservation(s) you would like to downgrade from business to economy.</p> <br/>
+<strong>User:</strong>  I want to downgrade all of them, please. I need to save as much as possible. <br/>
+<strong>Agent:</strong> Before proceeding, I need to check the details of each reservation to ensure they can be downgraded. I'll start by retrieving the details for each reservation. Please hold on for a moment.
+ I have confirmed that all your reservations are currently in business class, and they can be downgraded to economy. Here are the details of the reservations that will be downgraded:
+<ol>
+<li><strong>Reservation ID: JG7FMM</strong></li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: 2FBBAH</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: X7BYG1</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: EQ1G6C</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>
+<p>New Cabin: Economy</p>
+</li>
+</ul>
+<li>
+<p><strong>Reservation ID: BOH180</strong></p>
+</li>
+<ul>
+<li>Current Cabin: Business</li>
+<li>New Cabin: Economy</li>
+</ul>
+</ol>
+<p>The reservation LQ940Q is already in economy class, so no changes are needed for that one.</p>
+<p>Please confirm if you would like to proceed with downgrading these reservations.</p> <br/>
+<strong>User:</strong>  Yes, please proceed with downgrading the reservations to economy class. <br/>
+<strong>Agent:</strong> All your business class reservations have been successfully downgraded to economy class. Here are the updated details:
+<ol>
+<li><strong>Reservation ID: JG7FMM</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: 2FBBAH</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: X7BYG1</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: EQ1G6C</strong> - Downgraded to Economy</li>
+<li><strong>Reservation ID: BOH180</strong> - Downgraded to Economy</li>
+</ol>
+<p>The refunds for the price differences have been processed to your original payment methods. If you have any more questions or need further assistance, feel free to ask!</p> <br/>
+<strong>User:</strong>  Thanks. But I really need to know how much money I've saved in total by doing this downgrade. <br/>
+<strong>Agent:</strong> You have saved a total of $14,965 by downgrading your flights from business class to economy class. If there's anything else you need, feel free to let me know! <br/>
+<strong>User:</strong>  Okay, thanks for your help. That's quite a relief. <br/>
+<strong>Agent:</strong> You're welcome! I'm glad I could help. If you have any more questions or need further assistance in the future, don't hesitate to reach out. Safe travels! <br/>
+
+<hr>
+<br/>
+<strong>For the whole dialogue</strong> rate your satisfaction with the chatbot's answers to the user's questions. How well would you rate the bot's <strong>conversation consistency, backend knowledge consistency, and policy compliance</strong> ability? <br/>
+
+Rate the Conversation Consistency, Backend Knowledge Consistency, and Policy Compliance from 1 to 5 for the above conversation.<br/><br/>
+
+[[Choices]]
+Conversation Consistency
+Backend Knowledge Consistency
+Policy Compliance
+
+[[AdvancedAnswers]]
+[[Answer]]
+Very Bad
+[[Answer]]
+Bad
+[[Answer]]
+Fair
+[[Answer]]
+Good
+[[Answer]]
+Very Good
+

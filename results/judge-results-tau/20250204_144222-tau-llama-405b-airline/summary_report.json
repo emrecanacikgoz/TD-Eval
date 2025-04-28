@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "/home/acikgoz2/TD-Eval/results-tau/react-Llama-3.1-405B-Instruct-FP8-0.0_range_0--1_user-gpt-4o-llm_0129115113-airline.json",
+        "judge_client": "openai",
+        "judge_model": "gpt-4o"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.5766,
+        "avg_backend_consistency": 4.3212,
+        "avg_policy_completeness": 4.1533,
+        "total_dialogues": 42,
+        "total_turns": 286
+    }
+}

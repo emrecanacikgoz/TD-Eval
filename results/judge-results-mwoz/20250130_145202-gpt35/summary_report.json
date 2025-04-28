@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "judge_client": "openai",
+        "judge_model": "gpt-4o",
+        "agent_client": "openai",
+        "agent_model": "gpt-3.5-turbo",
+        "inform": {
+            "total": 51.0,
+            "hotel": 59.2,
+            "train": 86.4,
+            "attraction": 50.0,
+            "restaurant": 56.8,
+            "taxi": 100.0
+        },
+        "success": {
+            "total": 36.0,
+            "hotel": 34.7,
+            "train": 50.0,
+            "attraction": 25.0,
+            "restaurant": 21.6,
+            "taxi": 36.4
+        }
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 3.1984,
+        "avg_backend_consistency": 3.5774,
+        "avg_policy_completeness": 3.3899,
+        "total_dialogues": 100,
+        "total_turns": 739
+    }
+}

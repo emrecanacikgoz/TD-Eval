@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "/home/acikgoz2/TD-Eval/results-tau/tool-calling-gpt-3.5-turbo-0125-0.0_range_0--1_user-gpt-4o-llm_0128230207-airline.json",
+        "judge_client": "openai",
+        "judge_model": "gpt-4o"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.4324,
+        "avg_backend_consistency": 4.0811,
+        "avg_policy_completeness": 3.4835,
+        "total_dialogues": 50,
+        "total_turns": 333
+    }
+}

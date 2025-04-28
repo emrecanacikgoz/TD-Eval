@@ -1,0 +1,3644 @@
+{
+    "metadata": {
+        "filename": "tau-4o-retail_airline",
+        "judge_client": "lmunit"
+    },
+    "dialogues": {
+        "retail_6": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.59
+                    },
+                    "backend_consistency": {
+                        "score": 3.19
+                    },
+                    "policy_completeness": {
+                        "score": 3.95
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.84
+                    },
+                    "backend_consistency": {
+                        "score": 4.24
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.56
+                    },
+                    "backend_consistency": {
+                        "score": 4.46
+                    },
+                    "policy_completeness": {
+                        "score": 3.6
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.79
+                    },
+                    "backend_consistency": {
+                        "score": 3.2
+                    },
+                    "policy_completeness": {
+                        "score": 3.5
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.52
+                    },
+                    "backend_consistency": {
+                        "score": 2.99
+                    },
+                    "policy_completeness": {
+                        "score": 2.99
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.86
+                    },
+                    "backend_consistency": {
+                        "score": 4.55
+                    },
+                    "policy_completeness": {
+                        "score": 2.58
+                    }
+                }
+            }
+        ],
+        "retail_10": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.33
+                    },
+                    "backend_consistency": {
+                        "score": 2.93
+                    },
+                    "policy_completeness": {
+                        "score": 3.86
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.81
+                    },
+                    "backend_consistency": {
+                        "score": 4.26
+                    },
+                    "policy_completeness": {
+                        "score": 3.8
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.67
+                    },
+                    "backend_consistency": {
+                        "score": 4.76
+                    },
+                    "policy_completeness": {
+                        "score": 4.61
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.67
+                    },
+                    "backend_consistency": {
+                        "score": 2.5
+                    },
+                    "policy_completeness": {
+                        "score": 3.27
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.31
+                    },
+                    "backend_consistency": {
+                        "score": 4.63
+                    },
+                    "policy_completeness": {
+                        "score": 4.27
+                    }
+                }
+            }
+        ],
+        "retail_14": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.54
+                    },
+                    "backend_consistency": {
+                        "score": 2.99
+                    },
+                    "policy_completeness": {
+                        "score": 3.98
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.9
+                    },
+                    "backend_consistency": {
+                        "score": 4.18
+                    },
+                    "policy_completeness": {
+                        "score": 4.08
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.59
+                    },
+                    "backend_consistency": {
+                        "score": 4.77
+                    },
+                    "policy_completeness": {
+                        "score": 4.69
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.78
+                    },
+                    "backend_consistency": {
+                        "score": 3.54
+                    },
+                    "policy_completeness": {
+                        "score": 3.69
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.77
+                    },
+                    "backend_consistency": {
+                        "score": 3.33
+                    },
+                    "policy_completeness": {
+                        "score": 3.41
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.91
+                    },
+                    "backend_consistency": {
+                        "score": 4.19
+                    },
+                    "policy_completeness": {
+                        "score": 3.15
+                    }
+                }
+            }
+        ],
+        "retail_21": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.86
+                    },
+                    "backend_consistency": {
+                        "score": 2.55
+                    },
+                    "policy_completeness": {
+                        "score": 3.48
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.8
+                    },
+                    "backend_consistency": {
+                        "score": 4.33
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.18
+                    },
+                    "backend_consistency": {
+                        "score": 2.6
+                    },
+                    "policy_completeness": {
+                        "score": 3.62
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.84
+                    },
+                    "backend_consistency": {
+                        "score": 4.78
+                    },
+                    "policy_completeness": {
+                        "score": 4.4
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.29
+                    },
+                    "backend_consistency": {
+                        "score": 4.27
+                    },
+                    "policy_completeness": {
+                        "score": 2.55
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.6
+                    },
+                    "backend_consistency": {
+                        "score": 3.22
+                    },
+                    "policy_completeness": {
+                        "score": 2.84
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.89
+                    },
+                    "backend_consistency": {
+                        "score": 3.95
+                    },
+                    "policy_completeness": {
+                        "score": 2.51
+                    }
+                }
+            }
+        ],
+        "retail_15": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.17
+                    },
+                    "backend_consistency": {
+                        "score": 2.9
+                    },
+                    "policy_completeness": {
+                        "score": 3.97
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.87
+                    },
+                    "backend_consistency": {
+                        "score": 4.38
+                    },
+                    "policy_completeness": {
+                        "score": 3.96
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.53
+                    },
+                    "backend_consistency": {
+                        "score": 4.31
+                    },
+                    "policy_completeness": {
+                        "score": 3.43
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.73
+                    },
+                    "backend_consistency": {
+                        "score": 4.35
+                    },
+                    "policy_completeness": {
+                        "score": 3.79
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.69
+                    },
+                    "backend_consistency": {
+                        "score": 3.79
+                    },
+                    "policy_completeness": {
+                        "score": 3.73
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.89
+                    },
+                    "backend_consistency": {
+                        "score": 4.43
+                    },
+                    "policy_completeness": {
+                        "score": 2.49
+                    }
+                }
+            }
+        ],
+        "retail_29": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 1.89
+                    },
+                    "backend_consistency": {
+                        "score": 1.54
+                    },
+                    "policy_completeness": {
+                        "score": 2.18
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.49
+                    },
+                    "backend_consistency": {
+                        "score": 4.32
+                    },
+                    "policy_completeness": {
+                        "score": 3.6
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.43
+                    },
+                    "backend_consistency": {
+                        "score": 4.61
+                    },
+                    "policy_completeness": {
+                        "score": 3.92
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.64
+                    },
+                    "backend_consistency": {
+                        "score": 2.85
+                    },
+                    "policy_completeness": {
+                        "score": 3.77
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.59
+                    },
+                    "backend_consistency": {
+                        "score": 3.45
+                    },
+                    "policy_completeness": {
+                        "score": 3.87
+                    }
+                }
+            }
+        ],
+        "retail_28": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.33
+                    },
+                    "backend_consistency": {
+                        "score": 3.39
+                    },
+                    "policy_completeness": {
+                        "score": 3.96
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.2
+                    },
+                    "backend_consistency": {
+                        "score": 4.43
+                    },
+                    "policy_completeness": {
+                        "score": 3.7
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.78
+                    },
+                    "backend_consistency": {
+                        "score": 4.32
+                    },
+                    "policy_completeness": {
+                        "score": 3.77
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.11
+                    },
+                    "backend_consistency": {
+                        "score": 4.45
+                    },
+                    "policy_completeness": {
+                        "score": 3.81
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.8
+                    },
+                    "backend_consistency": {
+                        "score": 4.68
+                    },
+                    "policy_completeness": {
+                        "score": 4.51
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.91
+                    },
+                    "backend_consistency": {
+                        "score": 4.56
+                    },
+                    "policy_completeness": {
+                        "score": 3.01
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.66
+                    },
+                    "backend_consistency": {
+                        "score": 3.74
+                    },
+                    "policy_completeness": {
+                        "score": 4.17
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.91
+                    },
+                    "backend_consistency": {
+                        "score": 3.72
+                    },
+                    "policy_completeness": {
+                        "score": 2.93
+                    }
+                }
+            },
+            {
+                "turn": 9,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 4.91
+                    },
+                    "policy_completeness": {
+                        "score": 3.2
+                    }
+                }
+            }
+        ],
+        "retail_51": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.52
+                    },
+                    "backend_consistency": {
+                        "score": 3.18
+                    },
+                    "policy_completeness": {
+                        "score": 4.06
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 4.27
+                    },
+                    "policy_completeness": {
+                        "score": 3.85
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.32
+                    },
+                    "backend_consistency": {
+                        "score": 4.67
+                    },
+                    "policy_completeness": {
+                        "score": 4.06
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.43
+                    },
+                    "backend_consistency": {
+                        "score": 4.68
+                    },
+                    "policy_completeness": {
+                        "score": 3.86
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.91
+                    },
+                    "backend_consistency": {
+                        "score": 4.41
+                    },
+                    "policy_completeness": {
+                        "score": 3.03
+                    }
+                }
+            }
+        ],
+        "retail_25": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.25
+                    },
+                    "backend_consistency": {
+                        "score": 2.86
+                    },
+                    "policy_completeness": {
+                        "score": 4.17
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.75
+                    },
+                    "backend_consistency": {
+                        "score": 2.59
+                    },
+                    "policy_completeness": {
+                        "score": 3.62
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.78
+                    },
+                    "backend_consistency": {
+                        "score": 4.4
+                    },
+                    "policy_completeness": {
+                        "score": 3.39
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.27
+                    },
+                    "backend_consistency": {
+                        "score": 3.42
+                    },
+                    "policy_completeness": {
+                        "score": 3.93
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.64
+                    },
+                    "backend_consistency": {
+                        "score": 4.48
+                    },
+                    "policy_completeness": {
+                        "score": 3.8
+                    }
+                }
+            }
+        ],
+        "retail_45": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.1
+                    },
+                    "backend_consistency": {
+                        "score": 2.42
+                    },
+                    "policy_completeness": {
+                        "score": 3.39
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.7
+                    },
+                    "backend_consistency": {
+                        "score": 4.59
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.69
+                    },
+                    "backend_consistency": {
+                        "score": 4.33
+                    },
+                    "policy_completeness": {
+                        "score": 4.17
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.52
+                    },
+                    "backend_consistency": {
+                        "score": 3.21
+                    },
+                    "policy_completeness": {
+                        "score": 3.88
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.69
+                    },
+                    "backend_consistency": {
+                        "score": 4.48
+                    },
+                    "policy_completeness": {
+                        "score": 3.38
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.81
+                    },
+                    "backend_consistency": {
+                        "score": 4.33
+                    },
+                    "policy_completeness": {
+                        "score": 4.05
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.77
+                    },
+                    "backend_consistency": {
+                        "score": 4.26
+                    },
+                    "policy_completeness": {
+                        "score": 2.65
+                    }
+                }
+            }
+        ],
+        "retail_8": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.67
+                    },
+                    "backend_consistency": {
+                        "score": 3.43
+                    },
+                    "policy_completeness": {
+                        "score": 4.1
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.84
+                    },
+                    "backend_consistency": {
+                        "score": 4.26
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.45
+                    },
+                    "backend_consistency": {
+                        "score": 4.38
+                    },
+                    "policy_completeness": {
+                        "score": 3.14
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.49
+                    },
+                    "backend_consistency": {
+                        "score": 3.66
+                    },
+                    "policy_completeness": {
+                        "score": 3.53
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.6
+                    },
+                    "backend_consistency": {
+                        "score": 3.6
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.83
+                    },
+                    "backend_consistency": {
+                        "score": 4.61
+                    },
+                    "policy_completeness": {
+                        "score": 2.82
+                    }
+                }
+            }
+        ],
+        "retail_47": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.37
+                    },
+                    "backend_consistency": {
+                        "score": 3.17
+                    },
+                    "policy_completeness": {
+                        "score": 3.93
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.53
+                    },
+                    "backend_consistency": {
+                        "score": 4.57
+                    },
+                    "policy_completeness": {
+                        "score": 3.86
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 4.68
+                    },
+                    "policy_completeness": {
+                        "score": 3.93
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.65
+                    },
+                    "backend_consistency": {
+                        "score": 4.61
+                    },
+                    "policy_completeness": {
+                        "score": 4.04
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.76
+                    },
+                    "backend_consistency": {
+                        "score": 4.68
+                    },
+                    "policy_completeness": {
+                        "score": 4.42
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.72
+                    },
+                    "backend_consistency": {
+                        "score": 4.65
+                    },
+                    "policy_completeness": {
+                        "score": 3.45
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.7
+                    },
+                    "backend_consistency": {
+                        "score": 4.59
+                    },
+                    "policy_completeness": {
+                        "score": 3.2
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.9
+                    },
+                    "backend_consistency": {
+                        "score": 4.9
+                    },
+                    "policy_completeness": {
+                        "score": 3.4
+                    }
+                }
+            }
+        ],
+        "retail_24": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.79
+                    },
+                    "backend_consistency": {
+                        "score": 3.7
+                    },
+                    "policy_completeness": {
+                        "score": 4.4
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.87
+                    },
+                    "backend_consistency": {
+                        "score": 4.3
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.8
+                    },
+                    "backend_consistency": {
+                        "score": 4.67
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.22
+                    },
+                    "backend_consistency": {
+                        "score": 4.71
+                    },
+                    "policy_completeness": {
+                        "score": 3.42
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.72
+                    },
+                    "backend_consistency": {
+                        "score": 4.35
+                    },
+                    "policy_completeness": {
+                        "score": 4.11
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.36
+                    },
+                    "backend_consistency": {
+                        "score": 4.49
+                    },
+                    "policy_completeness": {
+                        "score": 3.55
+                    }
+                }
+            }
+        ],
+        "retail_90": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 1.94
+                    },
+                    "backend_consistency": {
+                        "score": 1.45
+                    },
+                    "policy_completeness": {
+                        "score": 2.41
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.59
+                    },
+                    "backend_consistency": {
+                        "score": 4.73
+                    },
+                    "policy_completeness": {
+                        "score": 3.29
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.92
+                    },
+                    "backend_consistency": {
+                        "score": 4.24
+                    },
+                    "policy_completeness": {
+                        "score": 3.98
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.66
+                    },
+                    "backend_consistency": {
+                        "score": 2.21
+                    },
+                    "policy_completeness": {
+                        "score": 2.16
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.93
+                    },
+                    "backend_consistency": {
+                        "score": 4.01
+                    },
+                    "policy_completeness": {
+                        "score": 2.82
+                    }
+                }
+            }
+        ],
+        "retail_11": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.58
+                    },
+                    "backend_consistency": {
+                        "score": 3.32
+                    },
+                    "policy_completeness": {
+                        "score": 4.18
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.83
+                    },
+                    "backend_consistency": {
+                        "score": 4.05
+                    },
+                    "policy_completeness": {
+                        "score": 3.66
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.61
+                    },
+                    "backend_consistency": {
+                        "score": 2.57
+                    },
+                    "policy_completeness": {
+                        "score": 3.82
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.88
+                    },
+                    "backend_consistency": {
+                        "score": 3.86
+                    },
+                    "policy_completeness": {
+                        "score": 4.17
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.65
+                    },
+                    "backend_consistency": {
+                        "score": 4.71
+                    },
+                    "policy_completeness": {
+                        "score": 4.43
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.87
+                    },
+                    "backend_consistency": {
+                        "score": 3.64
+                    },
+                    "policy_completeness": {
+                        "score": 3.41
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.84
+                    },
+                    "backend_consistency": {
+                        "score": 3.89
+                    },
+                    "policy_completeness": {
+                        "score": 3.31
+                    }
+                }
+            }
+        ],
+        "retail_33": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.51
+                    },
+                    "backend_consistency": {
+                        "score": 2.6
+                    },
+                    "policy_completeness": {
+                        "score": 3.26
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.43
+                    },
+                    "backend_consistency": {
+                        "score": 4.46
+                    },
+                    "policy_completeness": {
+                        "score": 3.79
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.6
+                    },
+                    "backend_consistency": {
+                        "score": 4.59
+                    },
+                    "policy_completeness": {
+                        "score": 4.44
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.89
+                    },
+                    "backend_consistency": {
+                        "score": 4.27
+                    },
+                    "policy_completeness": {
+                        "score": 3.48
+                    }
+                }
+            }
+        ],
+        "retail_40": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.18
+                    },
+                    "backend_consistency": {
+                        "score": 2.09
+                    },
+                    "policy_completeness": {
+                        "score": 2.66
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.15
+                    },
+                    "backend_consistency": {
+                        "score": 4.67
+                    },
+                    "policy_completeness": {
+                        "score": 3.34
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.46
+                    },
+                    "backend_consistency": {
+                        "score": 2.44
+                    },
+                    "policy_completeness": {
+                        "score": 1.92
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.87
+                    },
+                    "backend_consistency": {
+                        "score": 3.48
+                    },
+                    "policy_completeness": {
+                        "score": 3.52
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.36
+                    },
+                    "backend_consistency": {
+                        "score": 2.38
+                    },
+                    "policy_completeness": {
+                        "score": 1.93
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.79
+                    },
+                    "backend_consistency": {
+                        "score": 3.16
+                    },
+                    "policy_completeness": {
+                        "score": 2.36
+                    }
+                }
+            }
+        ],
+        "retail_54": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.44
+                    },
+                    "backend_consistency": {
+                        "score": 3.46
+                    },
+                    "policy_completeness": {
+                        "score": 4.21
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.27
+                    },
+                    "backend_consistency": {
+                        "score": 4.45
+                    },
+                    "policy_completeness": {
+                        "score": 3.74
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.42
+                    },
+                    "backend_consistency": {
+                        "score": 4.69
+                    },
+                    "policy_completeness": {
+                        "score": 3.96
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.77
+                    },
+                    "backend_consistency": {
+                        "score": 4.46
+                    },
+                    "policy_completeness": {
+                        "score": 3.78
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.97
+                    },
+                    "backend_consistency": {
+                        "score": 3.9
+                    },
+                    "policy_completeness": {
+                        "score": 4.28
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.81
+                    },
+                    "backend_consistency": {
+                        "score": 4.75
+                    },
+                    "policy_completeness": {
+                        "score": 2.9
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.35
+                    },
+                    "backend_consistency": {
+                        "score": 2.59
+                    },
+                    "policy_completeness": {
+                        "score": 3.12
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.49
+                    },
+                    "backend_consistency": {
+                        "score": 2.7
+                    },
+                    "policy_completeness": {
+                        "score": 2.35
+                    }
+                }
+            },
+            {
+                "turn": 9,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.72
+                    },
+                    "backend_consistency": {
+                        "score": 4.45
+                    },
+                    "policy_completeness": {
+                        "score": 2.88
+                    }
+                }
+            },
+            {
+                "turn": 10,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 1.94
+                    },
+                    "backend_consistency": {
+                        "score": 4.78
+                    },
+                    "policy_completeness": {
+                        "score": 2.74
+                    }
+                }
+            }
+        ],
+        "retail_34": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.88
+                    },
+                    "backend_consistency": {
+                        "score": 2.44
+                    },
+                    "policy_completeness": {
+                        "score": 3.64
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.86
+                    },
+                    "backend_consistency": {
+                        "score": 4.4
+                    },
+                    "policy_completeness": {
+                        "score": 4.07
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.31
+                    },
+                    "backend_consistency": {
+                        "score": 4.51
+                    },
+                    "policy_completeness": {
+                        "score": 4.14
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.63
+                    },
+                    "backend_consistency": {
+                        "score": 4.27
+                    },
+                    "policy_completeness": {
+                        "score": 3.39
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.64
+                    },
+                    "backend_consistency": {
+                        "score": 2.85
+                    },
+                    "policy_completeness": {
+                        "score": 3.25
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.7
+                    },
+                    "backend_consistency": {
+                        "score": 4.37
+                    },
+                    "policy_completeness": {
+                        "score": 3.65
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.9
+                    },
+                    "backend_consistency": {
+                        "score": 2.57
+                    },
+                    "policy_completeness": {
+                        "score": 3.34
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.89
+                    },
+                    "backend_consistency": {
+                        "score": 4.72
+                    },
+                    "policy_completeness": {
+                        "score": 3.4
+                    }
+                }
+            }
+        ],
+        "retail_61": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.49
+                    },
+                    "backend_consistency": {
+                        "score": 3.33
+                    },
+                    "policy_completeness": {
+                        "score": 3.92
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.17
+                    },
+                    "backend_consistency": {
+                        "score": 4.4
+                    },
+                    "policy_completeness": {
+                        "score": 3.7
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.82
+                    },
+                    "backend_consistency": {
+                        "score": 4.48
+                    },
+                    "policy_completeness": {
+                        "score": 3.22
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.97
+                    },
+                    "backend_consistency": {
+                        "score": 4.68
+                    },
+                    "policy_completeness": {
+                        "score": 4.01
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.79
+                    },
+                    "backend_consistency": {
+                        "score": 3.02
+                    },
+                    "policy_completeness": {
+                        "score": 3.08
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.91
+                    },
+                    "backend_consistency": {
+                        "score": 4.45
+                    },
+                    "policy_completeness": {
+                        "score": 2.57
+                    }
+                }
+            }
+        ],
+        "airline_2": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.65
+                    },
+                    "backend_consistency": {
+                        "score": 3.51
+                    },
+                    "policy_completeness": {
+                        "score": 4.22
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.55
+                    },
+                    "backend_consistency": {
+                        "score": 4.63
+                    },
+                    "policy_completeness": {
+                        "score": 4.19
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.8
+                    },
+                    "backend_consistency": {
+                        "score": 3.7
+                    },
+                    "policy_completeness": {
+                        "score": 4.03
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.9
+                    },
+                    "backend_consistency": {
+                        "score": 3.35
+                    },
+                    "policy_completeness": {
+                        "score": 3.29
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.64
+                    },
+                    "backend_consistency": {
+                        "score": 4.62
+                    },
+                    "policy_completeness": {
+                        "score": 3.17
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.89
+                    },
+                    "backend_consistency": {
+                        "score": 3.73
+                    },
+                    "policy_completeness": {
+                        "score": 3.41
+                    }
+                }
+            }
+        ],
+        "airline_11": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.4
+                    },
+                    "backend_consistency": {
+                        "score": 3.3
+                    },
+                    "policy_completeness": {
+                        "score": 3.98
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.0
+                    },
+                    "backend_consistency": {
+                        "score": 3.6
+                    },
+                    "policy_completeness": {
+                        "score": 3.49
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.36
+                    },
+                    "backend_consistency": {
+                        "score": 4.57
+                    },
+                    "policy_completeness": {
+                        "score": 2.95
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.84
+                    },
+                    "backend_consistency": {
+                        "score": 4.75
+                    },
+                    "policy_completeness": {
+                        "score": 3.33
+                    }
+                }
+            }
+        ],
+        "airline_31": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.7
+                    },
+                    "backend_consistency": {
+                        "score": 3.07
+                    },
+                    "policy_completeness": {
+                        "score": 4.18
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.53
+                    },
+                    "backend_consistency": {
+                        "score": 3.6
+                    },
+                    "policy_completeness": {
+                        "score": 3.61
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.76
+                    },
+                    "backend_consistency": {
+                        "score": 2.99
+                    },
+                    "policy_completeness": {
+                        "score": 3.63
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 2.89
+                    },
+                    "backend_consistency": {
+                        "score": 2.18
+                    },
+                    "policy_completeness": {
+                        "score": 2.1
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.65
+                    },
+                    "backend_consistency": {
+                        "score": 3.15
+                    },
+                    "policy_completeness": {
+                        "score": 3.24
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.55
+                    },
+                    "backend_consistency": {
+                        "score": 3.32
+                    },
+                    "policy_completeness": {
+                        "score": 2.64
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.9
+                    },
+                    "backend_consistency": {
+                        "score": 4.39
+                    },
+                    "policy_completeness": {
+                        "score": 2.88
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.9
+                    },
+                    "backend_consistency": {
+                        "score": 3.92
+                    },
+                    "policy_completeness": {
+                        "score": 3.38
+                    }
+                }
+            }
+        ],
+        "airline_34": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.56
+                    },
+                    "backend_consistency": {
+                        "score": 2.78
+                    },
+                    "policy_completeness": {
+                        "score": 4.1
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.1
+                    },
+                    "backend_consistency": {
+                        "score": 2.51
+                    },
+                    "policy_completeness": {
+                        "score": 4.04
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.49
+                    },
+                    "backend_consistency": {
+                        "score": 3.39
+                    },
+                    "policy_completeness": {
+                        "score": 3.16
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.69
+                    },
+                    "backend_consistency": {
+                        "score": 3.32
+                    },
+                    "policy_completeness": {
+                        "score": 3.22
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.65
+                    },
+                    "backend_consistency": {
+                        "score": 4.23
+                    },
+                    "policy_completeness": {
+                        "score": 2.62
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.87
+                    },
+                    "backend_consistency": {
+                        "score": 4.26
+                    },
+                    "policy_completeness": {
+                        "score": 2.88
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.92
+                    },
+                    "backend_consistency": {
+                        "score": 4.16
+                    },
+                    "policy_completeness": {
+                        "score": 3.78
+                    }
+                }
+            }
+        ],
+        "airline_15": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.75
+                    },
+                    "backend_consistency": {
+                        "score": 3.6
+                    },
+                    "policy_completeness": {
+                        "score": 4.16
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.66
+                    },
+                    "backend_consistency": {
+                        "score": 4.64
+                    },
+                    "policy_completeness": {
+                        "score": 4.17
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.88
+                    },
+                    "backend_consistency": {
+                        "score": 4.72
+                    },
+                    "policy_completeness": {
+                        "score": 4.02
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 2.18
+                    },
+                    "backend_consistency": {
+                        "score": 1.73
+                    },
+                    "policy_completeness": {
+                        "score": 1.96
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.63
+                    },
+                    "backend_consistency": {
+                        "score": 2.93
+                    },
+                    "policy_completeness": {
+                        "score": 2.81
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.59
+                    },
+                    "backend_consistency": {
+                        "score": 4.76
+                    },
+                    "policy_completeness": {
+                        "score": 4.21
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.9
+                    },
+                    "backend_consistency": {
+                        "score": 4.28
+                    },
+                    "policy_completeness": {
+                        "score": 3.85
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.62
+                    },
+                    "backend_consistency": {
+                        "score": 3.82
+                    },
+                    "policy_completeness": {
+                        "score": 2.09
+                    }
+                }
+            }
+        ],
+        "airline_27": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.41
+                    },
+                    "backend_consistency": {
+                        "score": 3.37
+                    },
+                    "policy_completeness": {
+                        "score": 3.89
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.31
+                    },
+                    "backend_consistency": {
+                        "score": 4.05
+                    },
+                    "policy_completeness": {
+                        "score": 4.13
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.81
+                    },
+                    "backend_consistency": {
+                        "score": 4.26
+                    },
+                    "policy_completeness": {
+                        "score": 3.0
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.89
+                    },
+                    "backend_consistency": {
+                        "score": 2.95
+                    },
+                    "policy_completeness": {
+                        "score": 3.63
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.85
+                    },
+                    "backend_consistency": {
+                        "score": 4.68
+                    },
+                    "policy_completeness": {
+                        "score": 3.46
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.79
+                    },
+                    "backend_consistency": {
+                        "score": 4.11
+                    },
+                    "policy_completeness": {
+                        "score": 3.09
+                    }
+                }
+            }
+        ],
+        "airline_46": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 2.44
+                    },
+                    "backend_consistency": {
+                        "score": 1.9
+                    },
+                    "policy_completeness": {
+                        "score": 2.81
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.68
+                    },
+                    "backend_consistency": {
+                        "score": 3.53
+                    },
+                    "policy_completeness": {
+                        "score": 4.17
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.56
+                    },
+                    "backend_consistency": {
+                        "score": 3.8
+                    },
+                    "policy_completeness": {
+                        "score": 4.01
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.04
+                    },
+                    "backend_consistency": {
+                        "score": 4.31
+                    },
+                    "policy_completeness": {
+                        "score": 2.45
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.39
+                    },
+                    "backend_consistency": {
+                        "score": 4.4
+                    },
+                    "policy_completeness": {
+                        "score": 2.75
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.82
+                    },
+                    "backend_consistency": {
+                        "score": 4.02
+                    },
+                    "policy_completeness": {
+                        "score": 3.35
+                    }
+                }
+            }
+        ],
+        "airline_48": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.71
+                    },
+                    "backend_consistency": {
+                        "score": 3.47
+                    },
+                    "policy_completeness": {
+                        "score": 4.06
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.1
+                    },
+                    "backend_consistency": {
+                        "score": 4.82
+                    },
+                    "policy_completeness": {
+                        "score": 2.81
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.42
+                    },
+                    "backend_consistency": {
+                        "score": 3.22
+                    },
+                    "policy_completeness": {
+                        "score": 3.38
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.54
+                    },
+                    "backend_consistency": {
+                        "score": 3.41
+                    },
+                    "policy_completeness": {
+                        "score": 3.26
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.65
+                    },
+                    "backend_consistency": {
+                        "score": 3.02
+                    },
+                    "policy_completeness": {
+                        "score": 3.92
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.86
+                    },
+                    "backend_consistency": {
+                        "score": 4.51
+                    },
+                    "policy_completeness": {
+                        "score": 2.62
+                    }
+                }
+            }
+        ],
+        "airline_19": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.68
+                    },
+                    "backend_consistency": {
+                        "score": 3.23
+                    },
+                    "policy_completeness": {
+                        "score": 4.02
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.71
+                    },
+                    "backend_consistency": {
+                        "score": 4.91
+                    },
+                    "policy_completeness": {
+                        "score": 3.76
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.76
+                    },
+                    "backend_consistency": {
+                        "score": 3.09
+                    },
+                    "policy_completeness": {
+                        "score": 3.85
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.64
+                    },
+                    "backend_consistency": {
+                        "score": 3.32
+                    },
+                    "policy_completeness": {
+                        "score": 2.89
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.42
+                    },
+                    "backend_consistency": {
+                        "score": 4.28
+                    },
+                    "policy_completeness": {
+                        "score": 2.78
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.81
+                    },
+                    "backend_consistency": {
+                        "score": 3.87
+                    },
+                    "policy_completeness": {
+                        "score": 2.74
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.88
+                    },
+                    "backend_consistency": {
+                        "score": 4.07
+                    },
+                    "policy_completeness": {
+                        "score": 3.29
+                    }
+                }
+            }
+        ],
+        "airline_33": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 3.64
+                    },
+                    "policy_completeness": {
+                        "score": 4.03
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.66
+                    },
+                    "backend_consistency": {
+                        "score": 4.67
+                    },
+                    "policy_completeness": {
+                        "score": 4.2
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.69
+                    },
+                    "backend_consistency": {
+                        "score": 3.01
+                    },
+                    "policy_completeness": {
+                        "score": 3.86
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.8
+                    },
+                    "backend_consistency": {
+                        "score": 2.87
+                    },
+                    "policy_completeness": {
+                        "score": 3.69
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.76
+                    },
+                    "backend_consistency": {
+                        "score": 2.61
+                    },
+                    "policy_completeness": {
+                        "score": 3.89
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.76
+                    },
+                    "backend_consistency": {
+                        "score": 2.29
+                    },
+                    "policy_completeness": {
+                        "score": 2.74
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.65
+                    },
+                    "backend_consistency": {
+                        "score": 3.44
+                    },
+                    "policy_completeness": {
+                        "score": 3.35
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.89
+                    },
+                    "backend_consistency": {
+                        "score": 3.43
+                    },
+                    "policy_completeness": {
+                        "score": 3.7
+                    }
+                }
+            }
+        ],
+        "airline_6": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.38
+                    },
+                    "backend_consistency": {
+                        "score": 2.99
+                    },
+                    "policy_completeness": {
+                        "score": 3.65
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.69
+                    },
+                    "backend_consistency": {
+                        "score": 4.75
+                    },
+                    "policy_completeness": {
+                        "score": 4.51
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 3.72
+                    },
+                    "policy_completeness": {
+                        "score": 4.55
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.22
+                    },
+                    "backend_consistency": {
+                        "score": 4.19
+                    },
+                    "policy_completeness": {
+                        "score": 2.93
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.76
+                    },
+                    "backend_consistency": {
+                        "score": 2.7
+                    },
+                    "policy_completeness": {
+                        "score": 3.28
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.86
+                    },
+                    "backend_consistency": {
+                        "score": 3.86
+                    },
+                    "policy_completeness": {
+                        "score": 3.71
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.6
+                    },
+                    "backend_consistency": {
+                        "score": 4.41
+                    },
+                    "policy_completeness": {
+                        "score": 3.48
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.92
+                    },
+                    "backend_consistency": {
+                        "score": 4.06
+                    },
+                    "policy_completeness": {
+                        "score": 3.64
+                    }
+                }
+            }
+        ],
+        "airline_40": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.76
+                    },
+                    "backend_consistency": {
+                        "score": 3.67
+                    },
+                    "policy_completeness": {
+                        "score": 4.42
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.76
+                    },
+                    "backend_consistency": {
+                        "score": 3.76
+                    },
+                    "policy_completeness": {
+                        "score": 2.18
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.7
+                    },
+                    "backend_consistency": {
+                        "score": 3.33
+                    },
+                    "policy_completeness": {
+                        "score": 2.76
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 4.12
+                    },
+                    "policy_completeness": {
+                        "score": 3.12
+                    }
+                }
+            }
+        ],
+        "airline_22": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.5
+                    },
+                    "backend_consistency": {
+                        "score": 3.35
+                    },
+                    "policy_completeness": {
+                        "score": 3.83
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.54
+                    },
+                    "backend_consistency": {
+                        "score": 4.67
+                    },
+                    "policy_completeness": {
+                        "score": 4.38
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.0
+                    },
+                    "backend_consistency": {
+                        "score": 3.62
+                    },
+                    "policy_completeness": {
+                        "score": 2.37
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.88
+                    },
+                    "backend_consistency": {
+                        "score": 3.6
+                    },
+                    "policy_completeness": {
+                        "score": 3.91
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.82
+                    },
+                    "backend_consistency": {
+                        "score": 4.89
+                    },
+                    "policy_completeness": {
+                        "score": 4.26
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.56
+                    },
+                    "backend_consistency": {
+                        "score": 3.86
+                    },
+                    "policy_completeness": {
+                        "score": 3.51
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.82
+                    },
+                    "backend_consistency": {
+                        "score": 3.55
+                    },
+                    "policy_completeness": {
+                        "score": 2.7
+                    }
+                }
+            }
+        ],
+        "airline_37": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.61
+                    },
+                    "backend_consistency": {
+                        "score": 3.23
+                    },
+                    "policy_completeness": {
+                        "score": 4.16
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.24
+                    },
+                    "backend_consistency": {
+                        "score": 3.36
+                    },
+                    "policy_completeness": {
+                        "score": 1.85
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.44
+                    },
+                    "backend_consistency": {
+                        "score": 2.65
+                    },
+                    "policy_completeness": {
+                        "score": 2.68
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.94
+                    },
+                    "backend_consistency": {
+                        "score": 2.18
+                    },
+                    "policy_completeness": {
+                        "score": 2.21
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 3.82
+                    },
+                    "policy_completeness": {
+                        "score": 3.89
+                    }
+                }
+            }
+        ],
+        "airline_3": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.61
+                    },
+                    "backend_consistency": {
+                        "score": 3.39
+                    },
+                    "policy_completeness": {
+                        "score": 4.05
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.71
+                    },
+                    "backend_consistency": {
+                        "score": 4.54
+                    },
+                    "policy_completeness": {
+                        "score": 3.78
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.23
+                    },
+                    "backend_consistency": {
+                        "score": 4.44
+                    },
+                    "policy_completeness": {
+                        "score": 3.6
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.94
+                    },
+                    "backend_consistency": {
+                        "score": 3.25
+                    },
+                    "policy_completeness": {
+                        "score": 3.48
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.8
+                    },
+                    "backend_consistency": {
+                        "score": 3.63
+                    },
+                    "policy_completeness": {
+                        "score": 3.41
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 2.35
+                    },
+                    "backend_consistency": {
+                        "score": 4.55
+                    },
+                    "policy_completeness": {
+                        "score": 3.53
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.6
+                    },
+                    "backend_consistency": {
+                        "score": 3.77
+                    },
+                    "policy_completeness": {
+                        "score": 2.07
+                    }
+                }
+            },
+            {
+                "turn": 8,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.0
+                    },
+                    "backend_consistency": {
+                        "score": 2.24
+                    },
+                    "policy_completeness": {
+                        "score": 3.0
+                    }
+                }
+            },
+            {
+                "turn": 9,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.88
+                    },
+                    "backend_consistency": {
+                        "score": 4.48
+                    },
+                    "policy_completeness": {
+                        "score": 3.38
+                    }
+                }
+            }
+        ],
+        "airline_30": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.67
+                    },
+                    "backend_consistency": {
+                        "score": 3.59
+                    },
+                    "policy_completeness": {
+                        "score": 4.27
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.19
+                    },
+                    "backend_consistency": {
+                        "score": 3.13
+                    },
+                    "policy_completeness": {
+                        "score": 2.75
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.81
+                    },
+                    "backend_consistency": {
+                        "score": 3.73
+                    },
+                    "policy_completeness": {
+                        "score": 3.52
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.94
+                    },
+                    "backend_consistency": {
+                        "score": 4.1
+                    },
+                    "policy_completeness": {
+                        "score": 3.24
+                    }
+                }
+            }
+        ],
+        "airline_7": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.68
+                    },
+                    "backend_consistency": {
+                        "score": 3.08
+                    },
+                    "policy_completeness": {
+                        "score": 3.89
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.83
+                    },
+                    "backend_consistency": {
+                        "score": 4.84
+                    },
+                    "policy_completeness": {
+                        "score": 4.63
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.89
+                    },
+                    "backend_consistency": {
+                        "score": 4.8
+                    },
+                    "policy_completeness": {
+                        "score": 3.98
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.6
+                    },
+                    "backend_consistency": {
+                        "score": 4.04
+                    },
+                    "policy_completeness": {
+                        "score": 3.36
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.51
+                    },
+                    "backend_consistency": {
+                        "score": 4.12
+                    },
+                    "policy_completeness": {
+                        "score": 3.54
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.26
+                    },
+                    "backend_consistency": {
+                        "score": 2.59
+                    },
+                    "policy_completeness": {
+                        "score": 2.82
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.9
+                    },
+                    "backend_consistency": {
+                        "score": 4.55
+                    },
+                    "policy_completeness": {
+                        "score": 3.18
+                    }
+                }
+            }
+        ],
+        "airline_12": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.63
+                    },
+                    "backend_consistency": {
+                        "score": 3.21
+                    },
+                    "policy_completeness": {
+                        "score": 4.4
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.68
+                    },
+                    "backend_consistency": {
+                        "score": 3.99
+                    },
+                    "policy_completeness": {
+                        "score": 3.74
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.39
+                    },
+                    "backend_consistency": {
+                        "score": 4.77
+                    },
+                    "policy_completeness": {
+                        "score": 3.91
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.06
+                    },
+                    "backend_consistency": {
+                        "score": 2.61
+                    },
+                    "policy_completeness": {
+                        "score": 2.69
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.59
+                    },
+                    "backend_consistency": {
+                        "score": 3.53
+                    },
+                    "policy_completeness": {
+                        "score": 3.45
+                    }
+                }
+            }
+        ],
+        "airline_32": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 2.9
+                    },
+                    "backend_consistency": {
+                        "score": 2.07
+                    },
+                    "policy_completeness": {
+                        "score": 2.69
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.85
+                    },
+                    "backend_consistency": {
+                        "score": 4.11
+                    },
+                    "policy_completeness": {
+                        "score": 4.31
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.89
+                    },
+                    "backend_consistency": {
+                        "score": 3.88
+                    },
+                    "policy_completeness": {
+                        "score": 4.29
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.79
+                    },
+                    "backend_consistency": {
+                        "score": 4.79
+                    },
+                    "policy_completeness": {
+                        "score": 3.95
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.98
+                    },
+                    "backend_consistency": {
+                        "score": 4.37
+                    },
+                    "policy_completeness": {
+                        "score": 3.2
+                    }
+                }
+            },
+            {
+                "turn": 6,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.78
+                    },
+                    "backend_consistency": {
+                        "score": 3.85
+                    },
+                    "policy_completeness": {
+                        "score": 3.35
+                    }
+                }
+            },
+            {
+                "turn": 7,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.81
+                    },
+                    "backend_consistency": {
+                        "score": 4.53
+                    },
+                    "policy_completeness": {
+                        "score": 3.48
+                    }
+                }
+            }
+        ],
+        "airline_45": [
+            {
+                "turn": 1,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.67
+                    },
+                    "backend_consistency": {
+                        "score": 3.53
+                    },
+                    "policy_completeness": {
+                        "score": 4.22
+                    }
+                }
+            },
+            {
+                "turn": 2,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.82
+                    },
+                    "backend_consistency": {
+                        "score": 4.84
+                    },
+                    "policy_completeness": {
+                        "score": 4.36
+                    }
+                }
+            },
+            {
+                "turn": 3,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 3.62
+                    },
+                    "backend_consistency": {
+                        "score": 2.19
+                    },
+                    "policy_completeness": {
+                        "score": 1.91
+                    }
+                }
+            },
+            {
+                "turn": 4,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.75
+                    },
+                    "backend_consistency": {
+                        "score": 4.12
+                    },
+                    "policy_completeness": {
+                        "score": 3.95
+                    }
+                }
+            },
+            {
+                "turn": 5,
+                "scores": {
+                    "conv_consistency": {
+                        "score": 4.75
+                    },
+                    "backend_consistency": {
+                        "score": 4.48
+                    },
+                    "policy_completeness": {
+                        "score": 2.95
+                    }
+                }
+            }
+        ]
+    }
+}

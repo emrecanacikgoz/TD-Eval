@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "/home/acikgoz2/TD-Eval/results-tau/tool-calling-gpt-4o-0.0_range_0--1_user-gpt-4o-llm_0114161231-retail.json",
+        "judge_client": "openai",
+        "judge_model": "gpt-4o"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.6747,
+        "avg_backend_consistency": 4.1602,
+        "avg_policy_completeness": 4.3711,
+        "total_dialogues": 115,
+        "total_turns": 835
+    }
+}

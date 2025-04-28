@@ -154,4 +154,9 @@ python3 convert_qualtrics.py --result_path results/20241121_015210/gpt4o_c-gpt4o
 
 ---
 
-For more information, please contact with authors [Emre Can Acikgoz](acikgoz2@illinois.edu), [Carl Guo](carlguo2@illinois.edu), and [Akul Datta](akuld2@illinois.edu).
+### Agreement Calculation Scripts
+
+TDEval provides python notebook scripts for calculating human agreement based on the evaluation scores collected in `dataset/main_human_eval`. The script that calculates the first-step inter-annotator agreement is `calculate_irr.ipynb`. The script that calculates the second-step of human evaluation is `calculate_annotator_agreement.ipynb`.
+---
+
+For more information, please contact with authors [ANONYMIZED FOR SUBMISSION] 

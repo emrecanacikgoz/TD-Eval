@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "filename": "results/agent-results-tau/react-Llama-3.1-405B-Instruct-FP8-0.0_range_0--1_user-gpt-4o-llm_0129130322-retail.json",
+        "judge_client": "openai",
+        "judge_model": "gpt-4o"
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.8025,
+        "avg_backend_consistency": 4.5316,
+        "avg_policy_completeness": 4.4354,
+        "total_dialogues": 115,
+        "total_turns": 796
+    }
+}

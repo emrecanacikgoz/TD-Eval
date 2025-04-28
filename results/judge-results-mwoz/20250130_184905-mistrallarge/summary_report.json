@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "judge_client": "openai",
+        "judge_model": "gpt-4o",
+        "agent_client": "mistral",
+        "agent_model": "mistral-large-latest",
+        "inform": {
+            "total": 68.0,
+            "hotel": 81.6,
+            "train": 84.1,
+            "attraction": 65.6,
+            "restaurant": 78.4,
+            "taxi": 100.0
+        },
+        "success": {
+            "total": 45.0,
+            "hotel": 51.0,
+            "train": 50.0,
+            "attraction": 43.8,
+            "restaurant": 54.1,
+            "taxi": 59.1
+        }
+    },
+    "cumulative_scores": {
+        "avg_conv_consistency": 4.2076,
+        "avg_backend_consistency": 4.2795,
+        "avg_policy_completeness": 4.1085,
+        "total_dialogues": 100,
+        "total_turns": 739
+    }
+}
