@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 import os
 from tqdm import tqdm
-from judge.evaluator import judge_tau
+from judge.llm_evaluator import judge_tau
 from generate.llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
 from postprocess.postprocess import postprocess_results
 
@@ -229,7 +229,7 @@ def main(dataset_path, judge_client, judge_model, is_react):
         "dialogues": scores
     }
 
-    result_dir = os.path.join('results', 'tau_judge_results')
+    result_dir = os.path.join('results', 'judge_results_tau')
     result_dir = os.path.join(result_dir, timestamp)
     os.makedirs(result_dir, exist_ok=True)
     judge_fname = f"tau-{judge_model}_j.json"
@@ -243,7 +243,7 @@ def main(dataset_path, judge_client, judge_model, is_react):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Evaluate tau-bench TOD agent')
-    parser.add_argument('--dataset_path', type=str, default='datasets/tau_airline_gpt4o.json', help='Path to evaluation data')
+    parser.add_argument('--dataset_path', type=str, default='../datasets/tau_airline_gpt4o.json', help='Path to evaluation data')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
     parser.add_argument('--is_react', action='store_true', help='Flag to judge as react, if not set default to tool calling')

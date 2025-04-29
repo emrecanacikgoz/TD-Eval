@@ -40,7 +40,7 @@ def gen_conv_agent_results(evaluation_data_path, use_gt_state, agent_client_obj,
     """Generate agent responses for evaluation data."""
     print('use_gt_state', use_gt_state)
     # load data with batch
-    with open(os.path.join('datasets', 'batch.json'), 'r') as fBatch:
+    with open(os.path.join('../datasets', 'batch.json'), 'r') as fBatch:
         batch = json.load(fBatch)
     with open(evaluation_data_path, 'r') as f:
         data = []
@@ -214,7 +214,7 @@ if __name__ == "__main__":
     import argparse
     
     parser = argparse.ArgumentParser(description='Generate agent responses')
-    parser.add_argument('--dataset_path', type=str, default='datasets/woz_only.jsonl', 
+    parser.add_argument('--dataset_path', type=str, default='../datasets/woz_only.jsonl', 
                         help='Path to evaluation data')
     parser.add_argument('--agent_client', type=str, default='openai', 
                         help='Client to use for LLM agent')

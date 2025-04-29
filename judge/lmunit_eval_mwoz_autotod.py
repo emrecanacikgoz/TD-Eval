@@ -211,7 +211,8 @@ def main(dataset_path):
         "dialogues": scores
     }
 
-    result_dir = os.path.join('results', 'autotod_lmunit_judge_results')
+    result_dir = os.path.join('results', 'judge_results_lmunit')
+    result_dir = os.path.join(result_dir, 'autotod')
     result_dir = os.path.join(result_dir, timestamp)
     os.makedirs(result_dir, exist_ok=True)
     judge_fname = f"mwoz-autotod-lmunit_j.json"
@@ -225,7 +226,7 @@ def main(dataset_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Evaluate mwoz autotod TOD agent')
-    parser.add_argument('--dataset_path', type=str, default='datasets/out_basic_100_bt.json', help='Path to evaluation data')
+    parser.add_argument('--dataset_path', type=str, default='../datasets/autotod_dials_bt.json', help='Path to evaluation data')
     args = parser.parse_args()
 
     result_dir, full_result_path = main(args.dataset_path)

@@ -11,39 +11,39 @@ from scipy import stats
 # --- Global mapping for the 7 unique models (3 JSON files per model) ---
 model_file_mapping = {
     "4o": [
-        "results/tau/20250131_152422-tau-4o-retail/tau-gpt-4o_j.json",           # retail
-        "results/mwoz/20250130_140218-4o/gpt-4o_c-gpt-4o_j.json",                # mwoz
-        "results/tau/20250131_152503-tau-4o-airline/tau-gpt-4o_j.json"              # airline
+        "../judge/results/tau/20250131_152422-tau-4o-retail/tau-gpt-4o_j.json",           # retail
+        "../judge/results/mwoz/20250130_140218-4o/gpt-4o_c-gpt-4o_j.json",                # mwoz
+        "../judge/results/tau/20250131_152503-tau-4o-airline/tau-gpt-4o_j.json"              # airline
     ],
     "4omini": [
-        "results/tau/20250131_152338-tau-4omini-retail/tau-gpt-4o_j.json",          # retail
-        "results/mwoz/20250130_140439-4omini/gpt-4o-mini_c-gpt-4o_j.json",          # mwoz
-        "results/tau/20250131_152226-tau-4o-mini-airline/tau-gpt-4o_j.json"           # airline
+        "../judge/results/tau/20250131_152338-tau-4omini-retail/tau-gpt-4o_j.json",          # retail
+        "../judge/results/mwoz/20250130_140439-4omini/gpt-4o-mini_c-gpt-4o_j.json",          # mwoz
+        "../judge/results/tau/20250131_152226-tau-4o-mini-airline/tau-gpt-4o_j.json"           # airline
     ],
     "gpt35": [
-        "results/tau/20250131_152610-tau-gpt35-retail/tau-gpt-4o_j.json",           # retail
-        "results/mwoz/20250130_145202-gpt35/gpt-3.5-turbo_c-gpt-4o_j.json",         # mwoz
-        "results/tau/20250131_152708-tau-gpt35-airline/tau-gpt-4o_j.json"            # airline
+        "../judge/results/tau/20250131_152610-tau-gpt35-retail/tau-gpt-4o_j.json",           # retail
+        "../judge/results/mwoz/20250130_145202-gpt35/gpt-3.5-turbo_c-gpt-4o_j.json",         # mwoz
+        "../judge/results/tau/20250131_152708-tau-gpt35-airline/tau-gpt-4o_j.json"            # airline
     ],
     "sonnet": [
-        "results/tau/20250131_152807-tau-sonnet-retail/tau-gpt-4o_j.json",          # retail
-        "results/mwoz/20250130_183030-claude/claude-3-5-sonnet-20241022_c-gpt-4o_j.json",  # mwoz (claude-3-5-sonnet)
-        "results/tau/20250131_153052-crashed-sonnet5/tau-gpt-4o_j_CRASHED.json"      # airline (crashed sonnet)
+        "../judge/results/tau/20250131_152807-tau-sonnet-retail/tau-gpt-4o_j.json",          # retail
+        "../judge/results/mwoz/20250130_183030-claude/claude-3-5-sonnet-20241022_c-gpt-4o_j.json",  # mwoz (claude-3-5-sonnet)
+        "../judge/results/tau/20250131_153052-crashed-sonnet5/tau-gpt-4o_j_CRASHED.json"      # airline (crashed sonnet)
     ],
     "llama70b": [
-        "results/tau/20250131_182136-tau-llama70b-retail/tau-gpt-4o_j.json",        # retail
-        "results/mwoz/20250131_012449-llama70/meta-llama_Llama-3.3-70B-Instruct-Turbo_c-gpt-4o_j.json",  # mwoz (llama70)
-        "results/tau/20250131_182042-airline-llama70b/tau-gpt-4o_j.json"             # airline
+        "../judge/results/tau/20250131_182136-tau-llama70b-retail/tau-gpt-4o_j.json",        # retail
+        "../judge/results/mwoz/20250131_012449-llama70/meta-llama_Llama-3.3-70B-Instruct-Turbo_c-gpt-4o_j.json",  # mwoz (llama70)
+        "../judge/results/tau/20250131_182042-airline-llama70b/tau-gpt-4o_j.json"             # airline
     ],
     "llama405b": [
-        "results/tau/20250201_180118-tau405b-retail/tau-gpt-4o_j.json",             # retail
-        "results/mwoz/20250131_012338-llama405/meta-llama_Meta-Llama-3.1-405B-Instruct-Turbo_c-gpt-4o_j.json",  # mwoz (llama405b)
-        "results/tau/20250131_181808-tau405b-airline/tau-gpt-4o_j.json"              # airline
+        "../judge/results/tau/20250201_180118-tau405b-retail/tau-gpt-4o_j.json",             # retail
+        "../judge/results/mwoz/20250131_012338-llama405/meta-llama_Meta-Llama-3.1-405B-Instruct-Turbo_c-gpt-4o_j.json",  # mwoz (llama405b)
+        "../judge/results/tau/20250131_181808-tau405b-airline/tau-gpt-4o_j.json"              # airline
     ],
     "mistrallarge": [
-        "results/tau/20250201_213127-tau-mistrallarge-retail/tau-gpt-4o_j.json",    # retail
-        "results/mwoz/20250130_184905-mistrallarge/mistral-large-latest_c-gpt-4o_j.json",   # mwoz
-        "results/tau/20250201_160723-tau-mistrallarge-airline/tau-gpt-4o_j.json"     # airline
+        "../judge/results/tau/20250201_213127-tau-mistrallarge-retail/tau-gpt-4o_j.json",    # retail
+        "../judge/results/mwoz/20250130_184905-mistrallarge/mistral-large-latest_c-gpt-4o_j.json",   # mwoz
+        "../judge/results/tau/20250201_160723-tau-mistrallarge-airline/tau-gpt-4o_j.json"     # airline
     ]
 }
 

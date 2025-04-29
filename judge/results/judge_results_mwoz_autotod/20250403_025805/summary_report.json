@@ -1,6 +1,6 @@
 {
     "metadata": {
-        "filename": "datasets/out_basic_100_bt.json",
+        "filename": "../datasets/autotod_dials_bt.json",
         "judge_client": "openai",
         "judge_model": "gpt-4o"
     },

@@ -323,14 +323,14 @@ def main(batch_path: str, mwoz_path: str, is_autotod: bool, tau_retail_path: str
         mwoz_survey_output = add_mwoz_q(batch, mwoz_path)
     tau_survey_output = add_tau_q(batch, tau_retail_path, tau_airline_path, tau_react)
     # read to txt file
-    output_path = os.path.join("qualtrics", output_name)
+    output_path = os.path.join("survey_imports", output_name)
     with open(output_path, 'w') as fOut:
         fOut.write(mwoz_survey_output)
         fOut.write(tau_survey_output)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Import Jsonl results to qualtrics human evaluation')
-    parser.add_argument('--batch_path', type=str, default='datasets/batch.jsonl', help='path to dialogue batches for qualtrics.')
+    parser.add_argument('--batch_path', type=str, default='../datasets/batch.jsonl', help='path to dialogue batches for qualtrics.')
     parser.add_argument('--mwoz_path', type=str, help='path to jsonl result file')
     parser.add_argument('--is_autotod', action='store_true', help='path to mwoz jsonl result file')
     parser.add_argument('--tau_retail_path', type=str, help='path to jsonl result file')

@@ -24,7 +24,7 @@ def main():
     parser = argparse.ArgumentParser(description='TD-Eval: Task-oriented Dialogue Evaluation Framework')
     
     # General parameters
-    parser.add_argument('--dataset_path', type=str, default='datasets/woz_only.jsonl', 
+    parser.add_argument('--dataset_path', type=str, default='../datasets/woz_only.jsonl', 
                         help='Path to evaluation data')
     parser.add_argument('--agent_result_path', type=str, 
                         help='File path to already generated agent results (optional)')

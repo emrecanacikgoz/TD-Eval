@@ -4,7 +4,7 @@ import json
 import os
 import sys
 from tqdm import tqdm
-from evaluator import judge_autotod_dial_level, judge_tau_dial_level
+from judge.llm_evaluator import judge_autotod_dial_level, judge_tau_dial_level
 from generate.llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
 
 def evaluate_dial_level_tau(
@@ -160,9 +160,9 @@ def main(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Evaluate at dialogue level TOD agent using TD-Eval')
-    parser.add_argument('--dataset_path', type=str, default='datasets/out_basic_100_bt.json', help='Path to evaluation data')
-    parser.add_argument('--judge_data_path', type=str, default='results/judge_results_mwoz_autotod/20250403_025805/mwoz-autotod-gpt-4o_j.json', help='Path to evaluation data')
-    parser.add_argument('--eval_batches_path', type=str, default='datasets/main_human_eval/all_batch.json', help='Path to evaluation data')
+    parser.add_argument('--dataset_path', type=str, default='../datasets/autotod_dials_bt.json', help='Path to evaluation data')
+    parser.add_argument('--judge_data_path', type=str, default='../judge/results/judge_results_mwoz_autotod/20250403_025805/mwoz-autotod-gpt-4o_j.json', help='Path to evaluation data')
+    parser.add_argument('--eval_batches_path', type=str, default='../datasets/main_human_eval/all_batch.json', help='Path to evaluation data')
     parser.add_argument('--judge_client', type=str, default='openai', help='Client to use for LLM judge agent')
     parser.add_argument('--judge_model', type=str, default='gpt-4o', help='Agent to use for evaluation')
     parser.add_argument('--tau_airline', action='store_true', help="indicates to evaluate based on tau airline domain format")

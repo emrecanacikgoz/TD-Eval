@@ -5,10 +5,9 @@ from tqdm import tqdm
 from typing import Tuple, Dict, Any
 
 # Add necessary paths for imports
-sys.path.insert(0, os.path.abspath("../"))
-sys.path.insert(0, os.path.abspath("../MultiWOZ_Evaluation"))
+sys.path.insert(0, os.path.abspath("./MultiWOZ_Evaluation"))
 
-from judge.evaluator import judge_mwoz
+from judge.llm_evaluator import judge_mwoz
 from generate.llm_agents import openai_agent, togetherai_agent, mistral_agent, anthropic_agent
 from MultiWOZ_Evaluation.mwzeval.metrics import Evaluator
 
