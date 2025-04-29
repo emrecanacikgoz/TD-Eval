@@ -1,7 +1,9 @@
-# TD-Eval
-From Turns to Dialogues: Rethinking TOD Evaluation by Combining Turn-Level Precision with Dialogue-Level Comparisons
+# TD-EVAL: Revisiting Task-Oriented Dialogue Evaluation by Combining Turn-Level Precision with Dialogue-Level Comparisons
+[![Paper](https://img.shields.io/badge/arXiv-Paper-red.svg)](https://arxiv.org/abs/2504.19982)
 
 TD-Eval is a framework for evaluating conversational agents and their ability to assess dialogue quality. This README provides a step-by-step guide to set up the environment, configure API credentials, run evaluations, and use the Qualtrics integration.
+
+[![Paper](https://img.shields.io/badge/arXiv-Paper-red.svg)](https://arxiv.org/abs/2502.08820)
 
 ## Table of Contents
 1. [Project Structure](#project-structure)
