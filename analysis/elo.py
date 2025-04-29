@@ -5,7 +5,7 @@ import argparse
 import os
 import time
 from tqdm import tqdm
-from llm_agents import openai_agent, togetherai_agent, anthropic_agent, mistral_agent
+from generate.llm_agents import openai_agent, togetherai_agent, anthropic_agent, mistral_agent
 import numpy as np
 from collections import OrderedDict, defaultdict
 from scipy import stats

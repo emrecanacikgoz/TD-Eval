@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath("./MultiWOZ_Evaluation"))
 from generate.generate import generate_agent_responses
 from judge.judge import judge_agent_responses, load_agent_results
 from postprocess.postprocess import postprocess_results
-from evaluate.tau import main as tau_main
+from judge.tau import main as tau_main
 
 
 def main():
