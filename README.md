@@ -173,6 +173,7 @@ python -m qualtrics.qualtrics --batch_path batches.json \
 ### Agreement Calculation Scripts
 
 TDEval provides python notebook scripts for calculating human agreement based on the evaluation scores collected in `dataset/main_human_eval`. The script that calculates the first-step inter-annotator agreement is `calculate_irr.ipynb`. The script that calculates the second-step of human evaluation is `calculate_annotator_agreement.ipynb`.
+
 ---
 
-For more information, please contact with authors [ANONYMIZED FOR SUBMISSION] 
+For your inqueries, please contact with authors `acikgoz2@illinous.edu`, `carlguo2@illinois.edu`, `sdey@illinois.edu`.
