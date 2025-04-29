@@ -140,7 +140,7 @@ def postprocess_results(result_path, output_dir=None):
         results = json.load(f)
         
     if output_dir is None:
-        output_dir = os.path.join('results', 'postprocess_' + os.path.basename(result_path).split('.')[0])
+        output_dir = os.path.join('../judge/results', 'postprocess_' + os.path.basename(result_path).split('.')[0])
         
     os.makedirs(output_dir, exist_ok=True)
     
