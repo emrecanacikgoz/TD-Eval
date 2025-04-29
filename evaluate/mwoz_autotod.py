@@ -5,9 +5,9 @@ import os
 import re
 import sys
 from tqdm import tqdm
-from evaluator import judge_mwoz_autotod
-from llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
-from postprocess import postprocess_results
+from judge.evaluator import judge_mwoz_autotod
+from generate.llm_agents import anthropic_agent, mistral_agent, openai_agent, togetherai_agent
+from postprocess.postprocess import postprocess_results
 
 def parse_domain(api_query):
     if "restaurant" in api_query:

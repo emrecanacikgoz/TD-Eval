@@ -124,7 +124,6 @@ def get_success(input_data, database, goals, booked_domains):
     total = Counter()
     match_rate = {}
     success_rate = {}
-    dial_rates = {}
     for dialog_id, dialog in input_data.items(): 
         
         utterances = [x["response"] for x in dialog]  
@@ -140,8 +139,6 @@ def get_success(input_data, database, goals, booked_domains):
             database
         )
 
-        dial_rates[dialog_id] = {'inform': match, 'success': success}
-
         for domain in set(match) | set(success):
             total[domain] += 1    
             match_rate[domain]   = match.get(domain, 0)   + match_rate.get(domain, 0)
@@ -150,7 +147,7 @@ def get_success(input_data, database, goals, booked_domains):
     match_rate   = {k : round(100 * match_rate[k]   / total[k], 1) for k in match_rate}
     success_rate = {k : round(100 * success_rate[k] / total[k], 1) for k in success_rate}
 
-    return ({"inform" : match_rate, "success" : success_rate, 'dialogs': dial_rates})
+    return ({"inform" : match_rate, "success" : success_rate})
 
 
 def get_dialog_success(goal, booked_domains, utterances, states, domain_estimates, database):
